@@ -1,39 +1,53 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_constants.dart';
 import 'package:optly/views/screens/logInScreen/log_in_screen.dart';
-import 'routes/app_routes.dart';
+import 'controller/localaization_controller.dart';
+import 'controller/theme_controller.dart';
+import 'helpers/di.dart' as di;
 import 'themes/light_theme.dart';
+import 'utils/messages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(const MyApp());
+  Map<String, Map<String, String>> _languages = await di.init();
+  runApp(MyApp(
+    languages: _languages,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.languages});
+  final Map<String, Map<String, String>> languages;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: ScreenUtilInit(
-          designSize: const Size(390, 844),
-          minTextAdapt: true,
-          splitScreenMode: true,
-          builder: (_, child) {
-            return GetMaterialApp(
-              title: AppConstants.APP_NAME,
-              debugShowCheckedModeBanner: false,
-              navigatorKey: Get.key,
-              theme: light(),
-              transitionDuration: const Duration(milliseconds: 500),
-              getPages: AppRoutes.routes,
-              initialRoute: AppRoutes.logInScreen,
-              home: LogInScreen(),
-            );
-          }),
-    );
+    return GetBuilder<ThemeController>(builder: (themeController) {
+      return GetBuilder<LocalizationController>(builder: (localizeController) {
+        return ScreenUtilInit(
+            designSize: const Size(390, 844),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (_, child) {
+              return GetMaterialApp(
+                title: AppConstants.APP_NAME,
+                debugShowCheckedModeBanner: false,
+                navigatorKey: Get.key,
+                theme: light(),
+                defaultTransition: Transition.topLevel,
+                locale: localizeController.locale,
+                translations: Messages(languages: languages),
+                fallbackLocale: Locale(AppConstants.languages[0].languageCode,
+                    AppConstants.languages[0].countryCode),
+                transitionDuration: const Duration(milliseconds: 500),
+                getPages: AppRoutes.routes,
+                initialRoute: AppRoutes.logInScreen,
+                home: LogInScreen(),
+              );
+            });
+      });
+    });
   }
 }

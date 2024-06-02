@@ -21,5 +21,7 @@ class Assets {
   static const String iconsViewGridAdd = 'assets/icons/view-grid-add.svg';
   static const String iconsViewList = 'assets/icons/view-list.svg';
   static const String imagesPerson = 'assets/images/person.png';
+  static const String languageEn = 'assets/language/en.json';
+  static const String languageGr = 'assets/language/gr.json';
 
 }

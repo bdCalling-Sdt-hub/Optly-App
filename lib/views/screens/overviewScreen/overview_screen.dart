@@ -11,12 +11,13 @@ import '../../../utils/app_icons.dart';
 import 'innerWidget/overview_drawer.dart';
 
 class OverviewScreen extends StatelessWidget {
-   OverviewScreen({super.key});
+  OverviewScreen({super.key});
   final OverviewController _overviewController = Get.put(OverviewController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _overviewController.scaffoldKey,
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         leading: Padding(
@@ -24,7 +25,7 @@ class OverviewScreen extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(AppIcons.menu),
             onPressed: () {
-              _overviewController.scaffoldKey.currentState?.openDrawer();
+              _overviewController.scaffoldKey.currentState!.openDrawer();
             },
           ),
         ),
@@ -41,7 +42,6 @@ class OverviewScreen extends StatelessWidget {
         ],
       ),
       drawer: OverviewDrawer(),
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,5 +55,3 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 }
-
-
