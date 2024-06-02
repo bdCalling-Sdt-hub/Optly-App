@@ -1,8 +1,8 @@
+import '../models/language_models.dart';
 
-class AppConstants{
-
-  static String APP_NAME="Optly";
-  static String THEME ="theme";
+class AppConstants {
+  static String APP_NAME = "Optly";
+  static String THEME = "theme";
 
   static const String LANGUAGE_CODE = 'language_code';
   static const String COUNTRY_CODE = 'country_code';
@@ -11,6 +11,11 @@ class AppConstants{
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   static RegExp passwordValidator = RegExp(
-      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-  );
+      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+  static List<LanguageModel> languages = [
+    LanguageModel(
+        languageName: 'English', countryCode: 'US', languageCode: 'en'),
+    LanguageModel(
+        languageName: 'German', countryCode: 'GR', languageCode: 'gr'),
+  ];
 }
