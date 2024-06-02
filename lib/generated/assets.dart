@@ -3,7 +3,10 @@ class Assets {
   Assets._();
 
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
-  static const String iconsIconContainer = 'assets/icons/icon-container.svg';
+  static const String iconsEye = 'assets/icons/eye.svg';
+  static const String iconsEyeOff = 'assets/icons/eyeOff.svg';
+  static const String iconsLockClosed = 'assets/icons/lock-closed.svg';
+  static const String iconsPerson = 'assets/icons/person.svg';
   static const String imagesEllips = 'assets/images/ellips.png';
 
 }

@@ -11,7 +11,6 @@ ThemeData dark({Color color = const Color(0xFF2683EB)}) => ThemeData(
   disabledColor: AppColors.subTextColor,
   brightness: Brightness.dark,
   hintColor: AppColors.hintColor,
-  cardColor: AppColors.cardColor,
   dividerColor: AppColors.dividerColor,
   shadowColor: AppColors.shadowColor,
   canvasColor: AppColors.bottomBarColor,
