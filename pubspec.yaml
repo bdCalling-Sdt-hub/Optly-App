@@ -47,6 +47,7 @@ dependencies:
   cached_network_image: ^3.3.1
   intl:
   flutter_spinkit:
+  shimmer:
 
 dev_dependencies:
   flutter_test:

@@ -2,9 +2,11 @@ class AppString {
 
   //================> Log In Screen <====================
   static String logInPanel = "Login Panel";
-  static String userName = "Username";
-  static String password = "Password";
-  static String register = "REGISTER";
+  static String userName = "userName";
+  static String password="Password";
+  static String enterYourName="enterYourName";
+  static String enterYourPassword="enterYourPassword";
+  static String signIn="signIn";
 
   //================> Home Screen <====================
   static String theFollowing = "The following months still need to be completed";

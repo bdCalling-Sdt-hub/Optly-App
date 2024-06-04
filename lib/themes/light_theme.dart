@@ -10,6 +10,7 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
       brightness: Brightness.light,
       hintColor: Color(0xFF9F9F9F),
       cardColor: Colors.white,
+      scaffoldBackgroundColor: AppColors.white,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.backgroundColor,
         elevation: 5,

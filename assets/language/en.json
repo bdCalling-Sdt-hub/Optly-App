@@ -1,3 +1,9 @@
 {
-  "Login Panel": "Login Panel"
+  "userName": "User Name",
+  "password": "Password",
+  "enterYourName": "Enter your user name",
+  "enterYourPassword": "Enter your password",
+  "signIn": "Sign In"
+
+
 }
