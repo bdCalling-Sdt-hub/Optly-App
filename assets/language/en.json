@@ -3,7 +3,22 @@
   "password": "Password",
   "enterYourName": "Enter your user name",
   "enterYourPassword": "Enter your password",
-  "signIn": "Sign In"
+  "signIn": "Sign In",
+  "theFollowing" : "The following months still need to be completed",
+  "currentTimeRecording": "Current time recording",
+  "testingCenter": "Testing center",
+  "LengthOfTime": "Length of time",
+  "stopTimeRecording": "STOP TIME RECORDING",
+  "stopBreakTime": "STOP BREAD TIME",
+  "myLayers": "My layers",
+  "youAreNotCurrentlyScheduledForAShift": "You are not currently scheduled for a shift",
+  "actualHours" : "Actual hours",
+  "currentMonth" : "Current month",
+  "openTasks" : "Open tasks",
+  "You currently have no open tasks": "You currently have no open tasks",
+  "You currently have no planned hygiene plan": "You currently have no planned hygiene plan",
+  "myHygienePlan": "My hygiene plan",
+  "timeAccountOverView": "Time account overview"
 
 
 }

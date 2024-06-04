@@ -8,6 +8,7 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
       primaryColor: color,
       secondaryHeaderColor: Color(0xFF7c7c7c),
       disabledColor: Color(0xFFBABFC4),
+      dividerColor: AppColors.dividerColor,
       brightness: Brightness.light,
       hintColor: Color(0xFF9F9F9F),
       cardColor: Colors.white,
@@ -21,7 +22,7 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
           style: TextButton.styleFrom(foregroundColor: color)),
       colorScheme: ColorScheme.light(primary: color, secondary: color)
           .copyWith(background: const Color(0xFF7c7c7c))
-          .copyWith(error: Color(0xFFE84D4F)),
+          .copyWith(error: const Color(0xFFE84D4F)),
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,

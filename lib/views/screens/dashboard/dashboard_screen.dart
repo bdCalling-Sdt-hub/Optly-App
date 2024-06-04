@@ -8,6 +8,7 @@ import 'package:optly/utils/app_images.dart';
 import 'package:optly/views/widgets/custom_text.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_strings.dart';
+import 'innerWidget/banner.dart';
 import 'innerWidget/custom_drawer.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         actions: [
           GestureDetector(
@@ -31,180 +32,271 @@ class DashboardScreen extends StatelessWidget {
         ],
       ),
       drawer: const CustomDrawer(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        child: Column(
-          children: [
-            //==============================> May 2024 Container <===========================
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xfffb8c00),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(10.0.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(AppIcons.exclamation),
-                        CustomText(
-                          text: AppString.theFollowing,
-                          fontsize: 14.w,
-                          maxline: 2,
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    //==================================> Register Button <===========================
-                    GestureDetector(
-                      onTap: () {
-                        //Get.toNamed(AppRoutes.overviewScreen);
-                      },
-                      child: Container(
-                        decoration:
-                            const BoxDecoration(color: Color(0xff832700)),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 6.h),
-                          child: CustomText(
-                            text: 'MAY 2024',
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 12.h),
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.white
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      bottom: 20.h,
-                      text: AppString.currentTime,
-                    fontsize: 18.w,
-                    ),
-                    CustomText(
-                      bottom: 20.h,
-                      text: AppString.testingCenter,
-                    fontsize: 12.w,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    //=======================> Start Of Work Row <=========================
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomText(
-                          bottom: 10.h,
-                          text: AppString.startOfWork,
-                          fontsize: 14.w,
-                        ),
-                        CustomText(
-                          bottom: 10.h,
-                          text: '27.05.24 12:05',
-                          fontsize: 14.w,
-                        ),
-                      ],
-                    ),
-                    Divider(color: AppColors.greyColor,),
-                    //=============================> Length of Time Row <=====================
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomText(
-                          bottom: 10.h,
-                          text: AppString.lengthOfTime,
-                          fontsize: 14.w,
-                        ),
-                        CustomText(
-                          bottom: 10.h,
-                          text: '184 hours 13min',
-                          fontsize: 14.w,
-                        ),
-                      ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Color(0xfffb8c00))
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SvgPicture.asset(AppIcons.exclamation, color: Color(0xfffb8c00)),
-                            CustomText(
-                              text: 'After 6 hours, you are legally obliged \nto take a break of 30 minutes!',
-                              color: const Color(0xfffb8c00),
-                              maxline: 4,
-                              fontsize: 14.w,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-                    //==================================> Stop Break Time Button <===========================
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          //Get.toNamed(AppRoutes.overviewScreen);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(color: AppColors.white,
-                            border: Border.all(width: 1.w, color: Colors.cyan)
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12.w, vertical: 6.h),
-                            child: CustomText(
-                              text: AppString.stopBreak,
-                              color: Colors.cyan,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-                    //==================================> Stop Time Button <===========================
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          //Get.toNamed(AppRoutes.overviewScreen);
-                        },
-                        child: Container(
-                          decoration:
-                          const BoxDecoration(color: Color(0xff832700)),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12.w, vertical: 6.h),
-                            child: CustomText(
-                              text: AppString.stopTime,
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+      body: _body(),
+    );
+  }
 
-                  ],
-                ),
-              ),
-            )
+  _body() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      child: Column(
+        children: [
+          ///==============================> Banner Widget <===========================
+          const BannerWidget(),
+          SizedBox(height: 12.h),
 
-          ],
-        ),
+          ///==============================> Current Time Recording Widget <===========================
+
+          _currentTimeRecording(),
+          const SizedBox(height: 20,),
+
+          ///==============================> My Layers  <===========================
+          _myLayers(),
+          const SizedBox(height: 20,),
+
+          ///==============================> My Layers  <===========================
+          _myHygienePlan(),
+        ],
       ),
     );
   }
+
+  _currentTimeRecording() {
+    return Container(
+      decoration: BoxDecoration(
+          color: AppColors.white, borderRadius: BorderRadius.circular(3.r)),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            bottom: 20.h,
+            text: AppString.currentTimeRecording.tr,
+            fontsize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+
+          CustomText(
+            bottom: 20.h,
+            text: "${AppString.testingCenter.tr} Zwanzig20",
+            fontsize: 14.sp,
+            fontWeight: FontWeight.w500,
+          ),
+          /// =======================> Start Of Work Row <=========================
+         
+         
+         
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 20.w
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomText(
+                    text: AppString.startOfWork,
+                    fontsize: 14.w,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Expanded(
+                  child: CustomText(
+                    text: '27.05.24 12:05',
+                    fontsize: 14.w,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 20.w
+            ),
+            child: Divider(
+              color: AppColors.dividerColor,
+            ),
+          ),
+          //=============================> Length of Time Row <=====================
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 20.w
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: CustomText(
+                    text: AppString.lengthOfTime.tr,
+                    fontsize: 14.w,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Expanded(
+                  child: CustomText(
+                    text: '184 hours 13min',
+                    fontsize: 14.w,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+          SizedBox(height: 20.h,),
+
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(width: 1.w, color: Color(0xfffb8c00))),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomText(
+                    text:
+                    '!  ',
+                    color: const Color(0xfffb8c00),
+                    fontsize: 18.w,
+                  ),
+                  SizedBox(width: 10.w,),
+                  Expanded(
+                    child: CustomText(
+                      text:
+                          'After 6 hours, you are legally obliged \nto take a break of 30 minutes!',
+                      color: const Color(0xfffb8c00),
+                      maxline: 4,
+                      textAlign: TextAlign.start,
+                      fontsize: 14.w,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20.h),
+          //==================================> Stop Break Time Button <===========================
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                //Get.toNamed(AppRoutes.overviewScreen);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    border: Border.all(width: 1.w, color: Colors.cyan)),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                  child: CustomText(
+                    text: AppString.stopBreakTime.tr,
+                    color: Colors.cyan,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 12.h),
+          //==================================> Stop Time Button <===========================
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                //Get.toNamed(AppRoutes.overviewScreen);
+              },
+              child: Container(
+                decoration: const BoxDecoration(color: Color(0xff832700)),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                  child: CustomText(
+                    text: AppString.stopTimeRecording.tr,
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _myLayers(){
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.white, borderRadius: BorderRadius.circular(3.r)),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            bottom: 20.h,
+            text: AppString.myLayers.tr,
+            fontsize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+
+          CustomText(
+            text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
+            fontsize: 13.sp,
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  _myHygienePlan(){
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.white, borderRadius: BorderRadius.circular(3.r)),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            bottom: 20.h,
+            text: AppString.myHygienePlan.tr,
+            fontsize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+
+          CustomText(
+            text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
+            fontsize: 13.sp,
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  _timeAccountOverView(){
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.white, borderRadius: BorderRadius.circular(3.r)),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            bottom: 20.h,
+            text: AppString.timeAccountOverView.tr,
+            fontsize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+
+          CustomText(
+            text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
+            fontsize: 13.sp,
+          ),
+
+        ],
+      ),
+    );
+
+  }
+
 }
