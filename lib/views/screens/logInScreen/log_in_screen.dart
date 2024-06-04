@@ -57,7 +57,10 @@ class LogInScreen extends StatelessWidget {
               ),
               SizedBox(height: 60.h),
               //==================================> Register Button <===========================
-              CustomButton(onTap: (){}, text:AppString.signIn.tr)
+              CustomButton(onTap: (){
+                Get.toNamed(AppRoutes.dashboardScreen);
+
+              }, text:AppString.signIn.tr)
             ],
           ),
         ),

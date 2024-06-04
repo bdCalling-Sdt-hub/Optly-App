@@ -9,10 +9,10 @@ import 'package:optly/views/widgets/custom_text.dart';
 import '../../../controller/overview_controller.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_strings.dart';
-import 'innerWidget/overview_drawer.dart';
+import 'innerWidget/custom_drawer.dart';
 
-class OverviewScreen extends StatelessWidget {
-  OverviewScreen({super.key});
+class DashboardScreen extends StatelessWidget {
+  DashboardScreen({super.key});
   final OverviewController _overviewController = Get.put(OverviewController());
 
   @override

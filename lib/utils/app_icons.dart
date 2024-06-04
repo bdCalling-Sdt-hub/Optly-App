@@ -17,4 +17,5 @@ class AppIcons{
   static const String absences = "$basePath/identification.svg";
   static const String inventories = "$basePath/view-grid-add.svg";
   static const String exclamation = "$basePath/exclamation.svg";
+  static const String appLogo = "assets/icons/app_logo.png";
 }
