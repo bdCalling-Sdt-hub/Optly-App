@@ -6,6 +6,7 @@ class Assets {
   static const String iconsCalendar = 'assets/icons/calendar.svg';
   static const String iconsClipboardCheck = 'assets/icons/clipboard-check.svg';
   static const String iconsDocument = 'assets/icons/document.svg';
+  static const String iconsExclamation = 'assets/icons/exclamation.svg';
   static const String iconsEye = 'assets/icons/eye.svg';
   static const String iconsEyeOff = 'assets/icons/eyeOff.svg';
   static const String iconsIdentification = 'assets/icons/identification.svg';

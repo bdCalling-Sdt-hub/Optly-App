@@ -16,4 +16,5 @@ class AppIcons{
   static const String hygieneMain = "$basePath/menu-alt-3.svg";
   static const String absences = "$basePath/identification.svg";
   static const String inventories = "$basePath/view-grid-add.svg";
+  static const String exclamation = "$basePath/exclamation.svg";
 }
