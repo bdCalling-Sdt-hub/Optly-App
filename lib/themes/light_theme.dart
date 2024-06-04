@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/app_colors.dart';
 
 ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
@@ -15,6 +16,7 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
         backgroundColor: AppColors.backgroundColor,
         elevation: 5,
       ),
+      //drawerTheme: DrawerThemeData(width:28.w),
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: color)),
       colorScheme: ColorScheme.light(primary: color, secondary: color)

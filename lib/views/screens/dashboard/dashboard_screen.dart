@@ -6,29 +6,18 @@ import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/utils/app_images.dart';
 import 'package:optly/views/widgets/custom_text.dart';
-import '../../../controller/overview_controller.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_strings.dart';
 import 'innerWidget/custom_drawer.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
-  final OverviewController _overviewController = Get.put(OverviewController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _overviewController.scaffoldKey,
+
       appBar: AppBar(
-        leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            icon: SvgPicture.asset(AppIcons.menu),
-            onPressed: () {
-              _overviewController.scaffoldKey.currentState!.openDrawer();
-            },
-          ),
-        ),
         actions: [
           GestureDetector(
             onTap: () {},
@@ -41,7 +30,7 @@ class DashboardScreen extends StatelessWidget {
           )
         ],
       ),
-      drawer: OverviewDrawer(),
+      drawer: const CustomDrawer(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Column(
