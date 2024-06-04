@@ -8,6 +8,7 @@ import 'package:optly/utils/app_images.dart';
 import 'package:optly/views/widgets/custom_text.dart';
 import '../../../controller/overview_controller.dart';
 import '../../../utils/app_icons.dart';
+import '../../../utils/app_strings.dart';
 import 'innerWidget/overview_drawer.dart';
 
 class OverviewScreen extends StatelessWidget {
@@ -19,7 +20,6 @@ class OverviewScreen extends StatelessWidget {
     return Scaffold(
       key: _overviewController.scaffoldKey,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
         leading: Padding(
           padding: EdgeInsets.only(left: 10.w),
           child: IconButton(
@@ -42,13 +42,112 @@ class OverviewScreen extends StatelessWidget {
         ],
       ),
       drawer: OverviewDrawer(),
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomText(
-              text: 'This is Overview Screen',
+            //==============================> May 2024 Container <===========================
+            Container(
+              decoration: BoxDecoration(
+                color: Color(0xfffb8c00),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(10.0.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(AppIcons.exclamation),
+                        CustomText(
+                          text: AppString.theFollowing,
+                          fontsize: 14.w,
+                          maxline: 2,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    //==================================> Register Button <===========================
+                    GestureDetector(
+                      onTap: () {
+                        //Get.toNamed(AppRoutes.overviewScreen);
+                      },
+                      child: Container(
+                        decoration:
+                            const BoxDecoration(color: Color(0xff832700)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 6.h),
+                          child: CustomText(
+                            text: 'MAY 2024',
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 12.h),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.white
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      bottom: 20.h,
+                      text: AppString.currentTime,
+                    fontsize: 18.w,
+                    ),
+                    CustomText(
+                      bottom: 20.h,
+                      text: AppString.testingCenter,
+                    fontsize: 12.w,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    //=======================> Start Of Work Row <=========================
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomText(
+                          bottom: 10.h,
+                          text: AppString.startOfWork,
+                          fontsize: 14.w,
+                        ),
+                        CustomText(
+                          bottom: 10.h,
+                          text: '27.05.24 12:05',
+                          fontsize: 14.w,
+                        ),
+                      ],
+                    ),
+                    Divider(color: AppColors.greyColor,),
+                    //=============================> Length of Time Row <=====================
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomText(
+                          bottom: 10.h,
+                          text: AppString.lengthOfTime,
+                          fontsize: 14.w,
+                        ),
+                        CustomText(
+                          bottom: 10.h,
+                          text: '27.05.24 12:05',
+                          fontsize: 14.w,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             )
+
           ],
         ),
       ),
