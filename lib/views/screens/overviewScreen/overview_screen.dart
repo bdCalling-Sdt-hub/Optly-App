@@ -91,11 +91,11 @@ class OverviewScreen extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.white
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -138,11 +138,76 @@ class OverviewScreen extends StatelessWidget {
                         ),
                         CustomText(
                           bottom: 10.h,
-                          text: '27.05.24 12:05',
+                          text: '184 hours 13min',
                           fontsize: 14.w,
                         ),
                       ],
                     ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1.w, color: Color(0xfffb8c00))
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SvgPicture.asset(AppIcons.exclamation, color: Color(0xfffb8c00)),
+                            CustomText(
+                              text: 'After 6 hours, you are legally obliged \nto take a break of 30 minutes!',
+                              color: const Color(0xfffb8c00),
+                              maxline: 4,
+                              fontsize: 14.w,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                    //==================================> Stop Break Time Button <===========================
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          //Get.toNamed(AppRoutes.overviewScreen);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColors.white,
+                            border: Border.all(width: 1.w, color: Colors.cyan)
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 6.h),
+                            child: CustomText(
+                              text: AppString.stopBreak,
+                              color: Colors.cyan,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                    //==================================> Stop Time Button <===========================
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          //Get.toNamed(AppRoutes.overviewScreen);
+                        },
+                        child: Container(
+                          decoration:
+                          const BoxDecoration(color: Color(0xff832700)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 6.h),
+                            child: CustomText(
+                              text: AppString.stopTime,
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+
                   ],
                 ),
               ),
