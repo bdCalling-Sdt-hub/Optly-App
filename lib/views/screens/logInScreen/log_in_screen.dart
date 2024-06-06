@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:optly/controller/auth_controller.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/utils/app_images.dart';
 import 'package:optly/utils/app_strings.dart';
@@ -14,8 +15,9 @@ import '../../../utils/app_icons.dart';
 
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
-  final TextEditingController userNameCtrl = TextEditingController();
-  final TextEditingController passwordCtrl = TextEditingController();
+  final TextEditingController userNameCtrl = TextEditingController(text: "test6@test.de");
+  final TextEditingController passwordCtrl = TextEditingController(text: "123456");
+  final _authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +59,13 @@ class LogInScreen extends StatelessWidget {
               ),
               SizedBox(height: 60.h),
               //==================================> Register Button <===========================
-              CustomButton(onTap: (){
-                Get.toNamed(AppRoutes.dashboardScreen);
-
-              }, text:AppString.signIn.tr)
+              Obx(()=>
+                 CustomButton(
+                     loading: _authController.loadingSignIn.value,
+                     onTap: (){
+                  _authController.handleSignIn(userNameCtrl.text, passwordCtrl.text);
+                }, text:AppString.signIn.tr),
+              )
             ],
           ),
         ),

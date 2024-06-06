@@ -21,7 +21,9 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutes.profileScreen);
+            },
             child: Padding(
               padding: EdgeInsets.only(right: 20.w),
               child: CircleAvatar(

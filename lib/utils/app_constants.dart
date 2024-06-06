@@ -1,6 +1,9 @@
 import '../models/language_models.dart';
 
 class AppConstants {
+
+  static String bearerToken="bearerToken";
+
   static String APP_NAME = "Optly";
   static String THEME = "theme";
 
@@ -18,4 +21,17 @@ class AppConstants {
     LanguageModel(
         languageName: 'German', countryCode: 'GR', languageCode: 'gr'),
   ];
+
+  static String userId="UserId";
+  static String firstname="firstname";
+  static String lastname="lastname";
+  static String name="name";
+  static String email="email";
+  static String username="username";
+  static String phone="phone";
+  static String role="role";
+  static String imageurl="imageurl";
+  static String gender="gender";
+
+
 }

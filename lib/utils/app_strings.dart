@@ -29,6 +29,15 @@ class AppString {
   static String youCurrentlyHaveNoOpenTasks = "You currently have no open tasks";
   static String youCurrentlyHaveNoPlannedHygienePlan="You currently have no planned hygiene plan";
   static String timeAccountOverView="timeAccountOverView";
+  static String profile="profile";
+  static String bookedWorkingHours="bookedWorkingHours";
+  static String information="information";
+  static String fee="fee";
+  static String documents="documents";
+  static String timeAccount="timeAccount";
+  static String pinCode="pinCode";
+
+
 
 
 }

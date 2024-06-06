@@ -20,7 +20,14 @@
   "myHygienePlan": "My hygiene plan",
   "timeAccountOverView": "Time account overview",
   "overtime": "Overtime",
-  "monthly": "monthly"
+  "monthly": "monthly",
+  "profile": "Profile",
+  "bookedWorkingHours": "Booked working Hours",
+  "information": "Information",
+  "fee": "Fee",
+  "documents": "Documents",
+  "timeAccount":"Time Account",
+  "pinCode": "Pin Code"
 
 
 }
