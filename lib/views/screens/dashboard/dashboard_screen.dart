@@ -37,7 +37,7 @@ class DashboardScreen extends StatelessWidget {
   }
 
   _body() {
-    return Padding(
+    return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Column(
         children: [
@@ -56,6 +56,12 @@ class DashboardScreen extends StatelessWidget {
 
           ///==============================> My Layers  <===========================
           _myHygienePlan(),
+          const SizedBox(height: 20,),
+          /// ========================= Time account overview ======================>
+          _timeAccountOverView(),
+          const SizedBox(height: 20,),
+          ///  ==================  Open tasks ==================
+          _openTasks()
         ],
       ),
     );
@@ -263,7 +269,7 @@ class DashboardScreen extends StatelessWidget {
           ),
 
           CustomText(
-            text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
+            text: AppString.youCurrentlyHaveNoPlannedHygienePlan.tr,
             fontsize: 13.sp,
           ),
 
@@ -287,16 +293,96 @@ class DashboardScreen extends StatelessWidget {
             fontsize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
-
-          CustomText(
-            text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
-            fontsize: 13.sp,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppString.actualHours.tr,style: const TextStyle(fontWeight: FontWeight.w500),),
+                      Text(AppString.currentMonth.tr),
+                    ],
+                  ),
+                ),
+                Expanded(child:Text("0hrs 0mins",style:TextStyle(fontSize: 14,color: AppColors.greyColor),))
+              ],
+            ),
           ),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 20.w
+            ),
+            child: Divider(
+              color: AppColors.dividerColor,
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppString.overtime.tr,style: const TextStyle(fontWeight: FontWeight.w500),),
+                      Text(AppString.monthly.tr),
+                    ],
+                  ),
+                ),
+                Expanded(child:Text("0hrs 0mins",style:TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,color: AppColors.greenColor),))
+              ],
+            ),
+          ),
+
+
+
 
         ],
       ),
     );
 
+  }
+
+
+  _openTasks(){
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.white, borderRadius: BorderRadius.circular(3.r)),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            bottom: 20.h,
+            text: AppString.openTasks.tr,
+            fontsize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+          ListView.builder(
+              itemCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder:(context,index){
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 5.h),
+              decoration: BoxDecoration(
+                border: Border.all(color:AppColors.dividerColor),
+                color: AppColors.primaryColor.withOpacity(0.1)
+              ),
+              child: ListTile(
+                title: Text("Test",style: TextStyle(fontWeight:FontWeight.w600),),
+                subtitle: Text("Test Max"),
+              ),
+            );
+          })
+
+
+        ],
+      ),
+    );
   }
 
 }

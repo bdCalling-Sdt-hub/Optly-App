@@ -23,7 +23,8 @@ class AppString {
   static String youAreNotCurrentlyScheduledForAShift = "youAreNotCurrentlyScheduledForAShift";
   static String actualHours = "actualHours";
   static String currentMonth = "currentMonth";
-  static String overtimeMonthly = "Overtime monthly";
+  static String overtime = "overtime";
+  static String monthly="monthly";
   static String openTasks = "openTasks";
   static String youCurrentlyHaveNoOpenTasks = "You currently have no open tasks";
   static String youCurrentlyHaveNoPlannedHygienePlan="You currently have no planned hygiene plan";
