@@ -229,6 +229,14 @@ class ApiClient extends GetxService {
       // );
     } else if (response0.statusCode != 200 && response0.body == null) {
       response0 = const Response(statusCode: 0, statusText: noInternetMessage);
+    }else if(response0.body["success"]==false){
+      response0 = Response(
+          statusCode: response0.statusCode,
+          body: response0.body,
+          statusText:response0.body['message'] );
+      debugPrint(
+          '====> API Error Response: [${response0.statusCode}] $uri\n${response0.statusText}');
+
     }
 
     debugPrint(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:optly/controller/data_controller.dart';
 import 'package:optly/routes/app_routes.dart';
@@ -24,7 +25,8 @@ class AuthController extends GetxController{
           imageD: response.body['data']['user']['imageurl'] ,
           userid: response.body['data']['user']['id'] );
     }else{
-      ApiChecker.checkApi(response);
+      ApiChecker.checkApi(response,getXSnackBar: true);
+      debugPrint("test snackbar");
     }
     loadingSignIn(false);
     

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:optly/controller/data_controller.dart';
 import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/utils/app_images.dart';
+import 'package:optly/views/widgets/cache_network_image.dart';
 import 'package:optly/views/widgets/custom_text.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_strings.dart';
@@ -13,9 +15,11 @@ import 'innerWidget/custom_drawer.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
+  final _dataController = Get.put(DataController());
 
   @override
   Widget build(BuildContext context) {
+    _dataController.getData();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -25,10 +29,8 @@ class DashboardScreen extends StatelessWidget {
               Get.toNamed(AppRoutes.profileScreen);
             },
             child: Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: CircleAvatar(
-                child: Image.asset(AppImages.person, fit: BoxFit.contain),
-              ),
+              padding: EdgeInsets.only(right: 20.w,bottom: 5),
+              child:CustomNetworkImage(imageUrl:_dataController.image.value, height: 60, width:60,boxShape: BoxShape.circle,)
             ),
           )
         ],
