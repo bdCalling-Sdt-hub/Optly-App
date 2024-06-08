@@ -1,25 +1,60 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:optly/controller/dashboard_controller.dart';
 import 'package:optly/controller/data_controller.dart';
+import 'package:optly/helpers/date_time_formatter.dart';
 import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/utils/app_images.dart';
 import 'package:optly/views/widgets/cache_network_image.dart';
+import 'package:optly/views/widgets/custom_page_loading.dart';
 import 'package:optly/views/widgets/custom_text.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/app_strings.dart';
 import 'innerWidget/banner.dart';
 import 'innerWidget/custom_drawer.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
   final _dataController = Get.put(DataController());
+  final _dashboardController = Get.put(DashboardController());
+
+
+  @override
+  void initState() {
+    _dataController.getData();
+    _dashboardController.getDashboard();
+    Future.delayed(Duration(seconds: 1),(){
+      debugPrint("check difference time ");
+
+    });
+
+    // Timer(const Duration(seconds: 1), (){
+    //   _dashboardController.difference.value =DateTimeFormatterHelper.calculateTimeDifference(_dashboardController.dashboardData.value.data==null? null:_dashboardController.dashboardData.value.data!.currents![0].start);
+    //   debugPrint("check difference time ");
+    // });
+    super.initState();
+  }
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
-    _dataController.getData();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -30,13 +65,13 @@ class DashboardScreen extends StatelessWidget {
             },
             child: Padding(
               padding: EdgeInsets.only(right: 20.w,bottom: 5),
-              child:CustomNetworkImage(imageUrl:_dataController.image.value, height: 60, width:60,boxShape: BoxShape.circle,)
+              child:Obx(()=> CustomNetworkImage(imageUrl:_dataController.image.value, height: 60, width:60,boxShape: BoxShape.circle,))
             ),
           )
         ],
       ),
       drawer: const CustomDrawer(),
-      body: _body(),
+      body: Obx(()=>_dashboardController.loading.value?const CustomPageLoading():_body()),
     );
   }
 
@@ -88,14 +123,14 @@ class DashboardScreen extends StatelessWidget {
 
           CustomText(
             bottom: 20.h,
-            text: "${AppString.testingCenter.tr} Zwanzig20",
+            text: "${_dashboardController.dashboardData.value.data!.currents![0].cname}",
             fontsize: 14.sp,
             fontWeight: FontWeight.w500,
           ),
           /// =======================> Start Of Work Row <=========================
-         
-         
-         
+
+
+
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 20.w
             ),
@@ -110,7 +145,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomText(
-                    text: '27.05.24 12:05',
+                    text: "${_dashboardController.dashboardData.value.data!.currents![0].start}",
                     fontsize: 14.w,
                     textAlign: TextAlign.start,
                   ),
@@ -141,7 +176,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomText(
-                    text: '184 hours 13min',
+                    text: '${_dashboardController.difference}',
                     fontsize: 14.w,
                     textAlign: TextAlign.start,
                   ),
@@ -349,7 +384,6 @@ class DashboardScreen extends StatelessWidget {
 
   }
 
-
   _openTasks(){
     return Container(
       width: double.infinity,
@@ -388,5 +422,4 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
-
 }
