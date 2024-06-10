@@ -400,19 +400,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontWeight: FontWeight.w600,
           ),
           ListView.builder(
-              itemCount: 2,
+              itemCount:_dashboardController.dashboardData.value.data!.todos!.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder:(context,index){
+                var data= _dashboardController.dashboardData.value.data!.todos![index];
             return Container(
-              margin: EdgeInsets.symmetric(vertical: 5.h),
+              margin: EdgeInsets.symmetric(vertical:5.h),
               decoration: BoxDecoration(
                 border: Border.all(color:AppColors.dividerColor),
                 color: AppColors.primaryColor.withOpacity(0.1)
               ),
               child: ListTile(
-                title: Text("Test",style: TextStyle(fontWeight:FontWeight.w600),),
-                subtitle: Text("Test Max"),
+                title: Text(data.title??"",style: const TextStyle(fontWeight:FontWeight.w600),),
+                subtitle: Text(data.description??""),
               ),
             );
           })
