@@ -36,19 +36,28 @@ class CustomDrawer extends StatelessWidget {
                 CustomListTile(
                   priIcon: AppIcons.person,
                   title: 'My Profile',
-                  onTab: () {},
+                  onTab: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.profileScreen);
+                  },
                 ),
                 //============================> Task Tile <=========================
                 CustomListTile(
                   priIcon: AppIcons.task,
                   title: 'Task',
-                  onTab: () {},
+                  onTab: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.tasksScreen);
+                  },
                 ),
                 //===========================> Notes Tile <=========================
                 CustomListTile(
                   priIcon:AppIcons.notes,
                   title: 'Notes',
-                  onTab: () {},
+                  onTab: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.notesScreen);
+                  },
                 ),
                 //=========================> Shift Plan Tile <========================
                 CustomListTile(

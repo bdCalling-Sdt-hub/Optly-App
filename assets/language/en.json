@@ -27,7 +27,14 @@
   "fee": "Fee",
   "documents": "Documents",
   "timeAccount":"Time Account",
-  "pinCode": "Pin Code"
+  "pinCode": "Pin Code",
+  "open_Tasks": "Open Tasks",
+  "my_tasks": "My Tasks",
+  "completed_tasks": "Completed Tasks",
+  "tasks": "Tasks",
+  "notes": "Notes",
+  "completed_notes": "Completed Notes",
+  "open_notes": "Open Notes"
 
 
 }
