@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/views/widgets/custom_text_field.dart';
 class CompletedNotes extends StatelessWidget {
@@ -18,13 +19,17 @@ class CompletedNotes extends StatelessWidget {
             ),
             CustomTextField(
               controller: searchTextCtrl,
+              hintText: "search".tr,
               sufixicons:
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+            ),
+            SizedBox(
+              height: 20.h,
             ),
             Expanded(
                 child: ListView.builder(
                     itemCount: 3,
-                    padding: EdgeInsets.symmetric(vertical: 20.h),
+
                     itemBuilder: (context,index){
                       return Container(
                         margin: EdgeInsets.symmetric(vertical: 5.h),

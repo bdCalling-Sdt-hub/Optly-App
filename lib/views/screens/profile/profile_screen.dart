@@ -40,8 +40,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: CustomNetworkImage(
                         imageUrl: _profileController
                             .profileData.value.data!.info!.imageurl!,
-                        height: 150,
-                        width: 150,
+                        height: 100.h,
+                        width: 100.h,
                         boxShape: BoxShape.circle,
                         border: Border.all(color: AppColors.primaryColor),
                       ),

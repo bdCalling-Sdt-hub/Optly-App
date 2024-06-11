@@ -34,7 +34,9 @@
   "tasks": "Tasks",
   "notes": "Notes",
   "completed_notes": "Completed Notes",
-  "open_notes": "Open Notes"
+  "open_notes": "Open Notes",
+  "create_new_note": "Create New Note",
+  "search": "Search"
 
 
 }

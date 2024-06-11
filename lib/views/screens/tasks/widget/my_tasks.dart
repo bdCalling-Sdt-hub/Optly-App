@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text_field.dart';
@@ -20,6 +21,7 @@ class MyTasks extends StatelessWidget {
             ),
             CustomTextField(
               controller: searchTextCtrl,
+              hintText: "search".tr,
               sufixicons:
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             ),

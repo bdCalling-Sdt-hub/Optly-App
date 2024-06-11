@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/views/widgets/custom_text_field.dart';
 class OpenNotes extends StatelessWidget {
@@ -16,15 +17,24 @@ class OpenNotes extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
+
             CustomTextField(
               controller: searchTextCtrl,
+              hintText: "search".tr,
               sufixicons:
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             ),
+
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+
+                  onPressed: (){}, child:Text("create_new_note".tr,style:  TextStyle(decoration: TextDecoration.underline,color:Colors.orange,decorationColor:Colors.orange),)),
+            ),
+
             Expanded(
                 child: ListView.builder(
                     itemCount: 3,
-                    padding: EdgeInsets.symmetric(vertical: 20.h),
                     itemBuilder: (context,index){
                       return Container(
                         margin: EdgeInsets.symmetric(vertical: 5.h),
