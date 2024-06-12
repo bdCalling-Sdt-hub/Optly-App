@@ -34,7 +34,7 @@ class AppString {
   static String information="information";
   static String fee="fee";
   static String documents="documents";
-  static String timeAccount="timeAccount";
+  static String zeitkonto="Zeitkonto";
   static String pinCode="pinCode";
 
 

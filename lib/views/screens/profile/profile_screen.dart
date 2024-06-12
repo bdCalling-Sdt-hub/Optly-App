@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:optly/controller/profile_controller.dart';
 import 'package:optly/utils/app_colors.dart';
+import 'package:optly/views/screens/bookedWorking/booked_working.dart';
 import 'package:optly/views/widgets/cache_network_image.dart';
 import 'package:optly/views/widgets/custom_page_loading.dart';
 
@@ -67,12 +68,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 30.h,
                     ),
-                    _listTile(AppString.bookedWorkingHours.tr, () {}),
+                    _listTile(AppString.bookedWorkingHours.tr, () {
+                      Get.to(BookedWorking());
+                    }),
                     _listTile(AppString.information.tr, () {}),
-                    _listTile(AppString.fee.tr, () {}),
+                    // _listTile(AppString.fee.tr, () {}),
                     _listTile(AppString.documents.tr, () {}),
-                    _listTile(AppString.timeAccount.tr, () {}),
-                    _listTile(AppString.pinCode.tr, () {}),
+                    _listTile(AppString.zeitkonto.tr, () {}),
+                    _listTile("logout".tr, () {}),
                   ],
                 ),
               ),

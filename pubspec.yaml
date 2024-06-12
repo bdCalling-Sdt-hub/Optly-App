@@ -48,6 +48,7 @@ dependencies:
   intl:
   flutter_spinkit:
   shimmer:
+  easy_date_timeline:
 
 dev_dependencies:
   flutter_test:

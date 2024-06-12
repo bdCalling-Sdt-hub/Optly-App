@@ -36,7 +36,17 @@
   "completed_notes": "Completed Notes",
   "open_notes": "Open Notes",
   "create_new_note": "Create New Note",
-  "search": "Search"
+  "search": "Search",
+  "Zeitkonto": "Zeitkonto",
+  "logout": "Logout",
+  "booked_working_hours": "Booked working hours",
+  "end": "End",
+  "booked_times": "Booked times",
+  "pause": "Pause",
+  "times_worked": "Times Worked",
+  "location": "Location",
+  "salary": "Salary",
+  "sort_by": "Sort by"
 
 
 }

@@ -10,12 +10,23 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
       disabledColor: Color(0xFFBABFC4),
       dividerColor: AppColors.dividerColor,
       brightness: Brightness.light,
-      hintColor: Color(0xFF9F9F9F),
+      hintColor: const Color(0xFF9F9F9F),
+      canvasColor: Colors.white,
       cardColor: Colors.white,
       scaffoldBackgroundColor: AppColors.white,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.backgroundColor,
         elevation: 5,
+      ),
+      dropdownMenuTheme:  const DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border:OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black
+            )
+          )
+
+        )
       ),
       //drawerTheme: DrawerThemeData(width:28.w),
       textButtonTheme: TextButtonThemeData(
