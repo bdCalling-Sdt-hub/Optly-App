@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 30.h,
                     ),
                     _listTile(AppString.bookedWorkingHours.tr, () {
-                      Get.to(BookedWorking());
+                      Get.to(BookedWorking(id:_profileController.profileData.value.data!.info!.id,));
                     }),
                     _listTile(AppString.information.tr, () {}),
                     // _listTile(AppString.fee.tr, () {}),

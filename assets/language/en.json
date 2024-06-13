@@ -40,13 +40,21 @@
   "Zeitkonto": "Zeitkonto",
   "logout": "Logout",
   "booked_working_hours": "Booked working hours",
+  "start": "Start",
   "end": "End",
   "booked_times": "Booked times",
   "pause": "Pause",
   "times_worked": "Times Worked",
   "location": "Location",
   "salary": "Salary",
-  "sort_by": "Sort by"
-
+  "sort_by": "Sort by",
+  "no_booked_working_hours_available": "No booked working hours available!",
+  "Breaks are deducted from the time worked.": "Breaks are deducted from the time worked.",
+  "month_complete": "Month Complete",
+  "pleaseCheckTheEntries": "Please check the entries. Once you close the month, entries can no longer be changed.",
+  "closeTheMonthWithYourSignature": "Close the month with your signature. A timesheet will be created automatically and stored under \"Documents\" -> \"Timesheets\".",
+  "delete_signature": "Delete Signature",
+  "complete_month": "Complete Month",
+  "cancel": "Cancel"
 
 }
