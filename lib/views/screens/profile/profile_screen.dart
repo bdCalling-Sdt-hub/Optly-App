@@ -8,6 +8,7 @@ import 'package:optly/views/widgets/cache_network_image.dart';
 import 'package:optly/views/widgets/custom_page_loading.dart';
 
 import '../../../utils/app_strings.dart';
+import '../folder&documents/folders.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -73,7 +74,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }),
                     _listTile(AppString.information.tr, () {}),
                     // _listTile(AppString.fee.tr, () {}),
-                    _listTile(AppString.documents.tr, () {}),
+                    _listTile(AppString.documents.tr, () {
+                      Get.to(FoldersScreen(userId: _profileController.profileData.value.data!.info!.id,));
+                    }),
                     _listTile(AppString.zeitkonto.tr, () {}),
                     _listTile("logout".tr, () {}),
                   ],

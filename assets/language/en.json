@@ -55,6 +55,13 @@
   "closeTheMonthWithYourSignature": "Close the month with your signature. A timesheet will be created automatically and stored under \"Documents\" -> \"Timesheets\".",
   "delete_signature": "Delete Signature",
   "complete_month": "Complete Month",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "timesheets": "Timesheets",
+  "payroll": "Payroll",
+  "contracts": "Contracts",
+  "name": "Name",
+  "created_by": "Create by",
+  "created_on": "Created on",
+  "action": "Action"
 
 }
