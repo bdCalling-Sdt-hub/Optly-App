@@ -62,6 +62,9 @@
   "name": "Name",
   "created_by": "Create by",
   "created_on": "Created on",
-  "action": "Action"
+  "action": "Action",
+  "no_data_available": "No data available!",
+  "automatically_generated": "Automatically generated"
+
 
 }
