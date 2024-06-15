@@ -9,6 +9,7 @@ import 'package:optly/views/widgets/custom_page_loading.dart';
 
 import '../../../utils/app_strings.dart';
 import '../folder&documents/folders.dart';
+import '../timeAccount/time_account.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -70,14 +71,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 30.h,
                     ),
                     _listTile(AppString.bookedWorkingHours.tr, () {
-                      Get.to(BookedWorking(id:_profileController.profileData.value.data!.info!.id,));
+                      Get.to(BookedWorking(
+                        id: _profileController.profileData.value.data!.info!.id,
+                      ));
                     }),
                     _listTile(AppString.information.tr, () {}),
-                    // _listTile(AppString.fee.tr, () {}),
                     _listTile(AppString.documents.tr, () {
-                      Get.to(FoldersScreen(userId: _profileController.profileData.value.data!.info!.id,));
+                      Get.to(FoldersScreen(
+                        userId:
+                            _profileController.profileData.value.data!.info!.id,
+                      ));
                     }),
-                    _listTile(AppString.zeitkonto.tr, () {}),
+                    _listTile("timeAccount".tr, () {
+                      Get.to(TimeAccountScreen(
+                        userId: _profileController
+                            .profileData.value.data!.info!.id
+                            .toString(),
+                      ));
+                    }),
                     _listTile("logout".tr, () {}),
                   ],
                 ),

@@ -26,6 +26,10 @@ class ProfileController extends GetxController{
 
 
 
+  logOut()async{
+
+  }
+
 
 
 

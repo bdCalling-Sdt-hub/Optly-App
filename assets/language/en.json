@@ -37,7 +37,6 @@
   "open_notes": "Open Notes",
   "create_new_note": "Create New Note",
   "search": "Search",
-  "Zeitkonto": "Zeitkonto",
   "logout": "Logout",
   "booked_working_hours": "Booked working hours",
   "start": "Start",
@@ -64,7 +63,12 @@
   "created_on": "Created on",
   "action": "Action",
   "no_data_available": "No data available!",
-  "automatically_generated": "Automatically generated"
+  "automatically_generated": "Automatically generated",
+  "date": "Date",
+  "description": "Description",
+ "flexitime": "Flexitime account",
+  "monthly_closing": "Monthly closing :"
+
 
 
 }
