@@ -9,6 +9,7 @@ import 'package:optly/views/widgets/custom_page_loading.dart';
 
 import '../../../utils/app_strings.dart';
 import '../folder&documents/folders.dart';
+import '../personalInfo/personal_information.dart';
 import '../timeAccount/time_account.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -75,7 +76,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         id: _profileController.profileData.value.data!.info!.id,
                       ));
                     }),
-                    _listTile(AppString.information.tr, () {}),
+                    _listTile(AppString.information.tr, () {
+                      Get.to(const PersonalInformation());
+                    }),
                     _listTile(AppString.documents.tr, () {
                       Get.to(FoldersScreen(
                         userId:
