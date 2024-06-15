@@ -89,7 +89,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             .toString(),
                       ));
                     }),
-                    _listTile("logout".tr, () {}),
+                    _listTile("logout".tr, () {
+                      _profileController.logOut();
+                    }),
                   ],
                 ),
               ),

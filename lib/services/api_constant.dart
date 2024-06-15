@@ -7,6 +7,7 @@ class ApiConstant {
   static String getBookedWorking(String id, String month, String year)=>"/booktime/$id/$month/$year";
   static String getDocs(String userId,String type)=>"/docs/$userId/employee/$type";
   static String getTimeAccount(String userId)=>"/timeaccount/$userId";
+  static String logout="/logout";
 
 
 
