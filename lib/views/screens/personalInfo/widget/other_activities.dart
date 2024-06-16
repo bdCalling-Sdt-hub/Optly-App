@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/profile_controller.dart';
 import '../../../../utils/app_colors.dart';
 
 class OtherActivities extends StatelessWidget {
   OtherActivities({super.key});
+  final _profileController = Get.put(ProfileController());
 
   List<String> currentAcctivituyList = [
     "Schüler/ Student",

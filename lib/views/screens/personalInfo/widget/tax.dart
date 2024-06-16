@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 import 'package:optly/views/screens/personalInfo/widget/personal_info.dart';
 import 'package:optly/views/screens/personalInfo/widget/social_insurance.dart';
 
+import '../../../../controller/profile_controller.dart';
 import '../../../../utils/app_colors.dart';
 
 class Tax extends StatelessWidget {
    Tax({super.key});
+
+   final _profileController = Get.put(ProfileController());
 
    List<String> taxBracketList=[
      "Klasse 1",
@@ -23,10 +26,12 @@ class Tax extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var data = _profileController.profileData.value.data!.info!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildTextField(
+          initialValue: data.steuerid,
           labelText: "identification_number",
           textInputType: TextInputType.number,
         ),
@@ -52,6 +57,7 @@ class Tax extends StatelessWidget {
         ),
 
           buildTextField(
+
           labelText: "denomination",
         ),
 

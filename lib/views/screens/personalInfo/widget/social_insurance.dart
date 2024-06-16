@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:optly/views/screens/personalInfo/widget/personal_info.dart';
 
+import '../../../../controller/profile_controller.dart';
 import '../../../../utils/app_colors.dart';
 
 class SocialInsurance extends StatelessWidget {
    SocialInsurance({super.key});
+   final _profileController = Get.put(ProfileController());
 
   List<String> insuranceList=[
     "Gesetzlich",
@@ -19,6 +21,7 @@ class SocialInsurance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    selectInsurance=_profileController.profileData.value.data!.info!.insurancetype;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,6 +43,7 @@ class SocialInsurance extends StatelessWidget {
         ),
         SizedBox(height: 5.h,),
         buildTextField(
+          initialValue: _profileController.profileData.value.data!.info!.insurancename??"",
           labelText: "nameOfHealthInsurance",
         ),
 

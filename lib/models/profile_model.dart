@@ -165,8 +165,8 @@ class Info {
   final String? day;
   final dynamic supervisorid;
   final dynamic cosupervisorid;
-  final DateTime? entrydate;
-  final DateTime? exitdate;
+  final String? entrydate;
+  final String? exitdate;
   final String? location;
   final dynamic workinghours;
   final dynamic workingweek;
@@ -340,8 +340,8 @@ class Info {
     day: json["day"],
     supervisorid: json["supervisorid"],
     cosupervisorid: json["cosupervisorid"],
-    entrydate: json["entrydate"] == null ? null : DateTime.parse(json["entrydate"]),
-    exitdate: json["exitdate"] == null ? null : DateTime.parse(json["exitdate"]),
+    entrydate: json["entrydate"],
+    exitdate: json["exitdate"],
     location: json["location"],
     workinghours: json["workinghours"],
     workingweek: json["workingweek"],
@@ -428,8 +428,6 @@ class Info {
     "day": day,
     "supervisorid": supervisorid,
     "cosupervisorid": cosupervisorid,
-    "entrydate": "${entrydate!.year.toString().padLeft(4, '0')}-${entrydate!.month.toString().padLeft(2, '0')}-${entrydate!.day.toString().padLeft(2, '0')}",
-    "exitdate": "${exitdate!.year.toString().padLeft(4, '0')}-${exitdate!.month.toString().padLeft(2, '0')}-${exitdate!.day.toString().padLeft(2, '0')}",
     "location": location,
     "workinghours": workinghours,
     "workingweek": workingweek,

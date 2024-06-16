@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:optly/utils/app_colors.dart';
 
+import '../../../../controller/profile_controller.dart';
 import '../../../../helpers/data.dart';
 
 class PersonalInfo extends StatelessWidget {
   PersonalInfo({super.key});
+  final _profileController = Get.put(ProfileController());
 
   final List<String> materialStatusList = [
     "ledig",
@@ -28,17 +30,18 @@ class PersonalInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var data = _profileController.profileData.value.data!.info!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildTextField(labelText: "family_name", isValidator: true),
-        buildTextField(labelText: "first_name", isValidator: true),
-        buildTextField(labelText: "street", isValidator: true),
-        buildTextField(labelText: "house_number", isValidator: true),
-        buildTextField(labelText: "post_code", isValidator: true),
-        buildTextField(labelText: "city", isValidator: true),
-        buildTextField(labelText: "email", isValidator: true),
-        buildTextField(labelText: "phone", isValidator: true),
+        buildTextField(initialValue:data.lastname??"",labelText: "family_name", isValidator: true),
+        buildTextField(initialValue:data.firstname??"",labelText: "first_name", isValidator: true),
+        buildTextField(initialValue:data.street??"",labelText: "street", isValidator: true),
+        buildTextField(initialValue:data.houseno??"",labelText: "house_number", isValidator: true),
+        buildTextField(initialValue:data.zip.toString(),labelText: "post_code", isValidator: true),
+        buildTextField(initialValue:data.city??"",labelText: "city", isValidator: true),
+        buildTextField(initialValue:data.email??"",labelText: "email", isValidator: true),
+        buildTextField(initialValue:data.phone??"",labelText: "phone", isValidator: true),
         SizedBox(
           height: 5.h,
         ),
@@ -85,6 +88,7 @@ class PersonalInfo extends StatelessWidget {
             Expanded(
               flex: 3,
               child: buildTextField(
+                initialValue: data.day,
                   labelText: "Tag*/TT",
                   isOutlineBorder: true,
                 isValidator: true,
@@ -102,6 +106,7 @@ class PersonalInfo extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: buildTextField(
+                  initialValue: data.month,
                     labelText: "Monat*/MM",
                     isOutlineBorder: true,
                     isValidator: true,
@@ -116,6 +121,7 @@ class PersonalInfo extends StatelessWidget {
             Expanded(
                 flex: 5,
                 child: buildTextField(
+                  initialValue: data.year,
                     labelText: "Jahr*/JJJJ",
                     isOutlineBorder: true,
                   isValidator: true,
@@ -155,7 +161,7 @@ class PersonalInfo extends StatelessWidget {
 
         ///
         ///
-        buildTextField(
+        buildTextField(initialValue: data.versicherungsnummer??"",
             labelText: "social_security_number-according", isValidator: true),
 
         ///<----------- add severely disabled ---->
@@ -186,15 +192,19 @@ class PersonalInfo extends StatelessWidget {
 
         ///<----------- add severely disabled  close---->
         buildTextField(
+          initialValue: data.birthplace??"",
           labelText: "place_of_birth",
         ),
         buildTextField(
+          initialValue: data.birthcountry??"",
           labelText: "nationality",
         ),
         buildTextField(
           labelText: "ware_going",
+          initialValue: data.iban??""
         ),
         buildTextField(
+          initialValue: data.bic??"",
           labelText: "bic",
         ),
       ],

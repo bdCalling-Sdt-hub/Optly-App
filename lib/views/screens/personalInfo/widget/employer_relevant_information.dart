@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:optly/controller/profile_controller.dart';
 
 class EmployerRelevantInformation extends StatelessWidget {
-  const EmployerRelevantInformation({super.key});
+   EmployerRelevantInformation({super.key});
+
+  final _profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
+    var data = _profileController.profileData.value.data!.info!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _textTile("employed_as", ""),
-        _textTile("personnel_number", ""),
-        _textTile("job_title", ""),
-        _textTile("locations", ""),
-        _textTile("working_area", ""),
-        _textTile("holiday_entitlement", ""),
-        _textTile("superior", ""),
+        _textTile("employed_as","Full-time / Part-time" ),
+        _textTile("personnel_number", data.employeenumber??""),
+        _textTile("job_title", data.jobtitle??""),
+        _textTile("place_of_work", ""),
+        _textTile("locations", data.location??""),
+        _textTile("working_area", data.workplace??""),
+        _textTile("holiday_entitlement",""),
+        _textTile("superior", data.supervisorid??""),
         _textTile("deputy_supervisor", ""),
-        _textTile("entry_date", ""),
-        _textTile("contract_end", ""),
-        _textTile("the_eployee_has_provided_all_evidence", ""),
-        _textTile("active", ""),
-
-
-
-
-
-
+        _textTile("entry_date", data.entrydate??""),
+        _textTile("contract_end", data.exitdate??""),
+        _textTile("the_employee_has_provided_all_evidence", ""),
+        _textTile("active", data.active!?"Ja":"Nein"),
       ],
     );
   }
@@ -35,7 +34,7 @@ class EmployerRelevantInformation extends StatelessWidget {
 
   _textTile(String title, subTitle) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h),
+      padding: EdgeInsets.symmetric(vertical:8.h),
       child: Row(
         children: [
           Flexible(
@@ -47,7 +46,7 @@ class EmployerRelevantInformation extends StatelessWidget {
           Expanded(
               child: Text(
                 subTitle,
-                textAlign: TextAlign.right,
+                textAlign: TextAlign.left,
                 style: const TextStyle(fontWeight:FontWeight.w600,),
               )),
         ],
