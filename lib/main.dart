@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_constants.dart';
-import 'package:optly/views/screens/logInScreen/log_in_screen.dart';
 import 'controller/localaization_controller.dart';
 import 'controller/theme_controller.dart';
 import 'helpers/di.dart' as di;

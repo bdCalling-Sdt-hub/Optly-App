@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:optly/utils/app_colors.dart';
+import 'package:optly/views/screens/personalInfo/widget/employer_relevant_information.dart';
 import 'package:optly/views/screens/personalInfo/widget/occupation.dart';
+import 'package:optly/views/screens/personalInfo/widget/other_activities.dart';
 import 'package:optly/views/screens/personalInfo/widget/social_insurance.dart';
 import 'package:optly/views/screens/personalInfo/widget/tax.dart';
 
@@ -33,25 +35,34 @@ class PersonalInformation extends StatelessWidget {
               height: 25.h,
             ),
             _headerText("tax"),
-             Tax(),
+            Tax(),
             SizedBox(
               height: 25.h,
             ),
             _headerText("social_insurance"),
-
             SocialInsurance(),
+            SizedBox(
+              height: 25.h,
+            ),
+            _headerText("other_activities"),
+            OtherActivities(),
+            SizedBox(
+              height: 25.h,
+            ),
+            _headerText("employer_relevant_information",Colors.green),
+
+            EmployerRelevantInformation(),
 
             SizedBox(
               height: 35.h,
             ),
-
           ],
         ),
       ),
     );
   }
 
-  _headerText(String title) {
+  _headerText(String title, [Color? color]) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,10 +71,10 @@ class PersonalInformation extends StatelessWidget {
           style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 16.sp,
-              color: AppColors.primaryColor),
+              color: color ?? AppColors.primaryColor),
         ),
         Divider(
-          color: AppColors.primaryColor,
+          color: color ?? AppColors.primaryColor,
         )
       ],
     );

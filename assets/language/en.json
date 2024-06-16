@@ -100,6 +100,24 @@
   "social_insurance": "Social insurance",
   "health_insurance": "Health insurance",
   "nameOfHealthInsurance": "Name of health insurance company / private insurance company.*",
+  "other_activities": "Other activities",
+  "current_main_activity": "Current main activity",
+  "for_short_term_employees": "(for short-term employees also previous employment in the\ncurrent calendar year)",
+  "employer_relevant_information": "Employer relevant information",
+  "employed_as": "Employer as",
+  "personnel_number": "Personnal number",
+  "job_title": "Job title",
+  "place_of_work": "Place of work",
+  "locations": "Loactions",
+  "working_area": "Working area",
+  "holiday_entitlement": "Holiday entitlement (per calendar year for a 5-day week)",
+  "superior": "Superior",
+  "deputy_supervisor": "Deputy Supervisor",
+  "entry_date": "Entry date",
+  "contract_end": "Contract end",
+  "the_eployee_has_provided_all_evidence": "The employee has provided all evidence",
+  "active": "Active"
+
 
 
 
