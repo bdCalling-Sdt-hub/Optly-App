@@ -42,23 +42,23 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 //============================> Task Tile <=========================
-                CustomListTile(
-                  priIcon: AppIcons.task,
-                  title: 'Task',
-                  onTab: () {
-                    Get.back();
-                    Get.toNamed(AppRoutes.tasksScreen);
-                  },
-                ),
-                //===========================> Notes Tile <=========================
-                CustomListTile(
-                  priIcon:AppIcons.notes,
-                  title: 'Notes',
-                  onTab: () {
-                    Get.back();
-                    Get.toNamed(AppRoutes.notesScreen);
-                  },
-                ),
+                // CustomListTile(
+                //   priIcon: AppIcons.task,
+                //   title: 'Task',
+                //   onTab: () {
+                //     Get.back();
+                //     Get.toNamed(AppRoutes.tasksScreen);
+                //   },
+                // ),
+                // //===========================> Notes Tile <=========================
+                // CustomListTile(
+                //   priIcon:AppIcons.notes,
+                //   title: 'Notes',
+                //   onTab: () {
+                //     Get.back();
+                //     Get.toNamed(AppRoutes.notesScreen);
+                //   },
+                // ),
                 //=========================> Shift Plan Tile <========================
                 CustomListTile(
                   priIcon: AppIcons.shiftPlan,
@@ -72,35 +72,35 @@ class CustomDrawer extends StatelessWidget {
                   onTab: () {},
                 ),
                 //========================> Hygiene plans Tile <=====================
-                CustomListTile(
-                  priIcon:AppIcons.hygienePlan,
-                  title: 'Hygiene Plans',
-                  onTab: () {},
-                ),
-                //====================> Hygiene maintenance Tile <===================
-                CustomListTile(
-                  priIcon:AppIcons.hygieneMain,
-                  title: 'Hygiene Maintenance',
-                  onTab: () {},
-                ),
-                //===========================> Products Tile <========================
-                CustomListTile(
-                  priIcon: AppIcons.products,
-                  title: 'Products',
-                  onTab: () {},
-                ),
-                //=========================> Inventories Tile <======================
-                CustomListTile(
-                  priIcon: AppIcons.inventories,
-                  title: 'Inventories',
-                  onTab: () {},
-                ),
-                //========================> Team Calendar Tile <======================
-                CustomListTile(
-                  priIcon: AppIcons.calender,
-                  title: 'Team Calendar',
-                  onTab: () {},
-                ),
+                // CustomListTile(
+                //   priIcon:AppIcons.hygienePlan,
+                //   title: 'Hygiene Plans',
+                //   onTab: () {},
+                // ),
+                // //====================> Hygiene maintenance Tile <===================
+                // CustomListTile(
+                //   priIcon:AppIcons.hygieneMain,
+                //   title: 'Hygiene Maintenance',
+                //   onTab: () {},
+                // ),
+                // //===========================> Products Tile <========================
+                // CustomListTile(
+                //   priIcon: AppIcons.products,
+                //   title: 'Products',
+                //   onTab: () {},
+                // ),
+                // //=========================> Inventories Tile <======================
+                // CustomListTile(
+                //   priIcon: AppIcons.inventories,
+                //   title: 'Inventories',
+                //   onTab: () {},
+                // ),
+                // //========================> Team Calendar Tile <======================
+                // CustomListTile(
+                //   priIcon: AppIcons.calender,
+                //   title: 'Team Calendar',
+                //   onTab: () {},
+                // ),
                 //===========================> Absence Tile <=========================
                 CustomListTile(
                   priIcon:AppIcons.absences,
