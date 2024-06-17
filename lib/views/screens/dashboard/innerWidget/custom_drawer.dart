@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../widgets/custom_text.dart';
+import '../../availability/availability_screen.dart';
 import '../../mySchedulePlan/my_schedule_plan.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -73,7 +74,10 @@ class CustomDrawer extends StatelessWidget {
                 CustomListTile(
                   priIcon:AppIcons.availability,
                   title: 'Availability',
-                  onTab: () {},
+                  onTab: () {
+                    Get.back();
+                    Get.to(AvailabilityScreen());
+                  },
                 ),
                 //========================> Hygiene plans Tile <=====================
                 // CustomListTile(

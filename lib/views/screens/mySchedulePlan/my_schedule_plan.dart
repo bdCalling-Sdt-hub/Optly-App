@@ -21,15 +21,6 @@ class _MySchedulePlanScreenState extends State<MySchedulePlanScreen> {
   final MySchedulePlanController _mySchedulePlanController =
       Get.put(MySchedulePlanController());
 
-  var dataList = [
-    {"title": "Montag", "key": "27.05.2024"},
-    {"title": "Dienstag", "key": "27.05.2024"},
-    {"title": "Mittwoch", "key": "27.05.2024"},
-    {"title": "Donnerstag", "key": "27.05.2024"},
-    {"title": "Freitag", "key": "27.05.2024"},
-    {"title": "Samstag", "key": "01.06.2024"},
-    {"title": "Sonntag", "key": "02.06.2024"},
-  ];
 
   @override
   void initState() {

@@ -118,7 +118,8 @@
   "the_employee_has_provided_all_evidence": "The employee has provided all evidence",
   "active": "Active",
   "my_shift_plan": "My shift plan",
-  "the_shift_schedule_has_not_yet_been_released": "The shift schedule has not yet been released"
+  "the_shift_schedule_has_not_yet_been_released": "The shift schedule has not yet been released",
+  "availability": "Availability"
 
 
 
