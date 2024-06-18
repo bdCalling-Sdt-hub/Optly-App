@@ -122,7 +122,10 @@
   "availability": "Availability",
   "my_profile": "My profile",
   "absence": "Absence",
-  "shift_plan": "Shift plan"
+  "shift_plan": "Shift plan",
+  "to_update": "To Update",
+  "from_date": "From Date",
+  "till_date": "Till Date"
 
 
 
