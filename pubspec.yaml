@@ -51,6 +51,7 @@ dependencies:
   easy_date_timeline:
   syncfusion_flutter_signaturepad: ^26.1.35
   csv:
+  flutter_localization: ^0.2.0
 
 
 dev_dependencies:

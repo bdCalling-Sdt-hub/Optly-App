@@ -16,10 +16,12 @@ class AppConstants {
   static RegExp passwordValidator = RegExp(
       r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
   static List<LanguageModel> languages = [
+
     LanguageModel(
         languageName: 'English', countryCode: 'US', languageCode: 'en'),
     LanguageModel(
         languageName: 'German', countryCode: 'GR', languageCode: 'gr'),
+
   ];
 
   static String userId="UserId";

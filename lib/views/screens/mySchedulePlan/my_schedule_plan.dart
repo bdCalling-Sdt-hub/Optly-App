@@ -57,10 +57,7 @@ class _MySchedulePlanScreenState extends State<MySchedulePlanScreen> {
             ? const CustomPageLoading()
             : Stack(
                 children: [
-                  Positioned(
-                      child: _mySchedulePlanController.loading.value
-                          ? const CustomPageLoading()
-                          : const SizedBox()),
+
                   SingleChildScrollView(
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
@@ -92,6 +89,10 @@ class _MySchedulePlanScreenState extends State<MySchedulePlanScreen> {
                       ],
                     ),
                   ),
+                  Positioned(
+                      child: _mySchedulePlanController.loading.value
+                          ? const CustomPageLoading()
+                          : const SizedBox()),
                 ],
               ),
       ),

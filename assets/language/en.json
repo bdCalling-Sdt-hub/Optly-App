@@ -119,7 +119,10 @@
   "active": "Active",
   "my_shift_plan": "My shift plan",
   "the_shift_schedule_has_not_yet_been_released": "The shift schedule has not yet been released",
-  "availability": "Availability"
+  "availability": "Availability",
+  "my_profile": "My profile",
+  "absence": "Absence",
+  "shift_plan": "Shift plan"
 
 
 

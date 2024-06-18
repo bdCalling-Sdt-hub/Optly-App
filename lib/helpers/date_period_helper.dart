@@ -17,6 +17,7 @@ class DatePeriod {
   String getFormattedStartDate() {
     return DateFormat('yyyy-MM-dd').format(startDate);
   }
+
   List<Map<String, String>> getDayNameAndDates() {
     List<Map<String, String>> days = [];
     for (int i = 0; i < 7; i++) {
@@ -29,6 +30,18 @@ class DatePeriod {
     return days;
   }
 
+  List<Map<String, dynamic>> getSortDayNameAndDates() {
+    List<Map<String, dynamic>> days = [];
+    for (int i = 0; i < 7; i++) {
+      DateTime currentDate = startDate.add(Duration(days: i));
+      days.add({
+        'day': DateFormat('EEE','de')
+            .format(currentDate), // Short form day name in German
+        'date': currentDate, // DateTime object
+      });
+    }
+    return days;
+  }
 
   @override
   String toString() {
@@ -36,6 +49,6 @@ class DatePeriod {
   }
 
   String _formatDate(DateTime date) {
-    return '${date.day}.${DateFormat('MMMM').format(date)}';
+    return '${date.day}.${DateFormat('MMMM', 'de' ).format(date)}';
   }
 }

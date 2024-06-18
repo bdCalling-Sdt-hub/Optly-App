@@ -37,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
                 //==========================> MyProfile Tile <======================
                 CustomListTile(
                   priIcon: AppIcons.person,
-                  title: 'My Profile',
+                  title: 'my_profile'.tr,
                   onTab: () {
                     Get.back();
                     Get.toNamed(AppRoutes.profileScreen);
@@ -64,7 +64,7 @@ class CustomDrawer extends StatelessWidget {
                 //=========================> Shift Plan Tile <========================
                 CustomListTile(
                   priIcon: AppIcons.shiftPlan,
-                  title: 'Shift Plan',
+                  title: 'shift_plan'.tr,
                   onTab: () {
                     Get.back();
                     Get.to(MySchedulePlanScreen());
@@ -73,7 +73,7 @@ class CustomDrawer extends StatelessWidget {
                 //========================> Availability Tile <=======================
                 CustomListTile(
                   priIcon:AppIcons.availability,
-                  title: 'Availability',
+                  title: 'availability'.tr,
                   onTab: () {
                     Get.back();
                     Get.to(AvailabilityScreen());
@@ -112,7 +112,7 @@ class CustomDrawer extends StatelessWidget {
                 //===========================> Absence Tile <=========================
                 CustomListTile(
                   priIcon:AppIcons.absences,
-                  title: 'Absence',
+                  title: 'absence'.tr,
                   onTab: () {},
                 ),
               ],

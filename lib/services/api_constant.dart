@@ -9,6 +9,7 @@ class ApiConstant {
   static String getTimeAccount(String userId)=>"/timeaccount/$userId";
   static String logout="/logout";
   static String getMySchedule(String date)=>"/schichtplan/$date";
+  static String getAvailability(String date)=>"/schichtplan/availability/$date";
 
 
 
