@@ -264,7 +264,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
           children: [
             Expanded(
                 child: Text(
-              "absences".tr,
+              "Disease_reports".tr,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
             )),
             OutlinedButton(

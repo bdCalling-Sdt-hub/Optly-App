@@ -122,5 +122,22 @@
   "availability": "Verfügbarkeit",
   "my_profile": "Mein Profil",
   "absence": "Abwesenheit",
-  "shift_plan": "Schichtplan"
+  "shift_plan": "Schichtplan",
+  "to_update": "Aktualisieren",
+  "from_date": "Von Datum",
+  "till_date": "Bis Datum",
+  "absences": "Abwesenheiten",
+  "new": "Neu",
+  "start_date": "Startdatum",
+  "end_date": "Enddatum",
+  "absence_type": "Abwesenheitstyp",
+  "take": "Nehmen",
+  "status": "Status",
+  "Disease_reports": "Krankmeldungen",
+  "picture": "Bild",
+  "overview_current_year": "Übersicht laufendes Jahr",
+  "Entitlement to vacation days for the current year": "Anspruch auf Urlaubstage für das laufende Jahr",
+  "approved_vacation_days": "Genehmigte Urlaubstage",
+  "open_vacation_requests": "Offene Urlaubsanträge",
+  "remaining_vacation_days": "Verbleibende Urlaubstage"
 }
