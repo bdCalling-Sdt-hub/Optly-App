@@ -52,6 +52,7 @@ dependencies:
   syncfusion_flutter_signaturepad: ^26.1.35
   csv:
   flutter_localization: ^0.2.0
+  path_provider:
 
 
 dev_dependencies:

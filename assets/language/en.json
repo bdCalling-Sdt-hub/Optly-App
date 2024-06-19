@@ -7,7 +7,7 @@
   "theFollowing" : "The following months still need to be completed",
   "currentTimeRecording": "Current time recording",
   "testingCenter": "Testing center",
-  "LengthOfTime": "Length of time",
+  "lengthOfTime": "Length of time",
   "stopTimeRecording": "STOP TIME RECORDING",
   "stopBreakTime": "STOP BREAD TIME",
   "myLayers": "My layers",
@@ -125,7 +125,21 @@
   "shift_plan": "Shift plan",
   "to_update": "To Update",
   "from_date": "From Date",
-  "till_date": "Till Date"
+  "till_date": "Till Date",
+  "absences": "Absences",
+  "new": "New",
+  "start_date": "Start date",
+  "end_date": "End date",
+  "absence_type": "Absence type",
+  "take": "Take",
+  "status": "Status",
+  "Disease_reports": "Disease reports",
+  "picture": "Picture",
+  "overview_current_year": "Overview current year",
+  "Entitlement to vacation days for the current year":"Entitlement to vacation days for the current year" ,
+  "approved_vacation_days": "Approved vacation days",
+  "open_vacation_requests": "Open vacation requests",
+  "remaining_vacation_days": "Remaining vacation days"
 
 
 
