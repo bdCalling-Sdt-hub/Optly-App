@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/app_colors.dart';
 
 ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
@@ -7,19 +8,32 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
       primaryColor: color,
       secondaryHeaderColor: Color(0xFF7c7c7c),
       disabledColor: Color(0xFFBABFC4),
+      dividerColor: AppColors.dividerColor,
       brightness: Brightness.light,
-      hintColor: Color(0xFF9F9F9F),
+      hintColor: const Color(0xFF9F9F9F),
+      canvasColor: Colors.white,
       cardColor: Colors.white,
       scaffoldBackgroundColor: AppColors.white,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.backgroundColor,
         elevation: 5,
       ),
+      dropdownMenuTheme:  const DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border:OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black
+            )
+          )
+
+        )
+      ),
+      //drawerTheme: DrawerThemeData(width:28.w),
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: color)),
       colorScheme: ColorScheme.light(primary: color, secondary: color)
           .copyWith(background: const Color(0xFF7c7c7c))
-          .copyWith(error: Color(0xFFE84D4F)),
+          .copyWith(error: const Color(0xFFE84D4F)),
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,

@@ -1,22 +1,26 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_constants.dart';
-import 'package:optly/views/screens/logInScreen/log_in_screen.dart';
 import 'controller/localaization_controller.dart';
 import 'controller/theme_controller.dart';
 import 'helpers/di.dart' as di;
 import 'themes/light_theme.dart';
 import 'utils/messages.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Map<String, Map<String, String>> _languages = await di.init();
   runApp(MyApp(
-    languages: _languages,
-  ));
+      languages: _languages,
+    ));
+
+
 }
 
 class MyApp extends StatelessWidget {
@@ -41,10 +45,17 @@ class MyApp extends StatelessWidget {
                 translations: Messages(languages: languages),
                 fallbackLocale: Locale(AppConstants.languages[0].languageCode,
                     AppConstants.languages[0].countryCode),
+                localizationsDelegates: [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', 'US'), // English
+                  const Locale('de', 'DE'), // German
+                ],
                 transitionDuration: const Duration(milliseconds: 500),
                 getPages: AppRoutes.routes,
-                initialRoute: AppRoutes.logInScreen,
-                home: LogInScreen(),
+                initialRoute: AppRoutes.splashScreen,
               );
             });
       });

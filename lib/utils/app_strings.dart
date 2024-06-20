@@ -9,22 +9,35 @@ class AppString {
   static String signIn="signIn";
 
   //================> Home Screen <====================
-  static String theFollowing = "The following months still need to be completed";
-  static String currentTime = "Current time recording";
-  static String testingCenter = "Testing center Zwanzig20";
+  static String theFollowing = "theFollowing";
+  static String currentTimeRecording = "currentTimeRecording";
+  static String testingCenter = "testingCenter";
   static String startOfWork = "Start of work";
-  static String lengthOfTime = "Length of time";
+  static String lengthOfTime = "lengthOfTime";
   static String alterHours = "Alter o hours, you are legally obliged to take a break of 30 minutes!";
-  static String stopBreak = "STOP BREAK TIME";
-  static String stopTime = "STOP TIME RECORDING";
-  static String myLayers = "My layers";
-  static String youAreNotCurrently = "You are not currently scheduled for a shift";
-  static String currentTimeRecording = "Current time recording";
-  static String actualHours = "Actual hours";
-  static String currentMonth = "Current month";
-  static String overtimeMonthly = "Overtime monthly";
-  static String openTasks = "Open tasks";
-  static String youCurrently = "You currently have no open tasks";
+  static String stopBreakTime = "stopBreakTime";
+  static String stopTimeRecording = "stopTimeRecording";
+  static String myLayers = "myLayers";
+  static String myHygienePlan = "myHygienePlan";
+
+  static String youAreNotCurrentlyScheduledForAShift = "youAreNotCurrentlyScheduledForAShift";
+  static String actualHours = "actualHours";
+  static String currentMonth = "currentMonth";
+  static String overtime = "overtime";
+  static String monthly="monthly";
+  static String openTasks = "openTasks";
+  static String youCurrentlyHaveNoOpenTasks = "You currently have no open tasks";
+  static String youCurrentlyHaveNoPlannedHygienePlan="You currently have no planned hygiene plan";
+  static String timeAccountOverView="timeAccountOverView";
+  static String profile="profile";
+  static String bookedWorkingHours="bookedWorkingHours";
+  static String information="information";
+  static String fee="fee";
+  static String documents="documents";
+  static String zeitkonto="Zeitkonto";
+  static String pinCode="pinCode";
+
+
 
 
 }

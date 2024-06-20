@@ -1,10 +1,10 @@
 
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/localaization_controller.dart';
-import '../controller/overview_controller.dart';
 import '../controller/theme_controller.dart';
 import '../models/language_models.dart';
 import '../utils/app_constants.dart';
@@ -18,7 +18,7 @@ Future<Map<String, Map<String, String>>>  init() async {
 
   Get.lazyPut(() => ThemeController(sharedPreferences: Get.find()));
   Get.lazyPut(() => LocalizationController(sharedPreferences: Get.find()));
-  Get.lazyPut(() => OverviewController());
+
 
 
 
