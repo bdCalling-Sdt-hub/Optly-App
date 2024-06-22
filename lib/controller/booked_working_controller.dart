@@ -10,6 +10,8 @@ import '../utils/app_constants.dart';
 class BookedWorkingController extends GetxController {
   Rx<BookedWorkingModel> bookedWorkData = BookedWorkingModel().obs;
   var loading = false.obs;
+  var totalWorkingMinutes = 0.obs;
+  var totalBookedTime = 0.obs;
 
   getBookedWorking(
       {required String id, required String month, required String year}) async {
@@ -18,15 +20,57 @@ class BookedWorkingController extends GetxController {
     // var headers = {
     //   'Authorization': 'Bearer $bearerToken'
     // };
-    var response =
-        await ApiClient.getData(ApiConstant.getBookedWorking(id, month, year,));
+    var response = await ApiClient.getData(ApiConstant.getBookedWorking(
+      id,
+      month,
+      year,
+    ));
     if (response.body['success']) {
       bookedWorkData.value = BookedWorkingModel.fromJson(response.body);
+      getTotalBookedTime(bookedWorkData.value.data!.entries!);
+      getTotalWorkingMinutes(bookedWorkData.value.data!.entries!,
+          bookedWorkData.value.data!.subtractbreaks == 1);
       loading(false);
     } else {
       if (bookedWorkData.value.data != null) {
         loading(false);
       }
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  getTotalWorkingMinutes(List<Entry> items, bool subtractBreaks) {
+    int sumCount = 0;
+    for (var item in items) {
+      if (item.workedtime != null) {
+        int workedTime = item.workedtime ?? 0;
+        if (subtractBreaks) {
+          workedTime -= item.entryBreak ?? 0;
+        }
+        sumCount += workedTime;
+      }
+    }
+
+    totalWorkingMinutes.value = sumCount;
+  }
+
+  getTotalBookedTime(List<Entry> entryList) {
+    for (var e in entryList) {
+      if (e.workedtime != null) {
+        totalBookedTime.value = totalBookedTime.value + e.workedtime!;
+      }
+    }
+  }
+
+  closeMonthFinalize(
+      {required String id, required String month, required String year ,required String signature}) async {
+    var userId = await PrefsHelper.getInt(AppConstants.userId);
+    var body = {"month": int.parse(month), "year": int.parse(year), "signature":signature};
+    var response = await ApiClient.postData(ApiConstant.finalize(userId.toString()), body);
+    if (response.body['success']) {
+      getBookedWorking(id: id, month: month, year: year);
+      Get.back();
+    } else {
       ApiChecker.checkApi(response);
     }
   }

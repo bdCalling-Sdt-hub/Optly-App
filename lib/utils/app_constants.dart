@@ -17,8 +17,10 @@ class AppConstants {
   static List<LanguageModel> languages = [
     LanguageModel(
         languageName: 'German', countryCode: 'GR', languageCode: 'gr'),
+
     LanguageModel(
         languageName: 'English', countryCode: 'US', languageCode: 'en'),
+
   ];
 
   static String userId = "UserId";

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -6,10 +7,16 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import 'dart:ui' as ui;
 
+import '../../../../controller/booked_working_controller.dart';
 import '../../../../utils/app_colors.dart';
 
 class CompleteMonthDialog extends StatefulWidget {
-  CompleteMonthDialog({super.key});
+  CompleteMonthDialog(
+      {super.key, required this.id, required this.month, required this.year});
+
+  final String id;
+  final String month;
+  final String year;
 
   @override
   State<CompleteMonthDialog> createState() => _CompleteMonthDialogState();
@@ -18,8 +25,25 @@ class CompleteMonthDialog extends StatefulWidget {
 class _CompleteMonthDialogState extends State<CompleteMonthDialog> {
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
   Uint8List? _signatureData;
+  var base64String;
 
   bool _hasSignature = false;
+
+  // Future<void> _saveSignature() async {
+  //   final data = await _signaturePadKey.currentState?.toImage();
+  //   if (data != null) {
+  //     final pngBytes = await data.toByteData(format: ui.ImageByteFormat.png);
+  //     if (pngBytes != null) {
+  //       setState(() {
+  //         _signatureData = pngBytes.buffer.asUint8List();
+  //         if (_signatureData != null) {
+  //           base64 = base64Encode(_signatureData!);
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
+
 
   Future<void> _saveSignature() async {
     final data = await _signaturePadKey.currentState?.toImage();
@@ -28,7 +52,13 @@ class _CompleteMonthDialogState extends State<CompleteMonthDialog> {
       if (pngBytes != null) {
         setState(() {
           _signatureData = pngBytes.buffer.asUint8List();
+          _hasSignature = true; // Update this if needed
         });
+
+        // Convert to Base64 string directly after saving the signature data
+         base64String  = 'data:image/png;base64/${base64Encode(_signatureData!)}';
+
+        print(base64String); // You can use this string as needed
       }
     }
   }
@@ -53,6 +83,9 @@ class _CompleteMonthDialogState extends State<CompleteMonthDialog> {
       _hasSignature = false;
     });
   }
+
+  final BookedWorkingController _bookedWorkingController =
+      Get.put(BookedWorkingController());
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +164,11 @@ class _CompleteMonthDialogState extends State<CompleteMonthDialog> {
         ElevatedButton(
           onPressed: () async {
             if (_signatureData != null) {
-              debugPrint("check print path");
+              _bookedWorkingController.closeMonthFinalize(
+                  id: widget.id,
+                  month: widget.month,
+                  year: widget.year,
+                  signature: base64String);
             }
           },
           style:

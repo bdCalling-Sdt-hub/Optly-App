@@ -11,6 +11,7 @@ class ApiConstant {
   static String getMySchedule(String date)=>"/schichtplan/$date";
   static String getAvailability(String date)=>"/schichtplan/availability/$date";
   static String getAbsence(String startDate ,endDate)=>"/absence/info/$startDate/$endDate";
+  static String finalize(String userId)=>"/finalize/$userId";
 
 
 
