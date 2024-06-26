@@ -6,7 +6,7 @@ ThemeData light({Color color = const Color(0xFF70c2d1)}) => ThemeData(
       fontFamily: 'Roboto',
       iconTheme: IconThemeData(color: AppColors.primaryColor),
       primaryColor: color,
-      secondaryHeaderColor: Color(0xFF7c7c7c),
+     // secondaryHeaderColor: Color(0xFF7c7c7c),
       disabledColor: Color(0xFFBABFC4),
       dividerColor: AppColors.dividerColor,
       brightness: Brightness.light,
