@@ -13,6 +13,7 @@ class ApiConstant {
   static String getAbsence(String startDate ,endDate)=>"/absence/info/$startDate/$endDate";
   static String finalize(String userId)=>"/finalize/$userId";
   static String postAbsence="/absence";
+  static String deleteAbsence(String id)=>"/absence/$id";
 
 
 

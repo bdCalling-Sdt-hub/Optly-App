@@ -98,16 +98,18 @@ class AbsencesController extends GetxController {
       required DateTime endDate}) async {
     var userId = await PrefsHelper.getInt(AppConstants.userId);
     generateEntries(startDate, endDate);
-    Map<String,String> body = {
-      "data":jsonEncode({
-        "entries":entries,
+    Map<String, String> body = {
+      "data": jsonEncode({
+        "entries": entries,
         "userid": userId,
         "type": type,
         "status": 1,
-        "description": des??""
+        "description": des ?? ""
       })
     };
-    var response = await ApiClient.postMultipartData(ApiConstant.postAbsence, body, multipartBody: []);
+    var response = await ApiClient.postMultipartData(
+        ApiConstant.postAbsence, body,
+        multipartBody: []);
     if (response.body['success']) {
       getAbsence(isFirst: false);
       Get.back();
@@ -137,6 +139,16 @@ class AbsencesController extends GetxController {
       });
 
       currentStartDate = currentEndDate.add(const Duration(days: 1));
+    }
+  }
+
+  deleteAbsence(String id) async {
+    var response = await ApiClient.deleteData(ApiConstant.deleteAbsence(id));
+    if (response.body['success']) {
+      getAbsence(isFirst: false);
+      Get.back();
+    } else {
+      ApiChecker.checkApi(response);
     }
   }
 }

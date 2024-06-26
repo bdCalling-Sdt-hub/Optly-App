@@ -12,6 +12,7 @@ import 'dart:io';
 import '../../../helpers/prefs_helpers.dart';
 import '../../../utils/app_constants.dart';
 import 'add_absences_dialog.dart';
+import 'disease_reports_dialog.dart';
 
 class AbsencesScreen extends StatefulWidget {
   const AbsencesScreen({super.key});
@@ -219,7 +220,8 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
             )),
             OutlinedButton(
                 onPressed: () {
-                  showDialog(context: context, builder:(_)=>AddAbsencesDialog());
+                  showDialog(
+                      context: context, builder: (_) => AddAbsencesDialog());
                 },
                 style: OutlinedButton.styleFrom(
                     maximumSize: Size(40.w, 30.w),
@@ -277,7 +279,57 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
                             widget: Align(
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) => AlertDialog(
+                                                backgroundColor: Colors.white,
+                                                title: const Text(
+                                                    "Abwesenheitsantrag löschen"),
+                                                content: Text(
+                                                  "Bist Du sicher, dass Du den Abwesenheitsantrag unwiderruflich löschen wollen?",
+                                                  style: TextStyle(
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                ),
+                                                actions: [
+                                                  OutlinedButton(
+                                                      onPressed: () {
+                                                        _absencesController.deleteAbsence(data.id.toString());
+                                                      },
+                                                      style: OutlinedButton.styleFrom(
+                                                          backgroundColor:
+                                                              AppColors
+                                                                  .primaryColor,
+                                                          side: BorderSide(
+                                                              color: AppColors
+                                                                  .primaryColor)),
+                                                      child: const Text(
+                                                        "JA",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )),
+                                                  OutlinedButton(
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      style: OutlinedButton
+                                                          .styleFrom(
+                                                              side: BorderSide(
+                                                                  color: Colors
+                                                                      .redAccent
+                                                                      .shade400)),
+                                                      child: Text(
+                                                        "NEIN",
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .redAccent
+                                                                .shade400),
+                                                      ))
+                                                ],
+                                              ));
+                                    },
                                     icon: const Icon(
                                       Icons.delete,
                                       color: Colors.red,
@@ -308,7 +360,10 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
             )),
             OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context, builder: (_) => DiseaseReportsDialog());
+                },
                 style: OutlinedButton.styleFrom(
                     maximumSize: Size(40.w, 30.w),
                     minimumSize: Size(40.w, 30.w),
