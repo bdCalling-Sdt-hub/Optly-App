@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -110,6 +111,35 @@ class AbsencesController extends GetxController {
     var response = await ApiClient.postMultipartData(
         ApiConstant.postAbsence, body,
         multipartBody: []);
+    if (response.body['success']) {
+      getAbsence(isFirst: false);
+      Get.back();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  ///  addd sick absence
+
+
+  addSickAbsence(
+      {
+        required DateTime startDate,
+        required DateTime endDate, File? filePath}) async {
+    var userId = await PrefsHelper.getInt(AppConstants.userId);
+    generateEntries(startDate, endDate);
+    Map<String, String> body = {
+      "data": jsonEncode({
+        "entries": entries,
+        "userid": userId,
+        "type": "Krankmeldung",
+        "status": 1,
+        "description": ""
+      })
+    };
+    var response = await ApiClient.postMultipartData(
+        ApiConstant.postAbsence, body,
+        multipartBody: [MultipartBody("file", filePath!)]);
     if (response.body['success']) {
       getAbsence(isFirst: false);
       Get.back();
