@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:optly/controller/dashboard_controller.dart';
 import 'package:optly/controller/data_controller.dart';
+import 'package:optly/helpers/data.dart';
 import 'package:optly/helpers/date_time_formatter.dart';
 import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_colors.dart';
@@ -81,7 +82,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         children: [
           ///==============================> Banner Widget <===========================
-          const BannerWidget(),
+           BannerWidget(date:"${monthList[_dashboardController.dashboardData.value.data!.currents![0].month!-1]} ${_dashboardController.dashboardData.value.data!.currents![0].year}",),
           SizedBox(height: 12.h),
 
           ///==============================> Current Time Recording Widget <===========================
@@ -138,7 +139,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Expanded(
                   child: CustomText(
-                    text: AppString.startOfWork,
+                    text:""
+                        "Arbeitsbeginn",
                     fontsize: 14.w,
                     textAlign: TextAlign.start,
                   ),
@@ -169,7 +171,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Expanded(
                   child: CustomText(
-                    text: AppString.lengthOfTime.tr,
+                    text: "Dauer",
                     fontsize: 14.w,
                     textAlign: TextAlign.start,
                   ),

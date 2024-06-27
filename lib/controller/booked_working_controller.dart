@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:optly/models/booked_working_model.dart';
 import 'package:optly/services/api_check.dart';
@@ -65,8 +68,11 @@ class BookedWorkingController extends GetxController {
   closeMonthFinalize(
       {required String id, required String month, required String year ,required String signature}) async {
     var userId = await PrefsHelper.getInt(AppConstants.userId);
-    var body = {"month": int.parse(month), "year": int.parse(year), "signature":signature};
-    var response = await ApiClient.postData(ApiConstant.finalize(userId.toString()), body);
+     Map<String, dynamic> data = {
+      'year': year,
+      'month': month,
+      'signature': signature};
+    var response = await ApiClient.postData(ApiConstant.finalize(userId.toString()), json.encode(data));
     if (response.body['success']) {
       getBookedWorking(id: id, month: month, year: year);
       Get.back();
