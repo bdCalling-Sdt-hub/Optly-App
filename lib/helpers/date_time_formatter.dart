@@ -38,4 +38,15 @@ class DateTimeFormatterHelper {
     var _difference =hours==0? '$minutes Min.':'$hours Std. $minutes Min.';
     return _difference;
   }
+
+  static String calculateMinutesToHour(int totalMinutes) {
+    int hours = totalMinutes ~/ 60;
+    int minutes = totalMinutes % 60;
+
+    String hoursStr = hours.toString().padLeft(2, '0');
+    String minutesStr = minutes.toString().padLeft(2, '0');
+
+    return '$hoursStr:$minutesStr h';
+  }
+
 }
