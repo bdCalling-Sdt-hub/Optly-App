@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:optly/helpers/data.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_text.dart';
 
 class BannerWidget extends StatelessWidget {
-  const BannerWidget({
+   BannerWidget({
     super.key,
+    required this.date
   });
+  String date;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class BannerWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: 12.w, vertical: 6.h),
                 child: CustomText(
-                  text: 'MAY 2024',
+                  text: date,
                   color: AppColors.white,
                 ),
               ),

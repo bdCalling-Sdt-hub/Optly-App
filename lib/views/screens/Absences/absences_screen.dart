@@ -11,6 +11,8 @@ import 'dart:io';
 
 import '../../../helpers/prefs_helpers.dart';
 import '../../../utils/app_constants.dart';
+import 'add_absences_dialog.dart';
+import 'disease_reports_dialog.dart';
 
 class AbsencesScreen extends StatefulWidget {
   const AbsencesScreen({super.key});
@@ -28,6 +30,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
     _absencesController.getAbsence(isFirst: true);
     super.initState();
   }
+
   double _progress = 10.0;
   bool _downloading = false;
   late Future<void> _downloadFuture;
@@ -42,7 +45,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
       // Get the application directory for storing the file
       var dir = await getApplicationDocumentsDirectory();
       String filePath = "${dir.path}/$fileName";
-   var   bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
+      var bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
       var mainHeaders = {
         // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -51,7 +54,11 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
       };
 
       // Send HTTP GET request
-      var request = http.Request('GET', Uri.parse(url,));
+      var request = http.Request(
+          'GET',
+          Uri.parse(
+            url,
+          ));
       request.headers.addAll(mainHeaders);
       var response = await request.send();
 
@@ -64,7 +71,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
 
         // Listen for the response stream and write to the file
         response.stream.listen(
-              (List<int> newBytes) {
+          (List<int> newBytes) {
             bytes.addAll(newBytes);
             downloadedBytes += newBytes.length;
             setState(() {
@@ -73,7 +80,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
           },
           onDone: () async {
             await file.writeAsBytes(bytes);
-            print("File downloaded to: $filePath") ;
+            print("File downloaded to: $filePath");
             setState(() {
               _downloading = false;
             });
@@ -100,89 +107,104 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("absence".tr),
       ),
-      body: Obx(()=>_absencesController.isFirstLoading.value?const Center(child: CustomPageLoading()):
-         Column(
-          children: [
-            SizedBox(
-              height: 5.h,
-            ),
-            if (_downloading)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: LinearProgressIndicator(
-                  value: _progress,
-                  backgroundColor: Colors.grey,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-              ),
-            SizedBox(
-              height: 10.h,
-            ),
-            _searchBar(),
-            SizedBox(
-              height: 10.h,
-            ),
-            Expanded(
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                  child: Column(
+      body: Obx(
+        () => _absencesController.isFirstLoading.value
+            ? const Center(child: CustomPageLoading())
+            : Column(
+                children: [
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  if (_downloading)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: LinearProgressIndicator(
+                        value: _progress,
+                        backgroundColor: Colors.grey,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  _searchBar(),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Expanded(
+                      child: Stack(
                     children: [
-                      _absencesList(),
-                      const Divider(),
-                      _diseaseReportsList(),
-                      _overviewCurrentYear(),
-                      SizedBox(height: 40.h,)
+                      SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: Column(
+                          children: [
+                            _absencesList(),
+                            const Divider(),
+                            _diseaseReportsList(),
+                            _overviewCurrentYear(),
+                            SizedBox(
+                              height: 40.h,
+                            )
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                          child: _absencesController.loading.value
+                              ? const CustomPageLoading()
+                              : const SizedBox()),
                     ],
-                                  ),
-                                ),
-                    Positioned(
-                        child: _absencesController.loading.value
-                            ? const CustomPageLoading()
-                            : const SizedBox()),
-                  ],
-                ))
-          ],
-                 ),
+                  ))
+                ],
+              ),
       ),
     );
   }
-  _overviewCurrentYear(){
-    var data=_absencesController.absenceData.value.data!.summary;
+
+  _overviewCurrentYear() {
+    var data = _absencesController.absenceData.value.data!.summary;
     return Card(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(3.r)),
-         ),
+        borderRadius: BorderRadius.all(Radius.circular(3.r)),
+      ),
       elevation: 4,
-      child:
-      Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.h),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("overview_current_year".tr,style:  TextStyle(fontSize:16.sp,fontWeight: FontWeight.w600),),
-            SizedBox(height: 15.h,),
-            _textTile("Entitlement to vacation days for the current year".tr,subTitle:data!.vacationdays.toString()),
-            const Divider(color: Colors.grey,),
-            _textTile("approved_vacation_days".tr,subTitle: "0"),
-            const Divider(color: Colors.grey,),
-            _textTile("open_vacation_requests".tr,subTitle: data.open.toString()),
-            const Divider(color: Colors.grey,),
-            _textTile("remaining_vacation_days".tr,subTitle:data.vacationdays.toString()),
-
+            Text(
+              "overview_current_year".tr,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            _textTile("Entitlement to vacation days for the current year".tr,
+                subTitle: data!.vacationdays.toString()),
+            const Divider(
+              color: Colors.grey,
+            ),
+            _textTile("approved_vacation_days".tr, subTitle: "0"),
+            const Divider(
+              color: Colors.grey,
+            ),
+            _textTile("open_vacation_requests".tr,
+                subTitle: data.open.toString()),
+            const Divider(
+              color: Colors.grey,
+            ),
+            _textTile("remaining_vacation_days".tr,
+                subTitle: data.vacationdays.toString()),
           ],
         ),
       ),
     );
-
   }
 
   _absencesList() {
@@ -198,7 +220,8 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
             )),
             OutlinedButton(
                 onPressed: () {
-
+                  showDialog(
+                      context: context, builder: (_) => AddAbsencesDialog());
                 },
                 style: OutlinedButton.styleFrom(
                     maximumSize: Size(40.w, 30.w),
@@ -207,7 +230,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.r),
                         side: BorderSide(color: AppColors.primaryColor))),
-                child: Text("new".tr)),
+                child: Text("NEU")),
           ],
         ),
         ListView.separated(
@@ -215,7 +238,8 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (_, index) {
-              var data=_absencesController.absenceData.value.data!.absence![index];
+              var data =
+                  _absencesController.absenceData.value.data!.absence![index];
               return Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(3.r)),
@@ -226,23 +250,90 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                   child: Column(
                     children: [
-                      _textTile("start_date", subTitle: DateFormat('dd.MM.yyyy').format(data.startdate!)),
-                      _textTile("end_date", subTitle:DateFormat('dd.MM.yyyy').format(data.enddate!)),
-                      _textTile("absence_type", subTitle: data.type??""),
-                      _textTile("description", subTitle: data.description??""),
+                      _textTile("start_date",
+                          subTitle:
+                              DateFormat('dd.MM.yyyy').format(data.startdate!)),
+                      _textTile("end_date",
+                          subTitle:
+                              DateFormat('dd.MM.yyyy').format(data.enddate!)),
+                      _textTile("absence_type", subTitle: data.type ?? ""),
+                      _textTile("description",
+                          subTitle: data.description ?? ""),
                       _textTile("take", subTitle: ""),
-                      _textTile("status", subTitle:data.status.toString()),
-                      _textTile("action",
-                          widget: Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                  onPressed: () {
-
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  )))),
+                      _textTile("status",
+                          widget: Text(
+                            data.status == 1
+                                ? "übermittelt"
+                                : data.status == 2
+                                    ? "Genehmigt"
+                                    : "Abgelehnt",
+                            style: TextStyle(
+                                color: data.status == 1
+                                    ? Colors.orange
+                                    : data.status == 2
+                                        ? Colors.green
+                                        : Colors.red),
+                          )),
+                      if (data.status == 1)
+                        _textTile("action",
+                            widget: Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) => AlertDialog(
+                                                backgroundColor: Colors.white,
+                                                title: const Text(
+                                                    "Abwesenheitsantrag löschen"),
+                                                content: Text(
+                                                  "Bist Du sicher, dass Du den Abwesenheitsantrag unwiderruflich löschen wollen?",
+                                                  style: TextStyle(
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                ),
+                                                actions: [
+                                                  OutlinedButton(
+                                                      onPressed: () {
+                                                        _absencesController.deleteAbsence(data.id.toString());
+                                                      },
+                                                      style: OutlinedButton.styleFrom(
+                                                          backgroundColor:
+                                                              AppColors
+                                                                  .primaryColor,
+                                                          side: BorderSide(
+                                                              color: AppColors
+                                                                  .primaryColor)),
+                                                      child: const Text(
+                                                        "JA",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )),
+                                                  OutlinedButton(
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      style: OutlinedButton
+                                                          .styleFrom(
+                                                              side: BorderSide(
+                                                                  color: Colors
+                                                                      .redAccent
+                                                                      .shade400)),
+                                                      child: Text(
+                                                        "NEIN",
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .redAccent
+                                                                .shade400),
+                                                      ))
+                                                ],
+                                              ));
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    )))),
                     ],
                   ),
                 ),
@@ -251,7 +342,8 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
             separatorBuilder: (_, __) => SizedBox(
                   height: 10.h,
                 ),
-            itemCount: _absencesController.absenceData.value.data!.absence!.length),
+            itemCount:
+                _absencesController.absenceData.value.data!.absence!.length),
       ],
     );
   }
@@ -268,7 +360,10 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
             )),
             OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context, builder: (_) => DiseaseReportsDialog());
+                },
                 style: OutlinedButton.styleFrom(
                     maximumSize: Size(40.w, 30.w),
                     minimumSize: Size(40.w, 30.w),
@@ -276,7 +371,7 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.r),
                         side: BorderSide(color: AppColors.primaryColor))),
-                child: Text("new".tr)),
+                child: Text("NEU")),
           ],
         ),
         ListView.separated(
@@ -284,7 +379,8 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (_, index) {
-          var data=    _absencesController.absenceData.value.data!.sick![index];
+              var data =
+                  _absencesController.absenceData.value.data!.sick![index];
               return Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(3.r)),
@@ -295,25 +391,48 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                   child: Column(
                     children: [
-                      _textTile("start_date", subTitle: DateFormat('dd.MM.yyyy').format(data.startdate!)),
-                      _textTile("end_date", subTitle: DateFormat('dd.MM.yyyy').format(data.enddate!)),
-                      _textTile("picture", widget:  Align(alignment: Alignment.centerRight,child: InkWell(
-                          onTap: (){
-                            downloadFile("https://api.optly.de/api/v1/files/${data.docid}",data.filename!);
-                          },
-                          child: Icon(Icons.request_page_sharp)),)),
+                      _textTile("start_date",
+                          subTitle:
+                              DateFormat('dd.MM.yyyy').format(data.startdate!)),
+                      _textTile("end_date",
+                          subTitle:
+                              DateFormat('dd.MM.yyyy').format(data.enddate!)),
+                      _textTile("picture",
+                          widget: Align(
+                            alignment: Alignment.centerRight,
+                            child: InkWell(
+                                onTap: () {
+                                  downloadFile(
+                                      "https://api.optly.de/api/v1/files/${data.docid}",
+                                      data.filename!);
+                                },
+                                child: Icon(Icons.request_page_sharp)),
+                          )),
                       _textTile("take", subTitle: ""),
-                      _textTile("status", subTitle: data.status.toString()),
+                      _textTile("status",
+                          widget: Text(
+                            data.status == 1
+                                ? "Eingereicht"
+                                : data.status == 2
+                                    ? "Bearbeitet"
+                                    : "",
+                            style: TextStyle(
+                                color: data.status == 1
+                                    ? Colors.orange
+                                    : data.status == 2
+                                        ? Colors.green
+                                        : Colors.red),
+                          )),
                       _textTile("action",
                           widget: const Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(),
-                              // child: IconButton(
-                              //     onPressed: () {},
-                              //     icon: const Icon(
-                              //       Icons.delete,
-                              //       color: Colors.red,
-                              //     ))
+                            alignment: Alignment.centerRight,
+                            child: SizedBox(),
+                            // child: IconButton(
+                            //     onPressed: () {},
+                            //     icon: const Icon(
+                            //       Icons.delete,
+                            //       color: Colors.red,
+                            //     ))
                           )),
                     ],
                   ),
@@ -323,7 +442,8 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
             separatorBuilder: (_, __) => SizedBox(
                   height: 10.h,
                 ),
-            itemCount: _absencesController.absenceData.value.data!.sick!.length),
+            itemCount:
+                _absencesController.absenceData.value.data!.sick!.length),
       ],
     );
   }
@@ -339,8 +459,9 @@ class _AbsencesScreenState extends State<AbsencesScreen> {
               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(width: 50.w
-            ,),
+          SizedBox(
+            width: 50.w,
+          ),
           widget ??
               Text(
                 subTitle ?? "",

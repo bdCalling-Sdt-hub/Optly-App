@@ -41,4 +41,20 @@ class MySchedulePlanController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
+  List<Schichten> querySchedulePlan(int id){
+
+    List<Schichten> demoList=[];
+
+    mySchedulePlan.value.data!.schichten!.forEach((s){
+      if(s.customerid==id){
+        demoList.add(s);
+      }
+    });
+
+    return demoList;
+
+  }
+
+
 }

@@ -53,6 +53,7 @@ dependencies:
   csv:
   flutter_localization: ^0.2.0
   path_provider:
+  file_picker:
 
 
 dev_dependencies:

@@ -46,6 +46,8 @@ class _MySchedulePlanScreenState extends State<MySchedulePlanScreen> {
     });
   }
 
+var isCheck=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,19 @@ class _MySchedulePlanScreenState extends State<MySchedulePlanScreen> {
                     child: Column(
                       children: [
                         _buildHeader(),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        CheckboxListTile(value:isCheck ,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text("Nur Meine schichten anzeigen"),
+                            onChanged: (v){
+                          isCheck=v!;
+                          setState(() {
+
+                          });
+                        }),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -114,25 +129,62 @@ class _MySchedulePlanScreenState extends State<MySchedulePlanScreen> {
                 title: Text(customerData.name ?? ""),
                 // subtitle: Text('Custom expansion arrow icon'),
                 children: _currentPeriod.getDayNameAndDates()
-                    .map((s) => Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.symmetric(vertical: 5.h),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.w, vertical: 10.h),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(s['day']!,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16.sp),),
-                              SizedBox(
-                                height: 5.h,
+                    .map((s) => Column(
+                      children: [
+                        Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.symmetric(vertical: 5.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w, vertical: 10.h),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
                               ),
-                              Text(s['date']!),
-                            ],
-                          ),
-                        ))
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(s['day']!,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16.sp),),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(s['date']!),
+                                ],
+                              ),
+                            ),
+                        if(isCheck)
+                        Column(
+                          children: _mySchedulePlanController.querySchedulePlan(customerData.id!).map((data){
+                            var date=DateFormat('dd.MM.yyyy').format(data.date!);
+                            return s['date']!= date?const SizedBox() :Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10.h),
+                            decoration: BoxDecoration(
+                              color: Colors.greenAccent.withOpacity(0.6)
+                            ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                              Container(
+                                padding:EdgeInsets.symmetric(horizontal: 15.w,vertical: 5.h),
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow.shade400,
+                                  borderRadius: BorderRadius.circular(50),
+                                  
+                                ),
+                                child:Text(data.category??"",style:const TextStyle(fontWeight: FontWeight.w600),),
+                              ),
+                                  const SizedBox(height:8,),
+                                  Text("${data.name}"),
+                                  const SizedBox(height:8,),
+                                  Text("${data.starttime} - ${data.endtime}"),
+                                  const SizedBox(height:8,),
+                                  Text("${data.username}",style: const TextStyle(fontWeight:FontWeight.w600),),
+                                ],
+                              ),
+                            );
+                          }).toList()),
+                        
+                      ],
+                    ))
                     .toList(),
               );
             },
