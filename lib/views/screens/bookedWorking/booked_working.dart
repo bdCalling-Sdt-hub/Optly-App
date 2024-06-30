@@ -29,8 +29,6 @@ class _BookedWorkingState extends State<BookedWorking> {
 
   String dropdownvalue = 'sort_by';
 
-
-
   @override
   void initState() {
     _bookedWorkingController.getBookedWorking(
@@ -83,10 +81,12 @@ class _BookedWorkingState extends State<BookedWorking> {
                                     onPressed: () {
                                       showDialog(
                                           context: context,
-                                          builder: (_) =>
-                                              CompleteMonthDialog(  id: widget.id.toString(),
-                                                  month: DateTimeFormatterHelper.formatMM(_focusedDay),
-                                                  year: _focusedDay.year.toString()));
+                                          builder: (_) => CompleteMonthDialog(
+                                              id: widget.id.toString(),
+                                              month: DateTimeFormatterHelper
+                                                  .formatMM(_focusedDay),
+                                              year:
+                                                  _focusedDay.year.toString()));
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: AppColors.primaryColor,
@@ -163,7 +163,8 @@ class _BookedWorkingState extends State<BookedWorking> {
                                             "no_booked_working_hours_available"
                                                 .tr))
                                     : ListView.separated(
-                                        physics: NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
                                           var data = _bookedWorkingController
@@ -171,58 +172,121 @@ class _BookedWorkingState extends State<BookedWorking> {
                                               .value
                                               .data!
                                               .entries![index];
-                                          return Card(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3.r)),
-                                                side: BorderSide(
-                                                    color: AppColors
-                                                        .primaryColor
-                                                        .withOpacity(0.3))),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 15.w,
-                                                  vertical: 15.h),
-                                              child: Column(
+
+                                          return Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  _textTile("start",
-                                                      data.start.toString()),
-                                                  _textTile("end",
-                                                      data.end.toString()),
-                                                  _textTile(
-                                                      "booked_times",
-                                                      data.workedtime == null
-                                                          ? ""
-                                                          : DateTimeFormatterHelper
-                                                              .calculateMinutesToHours(
-                                                                  data.workedtime!)),
-                                                  _textTile(
-                                                      "pause",
-                                                      data.entryBreak == null
-                                                          ? ""
-                                                          : DateTimeFormatterHelper
-                                                              .calculateMinutesToHours(
-                                                                  data.entryBreak!)),
-                                                  _textTile(
-                                                      "times_worked",
-                                                      data.workedtime == null
-                                                          ? ""
-                                                          : DateTimeFormatterHelper
-                                                              .calculateMinutesToHours(
-                                                                  data.workedtime! -
-                                                                      data.entryBreak!)),
-                                                  _textTile("location",
-                                                      "Testing center Zwanzig20"),
-                                                  _textTile("salary",
-                                                      "${data.hourlysalary} € / Std."),
+                                                  Text(DateTimeFormatterHelper
+                                                      .formatDD(DateTime.parse(
+                                                          data.start!)),style: TextStyle(fontWeight: FontWeight.w600),),
+                                                  Text(DateTimeFormatterHelper
+                                                      .formatDDMM(
+                                                          DateTime.parse(
+                                                              data.start!))),
                                                 ],
-                                              ),
-                                            ),
+                                              )),
+                                              SizedBox(width: 9.w,),
+                                              Expanded(
+                                                  child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Gebuchte Zeiten",style: TextStyle(fontWeight: FontWeight.w600)),
+                                                  Text( data.workedtime == null
+                                                                    ? ""
+                                                                    : DateTimeFormatterHelper
+                                                                        .calculateMinutesToHours(
+                                                                            data.workedtime!)),
+
+                                                ],
+                                              )),
+                                              SizedBox(width: 9.w,),
+                                              Expanded(child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text("Pause",style: TextStyle(fontWeight: FontWeight.w600)),
+                                                  Text(data.entryBreak == null
+                                                                    ? ""
+                                                                    : DateTimeFormatterHelper
+                                                                        .calculateMinutesToHours(
+                                                                            data.entryBreak!))
+                                                ],
+                                              )),
+                                              SizedBox(width: 9.w,),
+                                              Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text("Geleistete Zeiten",style: TextStyle(fontWeight: FontWeight.w600)),
+                                                  Text( data.workedtime == null
+                                                                    ? ""
+                                                                    : DateTimeFormatterHelper
+                                                                        .calculateMinutesToHours(
+                                                                            data.workedtime! -
+                                                                                data.entryBreak!))
+
+                                                ],
+                                              ))
+                                            ],
                                           );
+                                          // return Card(
+                                          //   shape: RoundedRectangleBorder(
+                                          //       borderRadius: BorderRadius.all(
+                                          //           Radius.circular(3.r)),
+                                          //       side: BorderSide(
+                                          //           color: AppColors
+                                          //               .primaryColor
+                                          //               .withOpacity(0.3))),
+                                          //   child: Padding(
+                                          //     padding: EdgeInsets.symmetric(
+                                          //         horizontal: 15.w,
+                                          //         vertical: 15.h),
+                                          //     child: Column(
+                                          //       children: [
+                                          //         _textTile("start",
+                                          //             data.start.toString()),
+                                          //         _textTile("end",
+                                          //             data.end.toString()),
+                                          //         _textTile(
+                                          //             "booked_times",
+                                          //             data.workedtime == null
+                                          //                 ? ""
+                                          //                 : DateTimeFormatterHelper
+                                          //                     .calculateMinutesToHours(
+                                          //                         data.workedtime!)),
+                                          //         _textTile(
+                                          //             "pause",
+                                          //             data.entryBreak == null
+                                          //                 ? ""
+                                          //                 : DateTimeFormatterHelper
+                                          //                     .calculateMinutesToHours(
+                                          //                         data.entryBreak!)),
+                                          //         _textTile(
+                                          //             "times_worked",
+                                          //             data.workedtime == null
+                                          //                 ? ""
+                                          //                 : DateTimeFormatterHelper
+                                          //                     .calculateMinutesToHours(
+                                          //                         data.workedtime! -
+                                          //                             data.entryBreak!)),
+                                          //         _textTile("location",
+                                          //             "Testing center Zwanzig20"),
+                                          //         _textTile("salary",
+                                          //             "${data.hourlysalary} € / Std."),
+                                          //       ],
+                                          //     ),
+                                          //   ),
+                                          // );
                                         },
                                         separatorBuilder: (context, index) {
                                           return SizedBox(
                                             height: 10.h,
+                                            child: Divider(),
                                           );
                                         },
                                         itemCount: _bookedWorkingController
@@ -263,20 +327,54 @@ class _BookedWorkingState extends State<BookedWorking> {
         SizedBox(
           height: 20.h,
         ),
-        _textTile("Durchschnittliche Arbeitszeit (3 Monate)",  DateTimeFormatterHelper.calculateMinutesToHours(_bookedWorkingController.bookedWorkData.value.data!.minutesPerDay??0)),
+        _textTile(
+            "Durchschnittliche Arbeitszeit (3 Monate)",
+            DateTimeFormatterHelper.calculateMinutesToHours(
+                _bookedWorkingController
+                        .bookedWorkData.value.data!.minutesPerDay ??
+                    0)),
         Divider(),
-        _textTile("Geleistete Stunden", DateTimeFormatterHelper.calculateMinutesToHours(_bookedWorkingController.totalWorkingMinutes.value)),
+        _textTile(
+            "Geleistete Stunden",
+            DateTimeFormatterHelper.calculateMinutesToHours(
+                _bookedWorkingController.totalWorkingMinutes.value)),
         Divider(),
-        _textTile("Krankheit", DateTimeFormatterHelper.calculateMinutesToHours(_bookedWorkingController.bookedWorkData.value.data!.sickMinutes??0)),
+        _textTile(
+            "Krankheit",
+            DateTimeFormatterHelper.calculateMinutesToHours(
+                _bookedWorkingController
+                        .bookedWorkData.value.data!.sickMinutes ??
+                    0)),
         Divider(),
-        _textTile("Urlaub", DateTimeFormatterHelper.calculateMinutesToHours(_bookedWorkingController.bookedWorkData.value.data!.vacationMinutes??0)),
+        _textTile(
+            "Urlaub",
+            DateTimeFormatterHelper.calculateMinutesToHours(
+                _bookedWorkingController
+                        .bookedWorkData.value.data!.vacationMinutes ??
+                    0)),
         Divider(),
-        _textTile("Feiertage", DateTimeFormatterHelper.calculateMinutesToHours(_bookedWorkingController.bookedWorkData.value.data!.feiertagMinutes??0)),
+        _textTile(
+            "Feiertage",
+            DateTimeFormatterHelper.calculateMinutesToHours(
+                _bookedWorkingController
+                        .bookedWorkData.value.data!.feiertagMinutes ??
+                    0)),
         Divider(),
-        _textTile("Ist-Stunden", DateTimeFormatterHelper.calculateMinutesToHours((_bookedWorkingController.totalWorkingMinutes.value +_bookedWorkingController.bookedWorkData.value.data!.feiertagMinutes! + _bookedWorkingController.bookedWorkData.value.data!.vacationMinutes! + _bookedWorkingController.bookedWorkData.value.data!.sickMinutes!))),
-       // Divider(),
+        _textTile(
+            "Ist-Stunden",
+            DateTimeFormatterHelper.calculateMinutesToHours(
+                (_bookedWorkingController.totalWorkingMinutes.value +
+                    _bookedWorkingController
+                        .bookedWorkData.value.data!.feiertagMinutes! +
+                    _bookedWorkingController
+                        .bookedWorkData.value.data!.vacationMinutes! +
+                    _bookedWorkingController
+                        .bookedWorkData.value.data!.sickMinutes!))),
+        // Divider(),
         // _textTile("Gesamtlohn", "${(_bookedWorkingController.totalWorkingMinutes/60)*25.00}"),
-        SizedBox(height: 50.h,)
+        SizedBox(
+          height: 50.h,
+        )
       ],
     );
   }

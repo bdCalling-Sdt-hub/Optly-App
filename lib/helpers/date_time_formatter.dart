@@ -8,6 +8,15 @@ class DateTimeFormatterHelper {
     return formattedMonth;
   }
 
+  static String formatDD(DateTime  date){
+    String formattedMonth = DateFormat("EEE",'de').format(date);
+    return formattedMonth;
+  }
+
+  static String formatDDMM(DateTime  date){
+    String formattedMonth = DateFormat('dd.MM','de').format(date);
+    return formattedMonth;
+  }
 
   static String calculateTimeDifference(DateTime? dateTime) {
     DateTime currentDateTime = DateTime.now();

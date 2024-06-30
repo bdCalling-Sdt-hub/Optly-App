@@ -31,14 +31,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final _dataController = Get.put(DataController());
   final _dashboardController = Get.put(DashboardController());
 
-
   @override
   void initState() {
     _dataController.getData();
     _dashboardController.getDashboard();
-    Future.delayed(Duration(seconds: 1),(){
+    Future.delayed(Duration(seconds: 1), () {
       debugPrint("check difference time ");
-
     });
 
     // Timer(const Duration(seconds: 1), (){
@@ -47,12 +45,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // });
     super.initState();
   }
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +57,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Get.toNamed(AppRoutes.profileScreen);
             },
             child: Padding(
-              padding: EdgeInsets.only(right: 20.w,bottom: 5),
-              child:Obx(()=> CustomNetworkImage(imageUrl:_dataController.image.value, height: 60, width:60,boxShape: BoxShape.circle,))
-            ),
+                padding: EdgeInsets.only(right: 20.w, bottom: 5),
+                child: Obx(() => CustomNetworkImage(
+                      imageUrl: _dataController.image.value,
+                      height: 60,
+                      width: 60,
+                      boxShape: BoxShape.circle,
+                    ))),
           )
         ],
       ),
       drawer: const CustomDrawer(),
-      body: Obx(()=>_dashboardController.loading.value?const CustomPageLoading():_body()),
+      body: Obx(() => _dashboardController.loading.value
+          ? const CustomPageLoading()
+          : _body()),
     );
   }
 
@@ -82,24 +80,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         children: [
           ///==============================> Banner Widget <===========================
-           BannerWidget(date:"${monthList[_dashboardController.dashboardData.value.data!.currents![0].month!-1]} ${_dashboardController.dashboardData.value.data!.currents![0].year}",),
+          BannerWidget(
+            date:
+                "${monthList[_dashboardController.dashboardData.value.data!.currents![0].month! - 1]} ${_dashboardController.dashboardData.value.data!.currents![0].year}",
+          ),
           SizedBox(height: 12.h),
 
           ///==============================> Current Time Recording Widget <===========================
 
           _currentTimeRecording(),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
 
           ///==============================> My Layers  <===========================
           _myLayers(),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
 
           ///==============================> My Layers  <===========================
-          _myHygienePlan(),
-          const SizedBox(height: 20,),
+          // _myHygienePlan(),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+
           /// ========================= Time account overview ======================>
           _timeAccountOverView(),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
+
           ///  ==================  Open tasks ==================
           _openTasks()
         ],
@@ -124,22 +135,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
           CustomText(
             bottom: 20.h,
-            text: "${_dashboardController.dashboardData.value.data!.currents![0].cname}",
+            text:
+                "${_dashboardController.dashboardData.value.data!.currents![0].cname}",
             fontsize: 14.sp,
             fontWeight: FontWeight.w500,
           ),
+
           /// =======================> Start Of Work Row <=========================
 
-
-
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20.w
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Row(
               children: [
                 Expanded(
                   child: CustomText(
-                    text:""
+                    text: ""
                         "Arbeitsbeginn",
                     fontsize: 14.w,
                     textAlign: TextAlign.start,
@@ -147,7 +157,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 Expanded(
                   child: CustomText(
-                    text: "${_dashboardController.dashboardData.value.data!.currents![0].start}",
+                    text:
+                        "${_dashboardController.dashboardData.value.data!.currents![0].start}",
                     fontsize: 14.w,
                     textAlign: TextAlign.start,
                   ),
@@ -156,16 +167,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20.w
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Divider(
               color: AppColors.dividerColor,
             ),
           ),
           //=============================> Length of Time Row <=====================
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20.w
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -183,12 +192,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     textAlign: TextAlign.start,
                   ),
                 ),
-
               ],
             ),
           ),
 
-          SizedBox(height: 20.h,),
+          SizedBox(
+            height: 20.h,
+          ),
 
           Container(
             decoration: BoxDecoration(
@@ -200,16 +210,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   CustomText(
-                    text:
-                    '!  ',
+                    text: '!  ',
                     color: const Color(0xfffb8c00),
                     fontsize: 18.w,
                   ),
-                  SizedBox(width: 10.w,),
+                  SizedBox(
+                    width: 10.w,
+                  ),
                   Expanded(
                     child: CustomText(
                       text:
-                          'After 6 hours, you are legally obliged \nto take a break of 30 minutes!',
+                          'Nach 6 Stunden, bist du gesetzlich verpflichtet eine Pause von 30 Min. zu machen!'
+                              .tr,
                       color: const Color(0xfffb8c00),
                       maxline: 4,
                       textAlign: TextAlign.start,
@@ -267,7 +279,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  _myLayers(){
+  _myLayers() {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -282,18 +294,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontsize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
-
           CustomText(
             text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
             fontsize: 13.sp,
           ),
-
         ],
       ),
     );
   }
 
-  _myHygienePlan(){
+  _myHygienePlan() {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -308,18 +318,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontsize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
-
           CustomText(
             text: AppString.youCurrentlyHaveNoPlannedHygienePlan.tr,
             fontsize: 13.sp,
           ),
-
         ],
       ),
     );
   }
 
-  _timeAccountOverView(){
+  _timeAccountOverView() {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -342,23 +350,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(AppString.actualHours.tr,style: const TextStyle(fontWeight: FontWeight.w500),),
+                      Text(
+                        AppString.actualHours.tr,
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       Text(AppString.currentMonth.tr),
                     ],
                   ),
                 ),
-                Expanded(child:Text("0hrs 0mins",style:TextStyle(fontSize: 14,color: AppColors.greyColor),))
+                Expanded(
+                    child: Text(
+                  "0hrs 0mins",
+                  style: TextStyle(fontSize: 14, color: AppColors.greyColor),
+                ))
               ],
             ),
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20.w
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Divider(
               color: AppColors.dividerColor,
             ),
           ),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Row(
@@ -367,26 +380,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(AppString.overtime.tr,style: const TextStyle(fontWeight: FontWeight.w500),),
+                      Text(
+                        AppString.overtime.tr,
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       Text(AppString.monthly.tr),
                     ],
                   ),
                 ),
-                Expanded(child:Text("0hrs 0mins",style:TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w500,color: AppColors.greenColor),))
+                Expanded(
+                    child: Text(
+                  "0hrs 0mins",
+                  style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.greenColor),
+                ))
               ],
             ),
           ),
-
-
-
-
         ],
       ),
     );
-
   }
 
-  _openTasks(){
+  _openTasks() {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -402,25 +420,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontWeight: FontWeight.w600,
           ),
           ListView.builder(
-              itemCount:_dashboardController.dashboardData.value.data!.todos!.length,
+              itemCount:
+                  _dashboardController.dashboardData.value.data!.todos!.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder:(context,index){
-                var data= _dashboardController.dashboardData.value.data!.todos![index];
-            return Container(
-              margin: EdgeInsets.symmetric(vertical:5.h),
-              decoration: BoxDecoration(
-                border: Border.all(color:AppColors.dividerColor),
-                color: AppColors.primaryColor.withOpacity(0.1)
-              ),
-              child: ListTile(
-                title: Text(data.title??"",style: const TextStyle(fontWeight:FontWeight.w600),),
-                subtitle: Text(data.description??""),
-              ),
-            );
-          })
-
-
+              itemBuilder: (context, index) {
+                var data = _dashboardController
+                    .dashboardData.value.data!.todos![index];
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 5.h),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.dividerColor),
+                      color: AppColors.primaryColor.withOpacity(0.1)),
+                  child: ListTile(
+                    title: Text(
+                      data.title ?? "",
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    subtitle: Text(data.description ?? ""),
+                  ),
+                );
+              })
         ],
       ),
     );
