@@ -211,43 +211,43 @@ class _BookedWorkingState extends State<BookedWorking> {
                                                 width: 9.w,
                                               ),
 
-                                              ///  category
+                                              ///  customer name
 
                                               Expanded(
-                                                  flex: 3,
-                                                  child: data.category == null
-                                                      ? const SizedBox()
-                                                      : Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            padding:
-                                                                const EdgeInsets
+                                                  flex: 4,
+                                                  child:
+                                                      data.customername == null
+                                                          ? const SizedBox()
+                                                          : Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                padding: const EdgeInsets
                                                                     .symmetric(
                                                                     horizontal:
                                                                         5,
                                                                     vertical:
                                                                         4),
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .cyan
-                                                                    .withOpacity(
-                                                                        0.2),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
+                                                                decoration: BoxDecoration(
+                                                                    // color: Colors
+                                                                    //     .cyan
+                                                                    //     .withOpacity(
+                                                                    //         0.2),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
                                                                             10.r)),
-                                                            child: Text(
-                                                              data.category ??
-                                                                  "",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                            ),
-                                                          ),
-                                                        )),
+                                                                child: Text(
+                                                                  data.customername ??
+                                                                      "",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .left,
+                                                                ),
+                                                              ),
+                                                            )),
                                               SizedBox(
                                                 width: 9.w,
                                               ),
@@ -258,21 +258,19 @@ class _BookedWorkingState extends State<BookedWorking> {
                                                 child: Column(
                                                   children: [
                                                     Text(
-                                                      data.start == null
-                                                          ? ""
-                                                          : "${DateTimeFormatterHelper.formatDDMM(DateTime.parse(data.start!))} - ${data.end!.isEmpty ? "" : DateTimeFormatterHelper.formatDDMM(DateTime.parse(data.end!))}",
+                                                      DateTimeFormatterHelper.formatTimeRange(data.start==null? null: DateTime.parse(data.start!), data.end==null? null: DateTime.parse(data.end!)),
                                                       textAlign:
                                                           TextAlign.center,
                                                     ),
-                                                    if (data.end!.isNotEmpty &&
-                                                        data.start!.isNotEmpty)
-                                                      Text(
-                                                        "Bestätigt",
-                                                        style: TextStyle(
-                                                            color: Colors.cyan
-                                                                .withOpacity(
-                                                                    0.8)),
-                                                      )
+                                                    // if (data.end!.isNotEmpty &&
+                                                    //     data.start!.isNotEmpty)
+                                                    //   Text(
+                                                    //     "Bestätigt",
+                                                    //     style: TextStyle(
+                                                    //         color: Colors.cyan
+                                                    //             .withOpacity(
+                                                    //                 0.8)),
+                                                    //   )
                                                   ],
                                                 ),
                                               ),
@@ -286,8 +284,8 @@ class _BookedWorkingState extends State<BookedWorking> {
                                                       ? ""
                                                       : DateTimeFormatterHelper
                                                           .calculateMinutesToHour(
-                                                              data.workedtime! -
-                                                                  data.entryBreak!)))
+                                                              data.workedtime!
+                                                                )))
                                             ],
                                           );
                                           // return Card(

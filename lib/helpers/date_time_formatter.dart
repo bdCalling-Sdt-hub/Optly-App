@@ -20,7 +20,7 @@ class DateTimeFormatterHelper {
 
   static String calculateTimeDifference(DateTime? dateTime) {
     DateTime currentDateTime = DateTime.now();
-    Duration difference = currentDateTime.difference(dateTime==null?DateTime.now().add(Duration(minutes: 1)):dateTime.add(Duration(minutes: 1)));
+    Duration difference = currentDateTime.difference(dateTime==null?DateTime.now().add(const Duration(minutes: 1)):dateTime.add(Duration(minutes: 1)));
     int totalMinutes = difference.inMinutes;
     int hours = totalMinutes ~/ 60;
     int minutes = totalMinutes % 60;
@@ -48,5 +48,12 @@ class DateTimeFormatterHelper {
 
     return '$hoursStr:$minutesStr h';
   }
+
+
+ static String formatTimeRange(DateTime? start, DateTime? end) {
+    final timeFormat = DateFormat('HH:mm');
+    return '${start==null? "":timeFormat.format(start)} - ${end==null? "":timeFormat.format(end)}';
+  }
+
 
 }
