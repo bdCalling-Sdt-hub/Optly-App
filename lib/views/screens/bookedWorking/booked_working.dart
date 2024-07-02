@@ -174,64 +174,118 @@ class _BookedWorkingState extends State<BookedWorking> {
                                               .entries![index];
 
                                           return Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
+                                              ///  start date
                                               Expanded(
+                                                  flex: 2,
                                                   child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(DateTimeFormatterHelper
-                                                      .formatDD(DateTime.parse(
-                                                          data.start!)),style: TextStyle(fontWeight: FontWeight.w600),),
-                                                  Text(DateTimeFormatterHelper
-                                                      .formatDDMM(
-                                                          DateTime.parse(
-                                                              data.start!))),
-                                                ],
-                                              )),
-                                              SizedBox(width: 9.w,),
-                                              Expanded(
-                                                  child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text("Gebuchte Zeiten",style: TextStyle(fontWeight: FontWeight.w600)),
-                                                  Text( data.workedtime == null
-                                                                    ? ""
-                                                                    : DateTimeFormatterHelper
-                                                                        .calculateMinutesToHours(
-                                                                            data.workedtime!)),
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        DateTimeFormatterHelper
+                                                            .formatDD(DateTime
+                                                                .parse(data
+                                                                    .start!)),
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      Text(
+                                                        DateTimeFormatterHelper
+                                                            .formatDDMM(DateTime
+                                                                .parse(data
+                                                                    .start!)),
+                                                        style: TextStyle(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.8)),
+                                                      ),
+                                                    ],
+                                                  )),
+                                              SizedBox(
+                                                width: 9.w,
+                                              ),
 
-                                                ],
-                                              )),
-                                              SizedBox(width: 9.w,),
-                                              Expanded(child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text("Pause",style: TextStyle(fontWeight: FontWeight.w600)),
-                                                  Text(data.entryBreak == null
-                                                                    ? ""
-                                                                    : DateTimeFormatterHelper
-                                                                        .calculateMinutesToHours(
-                                                                            data.entryBreak!))
-                                                ],
-                                              )),
-                                              SizedBox(width: 9.w,),
-                                              Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text("Geleistete Zeiten",style: TextStyle(fontWeight: FontWeight.w600)),
-                                                  Text( data.workedtime == null
-                                                                    ? ""
-                                                                    : DateTimeFormatterHelper
-                                                                        .calculateMinutesToHours(
-                                                                            data.workedtime! -
-                                                                                data.entryBreak!))
+                                              ///  customer name
 
-                                                ],
-                                              ))
+                                              Expanded(
+                                                  flex: 4,
+                                                  child:
+                                                      data.customername == null
+                                                          ? const SizedBox()
+                                                          : Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        5,
+                                                                    vertical:
+                                                                        4),
+                                                                decoration: BoxDecoration(
+                                                                    // color: Colors
+                                                                    //     .cyan
+                                                                    //     .withOpacity(
+                                                                    //         0.2),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10.r)),
+                                                                child: Text(
+                                                                  data.customername ??
+                                                                      "",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .left,
+                                                                ),
+                                                              ),
+                                                            )),
+                                              SizedBox(
+                                                width: 9.w,
+                                              ),
+
+                                              ///  time
+                                              Expanded(
+                                                flex: 5,
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      DateTimeFormatterHelper.formatTimeRange(data.start==null? null: DateTime.parse(data.start!), data.end==null? null: DateTime.parse(data.end!)),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    // if (data.end!.isNotEmpty &&
+                                                    //     data.start!.isNotEmpty)
+                                                    //   Text(
+                                                    //     "Bestätigt",
+                                                    //     style: TextStyle(
+                                                    //         color: Colors.cyan
+                                                    //             .withOpacity(
+                                                    //                 0.8)),
+                                                    //   )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 9.w,
+                                              ),
+                                              Expanded(
+                                                  flex: 2,
+                                                  child: Text(data.workedtime ==
+                                                          null
+                                                      ? ""
+                                                      : DateTimeFormatterHelper
+                                                          .calculateMinutesToHour(
+                                                              data.workedtime!
+                                                                )))
                                             ],
                                           );
                                           // return Card(
@@ -286,7 +340,9 @@ class _BookedWorkingState extends State<BookedWorking> {
                                         separatorBuilder: (context, index) {
                                           return SizedBox(
                                             height: 10.h,
-                                            child: Divider(),
+                                            child: Divider(
+                                              color: Colors.grey,
+                                            ),
                                           );
                                         },
                                         itemCount: _bookedWorkingController
