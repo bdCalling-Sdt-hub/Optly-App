@@ -16,7 +16,12 @@ class AuthController extends GetxController{
   
   handleSignIn(String email,pass)async{
     loadingSignIn(true);
-    var response= await ApiClient.postData(ApiConstant.signIn(email, pass), null);
+    var header={
+
+      'Content-Type': 'application/json',
+
+    };
+    var response= await ApiClient.postData(ApiConstant.signIn(email, pass),null,headers: header);
     if(response.body['success']){
        await PrefsHelper.setString(AppConstants.bearerToken, response.body['data']['token']);
 
