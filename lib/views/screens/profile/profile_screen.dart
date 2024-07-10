@@ -41,20 +41,57 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     Center(
-                      child: CustomNetworkImage(
-                        imageUrl: _profileController
-                            .profileData.value.data!.info!.imageurl!,
-                        height: 100.h,
-                        width: 100.h,
-                        boxShape: BoxShape.circle,
-                        border: Border.all(color: AppColors.primaryColor),
+                      child: Stack(
+                        children: [
+                          !_profileController.uploadImageLoading.value
+                              ? CustomNetworkImage(
+                                  imageUrl: _profileController
+                                      .profileData.value.data!.info!.imageurl!,
+                                  height: 80,
+                                  width: 80,
+                                  boxShape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: AppColors.primaryColor),
+                                )
+                              : Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: AppColors.primaryColor),
+                                  ),
+                                ),
+                          Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  _profileController.pickImage();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.primaryColor,
+                                          width: 1),
+                                      shape: BoxShape.circle,
+                                      color: Colors.white),
+                                  padding: const EdgeInsets.all(5),
+                                  child: const Icon(
+                                    Icons.add_a_photo_outlined,
+                                    size: 15,
+                                  ),
+                                ),
+                              ))
+                        ],
                       ),
                     ),
                     SizedBox(
                       height: 20.h,
                     ),
                     Text(
-                      _profileController.profileData.value.data!.info!.name!,
+                      _profileController.profileData.value.data!.info!.username!,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 16),
                     ),
@@ -62,39 +99,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 8.h,
                     ),
                     Text(_profileController
-                        .profileData.value.data!.info!.email!),
+                        .profileData.value.data!.info!.jobtitle!),
                     SizedBox(
                       height: 8.h,
                     ),
-                    Text(_profileController
-                        .profileData.value.data!.info!.username!),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    _listTile(AppString.bookedWorkingHours.tr, () {
-                      Get.to(BookedWorking(
-                        id: _profileController.profileData.value.data!.info!.id,
-                      ));
-                    }),
-                    _listTile(AppString.information.tr, () {
-                      Get.to(const PersonalInformation());
-                    }),
-                    _listTile(AppString.documents.tr, () {
-                      Get.to(FoldersScreen(
-                        userId:
-                            _profileController.profileData.value.data!.info!.id,
-                      ));
-                    }),
-                    _listTile("timeAccount".tr, () {
-                      Get.to(TimeAccountScreen(
-                        userId: _profileController
-                            .profileData.value.data!.info!.id
-                            .toString(),
-                      ));
-                    }),
-                    _listTile("logout".tr, () {
-                      _profileController.logOut();
-                    }),
+
+                    // _listTile(AppString.bookedWorkingHours.tr, () {
+                    //   Get.to(BookedWorking(
+                    //     id: _profileController.profileData.value.data!.info!.id,
+                    //   ));
+                    // }),
+                    // _listTile(AppString.information.tr, () {
+                    //   Get.to(const PersonalInformation());
+                    // }),
+                    // _listTile(AppString.documents.tr, () {
+                    //   Get.to(FoldersScreen(
+                    //     userId:
+                    //         _profileController.profileData.value.data!.info!.id,
+                    //   ));
+                    // }),
+                    // _listTile("timeAccount".tr, () {
+                    //   Get.to(TimeAccountScreen(
+                    //     userId: _profileController
+                    //         .profileData.value.data!.info!.id
+                    //         .toString(),
+                    //   ));
+                    // }),
+                    // _listTile("logout".tr, () {
+                    //   _profileController.logOut();
+                    // }),
                   ],
                 ),
               ),

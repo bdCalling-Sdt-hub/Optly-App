@@ -8,44 +8,37 @@ import 'package:optly/services/api_constant.dart';
 import 'package:optly/services/api_services.dart';
 import 'package:optly/utils/app_constants.dart';
 
-class AuthController extends GetxController{
+class AuthController extends GetxController {
+  final dataController = Get.put(DataController(), permanent: true);
 
-  final dataController =Get.put(DataController(),permanent: true);
-  
-  var loadingSignIn=false.obs;
-  
-  handleSignIn(String email,pass)async{
+  var loadingSignIn = false.obs;
+
+  handleSignIn(String email, pass) async {
     loadingSignIn(true);
-    var header={
-
+    var header = {
       'Content-Type': 'application/json',
-
     };
-    var response= await ApiClient.postData(ApiConstant.signIn(email, pass),null,headers: header);
-    if(response.body['success']){
-       await PrefsHelper.setString(AppConstants.bearerToken, response.body['data']['token']);
+    var response = await ApiClient.postData(
+        ApiConstant.signIn(email, pass), null,
+        headers: header);
+    if (response.body['success']) {
+      await PrefsHelper.setString(
+          AppConstants.bearerToken, response.body['data']['token']);
 
+      await dataController.setData(
+          nameD: response.body['data']['user']['name'],
+          roleD: response.body['data']['user']['role'],
+          emailD: response.body['data']['user']['email'],
+          firstnameD: response.body['data']['user']['firstname'],
+          lastnameD: response.body['data']['user']['lastname'],
+          imageD: response.body['data']['user']['imageurl'],
+          userid: response.body['data']['user']['id']);
 
-  await    dataController.setData(nameD:response.body['data']['user']['name'] ,
-          roleD: response.body['data']['user']['role'] ,
-          emailD: response.body['data']['user']['email'] ,
-          firstnameD: response.body['data']['user']['firstname'] ,
-          lastnameD: response.body['data']['user']['lastname'] ,
-          imageD: response.body['data']['user']['imageurl'] ,
-          userid: response.body['data']['user']['id'] );
-
-       Get.offAllNamed(AppRoutes.dashboardScreen);
-    }else{
-      ApiChecker.checkApi(response,getXSnackBar: true);
+      Get.offAllNamed(AppRoutes.dashboardScreen);
+    } else {
+      ApiChecker.checkApi(response, getXSnackBar: true);
       debugPrint("test snackbar");
     }
     loadingSignIn(false);
-    
-    
-    
   }
-  
-  
-  
-  
 }
