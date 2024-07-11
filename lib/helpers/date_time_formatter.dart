@@ -39,6 +39,17 @@ class DateTimeFormatterHelper {
     return _difference;
   }
 
+  /// output : 0 Std. 0 Min.
+   static String calculateMinutesToHours2(int totalMinutes) {
+
+
+    int hours = totalMinutes ~/ 60;
+    int minutes = totalMinutes % 60;
+
+    var _difference ='${hours}Std. ${minutes}Min.';
+    return _difference;
+  }
+
   static String calculateMinutesToHour(int totalMinutes) {
     int hours = totalMinutes ~/ 60;
     int minutes = totalMinutes % 60;

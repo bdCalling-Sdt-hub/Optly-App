@@ -13,9 +13,10 @@ import '../../../utils/app_colors.dart';
 import 'widget/complete_month_dialog.dart';
 
 class BookedWorking extends StatefulWidget {
-  BookedWorking({super.key, required this.id});
+  BookedWorking({super.key, required this.id,this.initDate});
 
   var id;
+  DateTime? initDate;
 
   @override
   State<BookedWorking> createState() => _BookedWorkingState();
@@ -31,10 +32,15 @@ class _BookedWorkingState extends State<BookedWorking> {
 
   @override
   void initState() {
+    if(widget.initDate != null){
+      _focusedDay=widget.initDate!;
+    }
     _bookedWorkingController.getBookedWorking(
         id: widget.id.toString(),
         month: DateTimeFormatterHelper.formatMM(_focusedDay),
-        year: _focusedDay.year.toString());
+        year:_focusedDay.year.toString()
+        
+        );
     super.initState();
   }
 
@@ -92,9 +98,9 @@ class _BookedWorkingState extends State<BookedWorking> {
                                         backgroundColor: AppColors.primaryColor,
                                         textStyle: const TextStyle(
                                             color: AppColors.white)),
-                                    child: Text(
-                                      "month_complete".tr,
-                                      style: const TextStyle(
+                                    child: const Text(
+                                     "Monat abschliessen",
+                                      style: TextStyle(
                                           color: AppColors.white),
                                     ),
                                   )
@@ -105,7 +111,7 @@ class _BookedWorkingState extends State<BookedWorking> {
                         ),
 
                         Text(
-                          "Breaks are deducted from the time worked.".tr,
+                         _bookedWorkingController.bookedWorkData.value.data!.subtractbreaks==0? "Pausen werden NICHT von den geleisteten Zeiten abgezogen.":"Pausen werden von den geleisteten Zeiten abgezogen.",
                           style: const TextStyle(color: Colors.orange),
                         ),
                         // Align(

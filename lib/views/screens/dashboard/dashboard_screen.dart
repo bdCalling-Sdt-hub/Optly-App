@@ -67,7 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      drawer:  CustomDrawer(),
+      drawer: CustomDrawer(),
       body: Obx(() => _dashboardController.loading.value
           ? const CustomPageLoading()
           : _body()),
@@ -80,11 +80,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         children: [
           ///==============================> Banner Widget <===========================
+          if(_dashboardController.dashboardData.value.data!.finalizations != null)
           BannerWidget(
-            date:
-                "${monthList[_dashboardController.dashboardData.value.data!.currents![0].month! - 1]} ${_dashboardController.dashboardData.value.data!.currents![0].year}",
+            date: DateTime.parse(
+                "${_dashboardController.dashboardData.value.data!.finalizations!.first.yearmonth}-01"),
+            isCurrentTimeNoOnGoing: _dashboardController
+                .dashboardData.value.data!.currents!.isEmpty,
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 20.h),
 
           ///==============================> Current Time Recording Widget <===========================
 
@@ -133,147 +136,169 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontWeight: FontWeight.w600,
           ),
 
-          CustomText(
-            bottom: 20.h,
-            text:
-                "${_dashboardController.dashboardData.value.data!.currents![0].cname}",
-            fontsize: 14.sp,
-            fontWeight: FontWeight.w500,
-          ),
+          if (_dashboardController.dashboardData.value.data!.currents!.isEmpty)
+            CustomText(
+              text: "Du hast aktuell keine laufende Arbeitszeitaufnahme.",
+              maxline: 5,
+              textAlign: TextAlign.start,
+            ),
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            CustomText(
+              bottom: 20.h,
+              text:
+                  "${_dashboardController.dashboardData.value.data!.currents![0].cname}",
+              fontsize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
 
           /// =======================> Start Of Work Row <=========================
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              children: [
-                Expanded(
-                  child: CustomText(
-                    text: ""
-                        "Arbeitsbeginn",
-                    fontsize: 14.w,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Expanded(
-                  child: CustomText(
-                    text:
-                        "${_dashboardController.dashboardData.value.data!.currents![0].start}",
-                    fontsize: 14.w,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Divider(
-              color: AppColors.dividerColor,
-            ),
-          ),
-          //=============================> Length of Time Row <=====================
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: CustomText(
-                    text: "Dauer",
-                    fontsize: 14.w,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Expanded(
-                  child: CustomText(
-                    text: '${_dashboardController.difference}',
-                    fontsize: 14.w,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(
-            height: 20.h,
-          ),
-
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(width: 1.w, color: Color(0xfffb8c00))),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CustomText(
-                    text: '!  ',
-                    color: const Color(0xfffb8c00),
-                    fontsize: 18.w,
-                  ),
-                  SizedBox(
-                    width: 10.w,
+                  Expanded(
+                    child: CustomText(
+                      text: ""
+                          "Arbeitsbeginn",
+                      fontsize: 14.w,
+                      textAlign: TextAlign.start,
+                    ),
                   ),
                   Expanded(
                     child: CustomText(
                       text:
-                          'Nach 6 Stunden, bist du gesetzlich verpflichtet eine Pause von 30 Min. zu machen!'
-                              .tr,
-                      color: const Color(0xfffb8c00),
-                      maxline: 4,
-                      textAlign: TextAlign.start,
+                          "${_dashboardController.dashboardData.value.data!.currents![0].start}",
                       fontsize: 14.w,
+                      textAlign: TextAlign.start,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Divider(
+                color: AppColors.dividerColor,
+              ),
+            ),
+          //=============================> Length of Time Row <=====================
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: CustomText(
+                      text: "Dauer",
+                      fontsize: 14.w,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Expanded(
+                    child: CustomText(
+                      text: '${_dashboardController.difference}',
+                      fontsize: 14.w,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          SizedBox(
+            height: 20.h,
           ),
-          SizedBox(height: 20.h),
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1.w, color: Color(0xfffb8c00))),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustomText(
+                      text: '!  ',
+                      color: const Color(0xfffb8c00),
+                      fontsize: 18.w,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Expanded(
+                      child: CustomText(
+                        text:
+                            'Nach 6 Stunden, bist du gesetzlich verpflichtet eine Pause von 30 Min. zu machen!'
+                                .tr,
+                        color: const Color(0xfffb8c00),
+                        maxline: 4,
+                        textAlign: TextAlign.start,
+                        fontsize: 14.w,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            SizedBox(height: 20.h),
           //==================================> Stop Break Time Button <===========================
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                //Get.toNamed(AppRoutes.overviewScreen);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    border: Border.all(width: 1.w, color: Colors.cyan)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                  child: CustomText(
-                    text: AppString.stopBreakTime.tr,
-                    color: Colors.cyan,
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  //Get.toNamed(AppRoutes.overviewScreen);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(width: 1.w, color: Colors.cyan)),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                    child: CustomText(
+                      text: AppString.stopBreakTime.tr,
+                      color: Colors.cyan,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 12.h),
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            SizedBox(height: 12.h),
           //==================================> Stop Time Button <===========================
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                //Get.toNamed(AppRoutes.overviewScreen);
-              },
-              child: Container(
-                decoration: const BoxDecoration(color: Color(0xff832700)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                  child: CustomText(
-                    text: AppString.stopTimeRecording.tr,
-                    color: AppColors.white,
+          if (_dashboardController
+              .dashboardData.value.data!.currents!.isNotEmpty)
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  //Get.toNamed(AppRoutes.overviewScreen);
+                },
+                child: Container(
+                  decoration: const BoxDecoration(color: Color(0xff832700)),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                    child: CustomText(
+                      text: AppString.stopTimeRecording.tr,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );
@@ -294,10 +319,75 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontsize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
-          CustomText(
-            text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
-            fontsize: 13.sp,
-          ),
+          _dashboardController.dashboardData.value.data!.schichten!.isEmpty
+              ? CustomText(
+                  text: AppString.youAreNotCurrentlyScheduledForAShift.tr,
+                  fontsize: 13.sp,
+                )
+              : ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: _dashboardController
+                      .dashboardData.value.data!.schichten!.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    var data = _dashboardController
+                        .dashboardData.value.data!.schichten![index];
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset("assets/icons/dot-single-svgrepo-com.svg",color: Colors.black.withOpacity(0.6) ,),
+                        Flexible(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                                    text:
+                                        "${DateFormat('E. dd.MM').format(data.date!)}: ",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black.withOpacity(0.6)),
+                                    children: [
+                                  TextSpan(
+                                    text:
+                                        "${DateFormat('HH:mm').format(DateFormat('HH:mm:ss').parse(data.starttime!))} - ${DateFormat('HH:mm').format(DateFormat('HH:mm:ss').parse(data.endtime!))}",
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey),
+                                  )
+                                ])),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Wrap(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.black12,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  child: Text("${data.category}"),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text("${data.name}"),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text("${data.standort}"),
+                          ],
+                        ))
+                      ],
+                    );
+                  }, separatorBuilder: (BuildContext context, int index) { return Divider(color:Colors.grey.shade600,); },),
         ],
       ),
     );
@@ -360,7 +450,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 Expanded(
                     child: Text(
-                  "0hrs 0mins",
+                  DateTimeFormatterHelper.calculateMinutesToHours2(_dashboardController.dashboardData.value.data!.duration==null?0:int.parse(_dashboardController.dashboardData.value.data!.duration)),
                   style: TextStyle(fontSize: 14, color: AppColors.greyColor),
                 ))
               ],
@@ -390,8 +480,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 Expanded(
                     child: Text(
-                  "0hrs 0mins",
-                  style: TextStyle(
+               DateTimeFormatterHelper.calculateMinutesToHours2(_dashboardController.dashboardData.value.data!.currentminutes==null?0: int.parse(_dashboardController.dashboardData.value.data!.currentminutes!)),
+                    style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.greenColor),

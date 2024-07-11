@@ -16,8 +16,11 @@ class DashboardController extends GetxController {
     var response = await ApiClient.getData(ApiConstant.getDashboard);
     if (response.body['success']) {
       dashboardData.value = DashboardModel.fromJson(response.body);
-      difference.value =DateTimeFormatterHelper.calculateTimeDifference(dashboardData.value.data!.currents![0].start);
-      loading(false);
+      if(dashboardData.value.data!.currents!.isNotEmpty){
+    difference.value =DateTimeFormatterHelper.calculateTimeDifference(dashboardData.value.data!.currents![0].start);
+   
+      }
+     loading(false);
     }else{
       ApiChecker.checkApi(response);
     }

@@ -26,11 +26,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
       vsync: this,
     );
     _iconRotation = Tween<double>(begin: 0, end: 0.5).animate(_controller);
+    _handleTap();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    
     super.dispose();
   }
 

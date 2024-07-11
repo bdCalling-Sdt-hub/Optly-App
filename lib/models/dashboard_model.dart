@@ -29,7 +29,7 @@ class Data {
   final dynamic duration;
   final double? time;
   final List<Finalization>? finalizations;
-  final List<dynamic>? schichten;
+  final List<Schichten>? schichten;
   final int? allowstop;
   final int? subtractbreaks;
   final bool? showbookedtimes;
@@ -58,7 +58,7 @@ class Data {
     duration: json["duration"],
     time: json["time"]?.toDouble(),
     finalizations: json["finalizations"] == null ? [] : List<Finalization>.from(json["finalizations"]!.map((x) => Finalization.fromJson(x))),
-    schichten: json["schichten"] == null ? [] : List<dynamic>.from(json["schichten"]!.map((x) => x)),
+    schichten: json["schichten"] == null ? [] : List<Schichten>.from(json["schichten"]!.map((x) => Schichten.fromJson(x))),
     allowstop: json["allowstop"],
     subtractbreaks: json["subtractbreaks"],
     showbookedtimes: json["showbookedtimes"],
@@ -269,4 +269,82 @@ class Todo {
     "description": description,
     "title": title,
   };
+}
+
+
+
+class Schichten {
+    final int? id;
+    final int? schichtplanid;
+    final int? customerid;
+    final String? name;
+    final int? userid;
+    final dynamic comment;
+    final String? category;
+    final DateTime? date;
+    final String? starttime;
+    final String? endtime;
+    final int? status;
+    final DateTime? createdAt;
+    final int? createdBy;
+    final DateTime? updatedAt;
+    final dynamic updatedBy;
+    final String? standort;
+
+    Schichten({
+        this.id,
+        this.schichtplanid,
+        this.customerid,
+        this.name,
+        this.userid,
+        this.comment,
+        this.category,
+        this.date,
+        this.starttime,
+        this.endtime,
+        this.status,
+        this.createdAt,
+        this.createdBy,
+        this.updatedAt,
+        this.updatedBy,
+        this.standort,
+    });
+
+    factory Schichten.fromJson(Map<String, dynamic> json) => Schichten(
+        id: json["id"],
+        schichtplanid: json["schichtplanid"],
+        customerid: json["customerid"],
+        name: json["name"],
+        userid: json["userid"],
+        comment: json["comment"],
+        category: json["category"],
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        starttime: json["starttime"],
+        endtime: json["endtime"],
+        status: json["status"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        createdBy: json["created_by"],
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        updatedBy: json["updated_by"],
+        standort: json["standort"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "schichtplanid": schichtplanid,
+        "customerid": customerid,
+        "name": name,
+        "userid": userid,
+        "comment": comment,
+        "category": category,
+        "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+        "starttime": starttime,
+        "endtime": endtime,
+        "status": status,
+        "created_at": createdAt?.toIso8601String(),
+        "created_by": createdBy,
+        "updated_at": updatedAt?.toIso8601String(),
+        "updated_by": updatedBy,
+        "standort": standort,
+    };
 }
