@@ -14,6 +14,8 @@ class ApiConstant {
   static String finalize(String userId)=>"/finalize/$userId";
   static String postAbsence="/absence";
   static String deleteAbsence(String id)=>"/absence/$id";
+  static String uploadImage="/images";
+
 
 
 

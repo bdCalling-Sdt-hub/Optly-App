@@ -2,39 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:optly/controller/data_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_icons.dart';
+import '../../../../utils/app_strings.dart';
 import '../../../widgets/custom_text.dart';
 import '../../Absences/absences_screen.dart';
 import '../../availability/availability_screen.dart';
+import '../../bookedWorking/booked_working.dart';
+import '../../folder&documents/folders.dart';
 import '../../mySchedulePlan/my_schedule_plan.dart';
+import '../../personalInfo/personal_information.dart';
+import '../../timeAccount/time_account.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({
+   CustomDrawer({
     super.key,
   });
 
+  final _dataController = Get.put(DataController());
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
-           DrawerHeader(child:Padding(
-             padding:  EdgeInsets.symmetric(horizontal: 50.w),
-             child: Image.asset(AppIcons.appLogo,),
-           )),
+          DrawerHeader(
+              child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50.w),
+            child: Image.asset(
+              AppIcons.appLogo,
+            ),
+          )),
           Expanded(
             child: ListView(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               children: [
-                //===========================> Overview Tile <======================
-                // CustomListTile(
-                //   priIcon:AppIcons.overview,
-                //   title: 'Overview',
-                //   onTab: () {},
-                // ),
                 //==========================> MyProfile Tile <======================
                 CustomListTile(
                   priIcon: AppIcons.person,
@@ -44,82 +48,75 @@ class CustomDrawer extends StatelessWidget {
                     Get.toNamed(AppRoutes.profileScreen);
                   },
                 ),
-                //============================> Task Tile <=========================
-                // CustomListTile(
-                //   priIcon: AppIcons.task,
-                //   title: 'Task',
-                //   onTab: () {
-                //     Get.back();
-                //     Get.toNamed(AppRoutes.tasksScreen);
-                //   },
-                // ),
-                // //===========================> Notes Tile <=========================
-                // CustomListTile(
-                //   priIcon:AppIcons.notes,
-                //   title: 'Notes',
-                //   onTab: () {
-                //     Get.back();
-                //     Get.toNamed(AppRoutes.notesScreen);
-                //   },
-                // ),
+
+                CustomListTile(
+                  title: AppString.bookedWorkingHours.tr,
+                  onTab: () {
+                    Get.to(BookedWorking(
+                      id: _dataController.userId.value.toString(),
+                    ));
+                  },
+                  priIcon: AppIcons.task,
+                ),
                 //=========================> Shift Plan Tile <========================
                 CustomListTile(
                   priIcon: AppIcons.shiftPlan,
                   title: 'shift_plan'.tr,
                   onTab: () {
                     Get.back();
-                    Get.to(MySchedulePlanScreen());
+                    Get.to(const MySchedulePlanScreen());
                   },
                 ),
+
                 //========================> Availability Tile <=======================
                 CustomListTile(
-                  priIcon:AppIcons.availability,
+                  priIcon: AppIcons.availability,
                   title: 'availability'.tr,
                   onTab: () {
                     Get.back();
                     Get.to(AvailabilityScreen());
                   },
                 ),
-                //========================> Hygiene plans Tile <=====================
-                // CustomListTile(
-                //   priIcon:AppIcons.hygienePlan,
-                //   title: 'Hygiene Plans',
-                //   onTab: () {},
-                // ),
-                // //====================> Hygiene maintenance Tile <===================
-                // CustomListTile(
-                //   priIcon:AppIcons.hygieneMain,
-                //   title: 'Hygiene Maintenance',
-                //   onTab: () {},
-                // ),
-                // //===========================> Products Tile <========================
-                // CustomListTile(
-                //   priIcon: AppIcons.products,
-                //   title: 'Products',
-                //   onTab: () {},
-                // ),
-                // //=========================> Inventories Tile <======================
-                // CustomListTile(
-                //   priIcon: AppIcons.inventories,
-                //   title: 'Inventories',
-                //   onTab: () {},
-                // ),
-                // //========================> Team Calendar Tile <======================
-                // CustomListTile(
-                //   priIcon: AppIcons.calender,
-                //   title: 'Team Calendar',
-                //   onTab: () {},
-                // ),
+
+
+
+                CustomListTile(
+                  title: AppString.documents.tr,
+                  onTab: () {
+                    Get.to(FoldersScreen(
+                      userId:_dataController.userId.value.toString(),
+                    ));
+                  },
+                  priIcon: AppIcons.task,
+                ),
+                CustomListTile(
+                  title: "timeAccount".tr,
+                  onTab: () {
+                    Get.to( TimeAccountScreen(
+                      userId: _dataController.userId.value.toString(),
+                    ));
+                  },
+                  priIcon: AppIcons.task,
+                ),
+                CustomListTile(
+                  title: AppString.information.tr,
+                  onTab: () {
+                    Get.to(const PersonalInformation());
+                  },
+                  priIcon: AppIcons.task,
+                ),
+
+
+
                 //===========================> Absence Tile <=========================
                 CustomListTile(
-                  priIcon:AppIcons.absences,
+                  priIcon: AppIcons.absences,
                   title: 'absence'.tr,
                   onTab: () {
                     Get.back();
                     Get.to(const AbsencesScreen());
                   },
                 ),
-
               ],
             ),
           ),
@@ -144,9 +141,18 @@ class CustomListTile extends StatelessWidget {
     return ListTile(
         // contentPadding: EdgeInsets.zero,
         // dense: true,
-       // horizontalTitleGap: ,
-        leading: SvgPicture.asset(priIcon,height: 24,width: 24,),
-        title: CustomText(text: title,fontWeight: FontWeight.w600,fontsize: 14.sp,textAlign: TextAlign.start,),
+        // horizontalTitleGap: ,
+        leading: SvgPicture.asset(
+          priIcon,
+          height: 24,
+          width: 24,
+        ),
+        title: CustomText(
+          text: title,
+          fontWeight: FontWeight.w600,
+          fontsize: 14.sp,
+          textAlign: TextAlign.start,
+        ),
         onTap: onTab);
   }
 }

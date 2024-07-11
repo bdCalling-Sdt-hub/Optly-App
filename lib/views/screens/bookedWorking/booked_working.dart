@@ -483,7 +483,7 @@ class _BookedWorkingState extends State<BookedWorking> {
               child: Text(
             textAlign: TextAlign.center,
             DateFormat('MMMM yyyy').format(_focusedDay),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           )),
           IconButton(
             icon: const Icon(

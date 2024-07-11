@@ -150,7 +150,7 @@ class Info {
   final dynamic familystatus;
   final String? phone;
   final String? role;
-  final String? imageurl;
+  late  String? imageurl;
   final String? gender;
   final String? street;
   final String? houseno;

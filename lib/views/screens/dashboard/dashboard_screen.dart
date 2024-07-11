@@ -67,7 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      drawer: const CustomDrawer(),
+      drawer:  CustomDrawer(),
       body: Obx(() => _dashboardController.loading.value
           ? const CustomPageLoading()
           : _body()),
