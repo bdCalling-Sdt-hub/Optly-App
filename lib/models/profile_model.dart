@@ -42,8 +42,8 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     info: json["info"] == null ? null : Info.fromJson(json["info"]),
     customers: json["customers"] == null ? [] : List<Customer>.from(json["customers"]!.map((x) => Customer.fromJson(x))),
-    workercategory: json["workercategory"] == null ? [] : List<Workercategory>.from(json["workercategory"]!.map((x) => Workercategory.fromJson(x))),
-    showbookedtimes: json["showbookedtimes"],
+     workercategory: json["workercategory"] == null ? [] : List<Workercategory>.from(json["workercategory"]!.map((x) => Workercategory.fromJson(x))),
+       showbookedtimes: json["showbookedtimes"],
     supervisors: json["supervisors"] == null ? [] : List<Supervisor>.from(json["supervisors"]!.map((x) => Supervisor.fromJson(x))),
   );
 

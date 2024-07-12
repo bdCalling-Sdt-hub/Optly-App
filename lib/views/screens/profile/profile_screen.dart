@@ -32,6 +32,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppString.profile.tr),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _profileController.logOut();
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.red,
+              ))
+        ],
       ),
       body: Obx(
         () => _profileController.loading.value
@@ -91,7 +101,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 20.h,
                     ),
                     Text(
-                      _profileController.profileData.value.data!.info!.username!,
+                      _profileController
+                          .profileData.value.data!.info!.username!,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 16),
                     ),
@@ -103,6 +114,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 8.h,
                     ),
+                    Wrap(
+                      children:List.generate(2, (index){
+                        var e= _profileController.profileData.value.data!.workercategory![index];
+                     
+                  
+                          return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.grey
+                                ),
+                                child: Text(e.title!,style: const TextStyle(color: Colors.white),),
+                          );
+                        
+                      }),
+                      // children: _profileController
+                      //     .profileData.value.data!.workercategory!
+                      //     .map((e) {
+                      //   var getIndex = _profileController
+                      //       .profileData.value.data!.info!.workercategories!
+                      //       .indexOf(e);
+                      //   Color hexToColor(String hexString) {
+                      //     final buffer = StringBuffer();
+                      //     if (hexString.length == 6 || hexString.length == 7)
+                      //       buffer.write('ff');
+                      //     buffer.write(hexString.replaceFirst('#', ''));
+                      //     return Color(int.parse(buffer.toString(), radix: 16));
+                      //   }
+
+                      //   if (getIndex < 2) {
+                      //     return Container(
+                      //       padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                      //       decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(50),
+                      //           color: hexToColor(e.color!)
+                      //           ),
+                      //           child: Text(e.title!,style: TextStyle(color: Colors.white),),
+                      //     );
+                      //   }
+
+                      //   return Container();
+                      // }).toList(),
+                    
+                    
+                    
+                    )
 
                     // _listTile(AppString.bookedWorkingHours.tr, () {
                     //   Get.to(BookedWorking(
