@@ -14,8 +14,10 @@ class DashboardController extends GetxController {
   var difference = "".obs;
   Rx<DashboardModel> dashboardData = DashboardModel().obs;
 
-  getDashboard() async {
-    loading(true);
+  getDashboard({bool isLoading = false}) async {
+    if(isLoading) {
+      loading(true);
+    }
     var response = await ApiClient.getData(ApiConstant.getDashboard);
     if (response.body['success']) {
       dashboardData.value = DashboardModel.fromJson(response.body);

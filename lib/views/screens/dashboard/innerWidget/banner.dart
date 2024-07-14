@@ -44,7 +44,7 @@ class BannerWidget extends StatelessWidget {
             child: CustomText(
               text:isCurrentTimeNoOnGoing?"Es müssen noch folgende Monate abgeschlossen werden" :AppString.theFollowing.tr,
               fontsize: 14.sp,
-              maxline: 2,
+              maxline: 3,
               textAlign: TextAlign.start,
               color: AppColors.white,
             ),

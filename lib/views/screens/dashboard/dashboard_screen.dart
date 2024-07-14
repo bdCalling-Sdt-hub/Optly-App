@@ -34,8 +34,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     _dataController.getData();
-    _dashboardController.getDashboard();
-    Future.delayed(Duration(seconds: 1), () {
+    _dashboardController.getDashboard(isLoading: true);
+    Future.delayed(const Duration(seconds: 1), () {
       debugPrint("check difference time ");
     });
 
@@ -46,6 +46,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    debugPrint("<============== Check Change Dependencies Back to Screen =============>");
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,48 +80,53 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   _body() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Column(
-        children: [
-          ///==============================> Banner Widget <===========================
-          if(_dashboardController.dashboardData.value.data!.finalizations != null)
-          BannerWidget(
-            date: DateTime.parse(
-                "${_dashboardController.dashboardData.value.data!.finalizations!.first.yearmonth}-01"),
-            isCurrentTimeNoOnGoing: _dashboardController
-                .dashboardData.value.data!.currents!.isEmpty,
-          ),
-          SizedBox(height: 20.h),
+    return RefreshIndicator(
+      onRefresh: ()async {
+        _dashboardController.getDashboard();
+      },
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        child: Column(
+          children: [
+            ///==============================> Banner Widget <===========================
+            if(_dashboardController.dashboardData.value.data!.finalizations != null)
+            BannerWidget(
+              date: DateTime.parse(
+                  "${_dashboardController.dashboardData.value.data!.finalizations!.first.yearmonth}-01"),
+              isCurrentTimeNoOnGoing: _dashboardController
+                  .dashboardData.value.data!.currents!.isEmpty,
+            ),
+            SizedBox(height: 20.h),
 
-          ///==============================> Current Time Recording Widget <===========================
+            ///==============================> Current Time Recording Widget <===========================
 
-          _currentTimeRecording(),
-          const SizedBox(
-            height: 20,
-          ),
+            _currentTimeRecording(),
+            const SizedBox(
+              height: 20,
+            ),
 
-          ///==============================> My Layers  <===========================
-          _myLayers(),
-          const SizedBox(
-            height: 20,
-          ),
+            ///==============================> My Layers  <===========================
+            _myLayers(),
+            const SizedBox(
+              height: 20,
+            ),
 
-          ///==============================> My Layers  <===========================
-          // _myHygienePlan(),
-          // const SizedBox(
-          //   height: 20,
-          // ),
+            ///==============================> My Layers  <===========================
+            // _myHygienePlan(),
+            // const SizedBox(
+            //   height: 20,
+            // ),
 
-          /// ========================= Time account overview ======================>
-          _timeAccountOverView(),
-          const SizedBox(
-            height: 20,
-          ),
+            /// ========================= Time account overview ======================>
+            _timeAccountOverView(),
+            const SizedBox(
+              height: 20,
+            ),
 
-          ///  ==================  Open tasks ==================
-          _openTasks()
-        ],
+            ///  ==================  Open tasks ==================
+            _openTasks()
+          ],
+        ),
       ),
     );
   }

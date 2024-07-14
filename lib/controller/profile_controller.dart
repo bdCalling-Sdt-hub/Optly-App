@@ -10,10 +10,12 @@ import 'package:optly/services/api_check.dart';
 import 'package:optly/services/api_constant.dart';
 import 'package:optly/services/api_services.dart';
 import 'package:optly/utils/app_constants.dart';
+import 'dashboard_controller.dart';
 import 'data_controller.dart';
 
 class ProfileController extends GetxController {
   var loading = false.obs;
+  final _dashboardController = Get.put(DashboardController());
 
   Rx<ProfileModel> profileData = ProfileModel().obs;
   final _dataController = Get.put(DataController());
@@ -60,6 +62,7 @@ class ProfileController extends GetxController {
       _dataController.image.value= response.body['data'];
       profileData.refresh();
       uploadImageLoading(false);
+      _dashboardController.getDashboard();
     } else {
       ApiChecker.checkApi(response);
     }

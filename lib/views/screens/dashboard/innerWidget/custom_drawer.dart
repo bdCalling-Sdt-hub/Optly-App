@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:optly/controller/data_controller.dart';
+import '../../../../controller/dashboard_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../../utils/app_strings.dart';
@@ -15,12 +16,14 @@ import '../../mySchedulePlan/my_schedule_plan.dart';
 import '../../personalInfo/personal_information.dart';
 import '../../timeAccount/time_account.dart';
 
+
 class CustomDrawer extends StatelessWidget {
    CustomDrawer({
     super.key,
   });
 
   final _dataController = Get.put(DataController());
+   final _dashboardController = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,10 +45,10 @@ class CustomDrawer extends StatelessWidget {
                 //==========================> MyProfile Tile <======================
                 CustomListTile(
                   priIcon: AppIcons.person,
-                  title: 'my_profile'.tr,
+                  title: "Überblick",
                   onTab: () {
                     Get.back();
-                    Get.toNamed(AppRoutes.profileScreen);
+                    _dashboardController.getDashboard();
                   },
                 ),
 

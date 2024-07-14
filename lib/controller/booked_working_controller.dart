@@ -9,8 +9,10 @@ import 'package:optly/services/api_services.dart';
 
 import '../helpers/prefs_helpers.dart';
 import '../utils/app_constants.dart';
+import 'dashboard_controller.dart';
 
 class BookedWorkingController extends GetxController {
+  final _dashboardController = Get.put(DashboardController());
   Rx<BookedWorkingModel> bookedWorkData = BookedWorkingModel().obs;
   var loading = false.obs;
   var totalWorkingMinutes = 0.obs;
@@ -33,6 +35,7 @@ class BookedWorkingController extends GetxController {
       getTotalBookedTime(bookedWorkData.value.data!.entries!);
       getTotalWorkingMinutes(bookedWorkData.value.data!.entries!,
           bookedWorkData.value.data!.subtractbreaks == 1);
+      _dashboardController.getDashboard();
       loading(false);
     } else {
       if (bookedWorkData.value.data != null) {
@@ -75,6 +78,7 @@ class BookedWorkingController extends GetxController {
     var response = await ApiClient.postData(ApiConstant.finalize(userId.toString()), json.encode(data));
     if (response.body['success']) {
       getBookedWorking(id: id, month: month, year: year);
+      _dashboardController.getDashboard();
       Get.back();
     } else {
       ApiChecker.checkApi(response);
