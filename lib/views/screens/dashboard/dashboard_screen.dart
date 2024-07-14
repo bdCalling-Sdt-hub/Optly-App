@@ -48,9 +48,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void didChangeDependencies() {
-    debugPrint("<============== Check Change Dependencies Back to Screen =============>");
+    debugPrint(
+        "<============== Check Change Dependencies Back to Screen =============>");
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +83,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   _body() {
     return RefreshIndicator(
-      onRefresh: ()async {
+      onRefresh: () async {
         _dashboardController.getDashboard();
       },
       child: SingleChildScrollView(
@@ -89,13 +91,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           children: [
             ///==============================> Banner Widget <===========================
-            if(_dashboardController.dashboardData.value.data!.finalizations != null)
-            BannerWidget(
-              date: DateTime.parse(
-                  "${_dashboardController.dashboardData.value.data!.finalizations!.first.yearmonth}-01"),
-              isCurrentTimeNoOnGoing: _dashboardController
-                  .dashboardData.value.data!.currents!.isEmpty,
-            ),
+            if (_dashboardController.dashboardData.value.data!.finalizations !=
+                null)
+              BannerWidget(
+                date: DateTime.parse(
+                    "${_dashboardController.dashboardData.value.data!.finalizations!.first.yearmonth}-01"),
+                isCurrentTimeNoOnGoing: _dashboardController
+                    .dashboardData.value.data!.currents!.isEmpty,
+              ),
             SizedBox(height: 20.h),
 
             ///==============================> Current Time Recording Widget <===========================
@@ -268,7 +271,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  //Get.toNamed(AppRoutes.overviewScreen);
+                  if (_dashboardController
+                          .dashboardData.value.data!.currents!.first.paused ==
+                      0) {
+                    _dashboardController.pause(_dashboardController
+                        .dashboardData.value.data!.currents!.first.id
+                        .toString());
+                  } else {
+                    _dashboardController.resume(_dashboardController
+                        .dashboardData.value.data!.currents!.first.id
+                        .toString());
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -278,7 +291,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     child: CustomText(
-                      text: AppString.stopBreakTime.tr,
+                      text: _dashboardController.dashboardData.value.data!
+                                  .currents!.first.paused ==
+                              0
+                          ? "Pausenzeit Starten"
+                          : "Pausenzeit Stoppen",
                       color: Colors.cyan,
                     ),
                   ),
@@ -294,10 +311,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  //Get.toNamed(AppRoutes.overviewScreen);
+                  if (_dashboardController
+                          .dashboardData.value.data!.currents!.first.paused ==
+                      0) {
+                    showPausenzeitenDialog(context);
+                  }
                 },
                 child: Container(
-                  decoration: const BoxDecoration(color: Color(0xff832700)),
+                  decoration: BoxDecoration(
+                      color: _dashboardController.dashboardData.value.data!
+                                  .currents!.first.paused ==
+                              0
+                          ? Color(0xff832700)
+                          : Colors.grey),
                   child: Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
@@ -346,7 +372,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SvgPicture.asset("assets/icons/dot-single-svgrepo-com.svg",color: Colors.black.withOpacity(0.6) ,),
+                        SvgPicture.asset(
+                          "assets/icons/dot-single-svgrepo-com.svg",
+                          color: Colors.black.withOpacity(0.6),
+                        ),
                         Flexible(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,7 +426,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ))
                       ],
                     );
-                  }, separatorBuilder: (BuildContext context, int index) { return Divider(color:Colors.grey.shade600,); },),
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(
+                      color: Colors.grey.shade600,
+                    );
+                  },
+                ),
         ],
       ),
     );
@@ -460,7 +495,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 Expanded(
                     child: Text(
-                  DateTimeFormatterHelper.calculateMinutesToHours2(_dashboardController.dashboardData.value.data!.duration==null?0:int.parse(_dashboardController.dashboardData.value.data!.duration)),
+                  DateTimeFormatterHelper.calculateMinutesToHours2(
+                      _dashboardController.dashboardData.value.data!.duration ==
+                              null
+                          ? 0
+                          : int.parse(_dashboardController
+                              .dashboardData.value.data!.duration)),
                   style: TextStyle(fontSize: 14, color: AppColors.greyColor),
                 ))
               ],
@@ -490,8 +530,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 Expanded(
                     child: Text(
-               DateTimeFormatterHelper.calculateMinutesToHours2(_dashboardController.dashboardData.value.data!.currentminutes==null?0: int.parse(_dashboardController.dashboardData.value.data!.currentminutes!)),
-                    style: TextStyle(
+                  DateTimeFormatterHelper.calculateMinutesToHours2(
+                      _dashboardController
+                                  .dashboardData.value.data!.currentminutes ==
+                              null
+                          ? 0
+                          : int.parse(_dashboardController
+                              .dashboardData.value.data!.currentminutes!)),
+                  style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.greenColor),
@@ -543,6 +589,83 @@ class _DashboardScreenState extends State<DashboardScreen> {
               })
         ],
       ),
+    );
+  }
+
+   showPausenzeitenDialog(BuildContext context) {
+    String data = _dashboardController
+        .dashboardData.value.data!.currents!.first.breaktimes!;
+    List<String> timestamps = data.split(',');
+
+    List<Map<String, String>> pauses =[];
+    for (int i = 0; i < timestamps.length; i += 2) {
+      if (i + 1 < timestamps.length) {
+        pauses.add({
+          'start': timestamps[i],
+          'end': timestamps[i + 1],
+        });
+      } else {
+        pauses.add({
+          'start': timestamps[i],
+          'end': '',
+        });
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: const Text('Zeiterfassung stoppen'),
+          content: SingleChildScrollView(
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Column(
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: pauses.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        Map<String, String> pause = entry.value;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '${index + 1}. ${pause['start']} - ${pause['end']}',
+                                  style: const TextStyle(fontSize: 16.0),
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.remove_circle, color: Colors.red),
+                                onPressed: () {
+                                  setState(() {
+                                    pauses.removeAt(index);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

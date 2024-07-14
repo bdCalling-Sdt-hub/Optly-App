@@ -93,4 +93,29 @@ class DashboardController extends GetxController {
                   ),
                 ]));
   }
+
+
+  /// Paused
+  pause(String id)async{
+    var response = await ApiClient.postData(ApiConstant.pause(id), null);
+    if(response.body['success']){
+      getDashboard();
+    }else{
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  ///   Resume
+  resume(String id)async{
+    var response = await ApiClient.postData(ApiConstant.resume(id), null);
+    if(response.body['success']){
+      getDashboard();
+    }else{
+      ApiChecker.checkApi(response);
+    }
+  }
+
+
+
+
 }

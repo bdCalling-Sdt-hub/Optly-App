@@ -16,6 +16,8 @@ class ApiConstant {
   static String deleteAbsence(String id)=>"/absence/$id";
   static String uploadImage="/images";
   static String notesConfirm(String id) => "/notes/confirm/$id";
+  static String pause(String id)=>"/booktime/pause/$id";
+  static String resume(String id)=>"/booktime/resume/$id";
 
 
 
