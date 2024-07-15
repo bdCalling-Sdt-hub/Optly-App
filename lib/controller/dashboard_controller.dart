@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:optly/models/dashboard_model.dart';
 import 'package:optly/services/api_check.dart';
 import 'package:optly/services/api_constant.dart';
@@ -117,5 +118,43 @@ class DashboardController extends GetxController {
 
 
 
+
+  int diffInMinutes(DateTime date1, DateTime date2) {
+    if (date1 == null || date2 == null) {
+      return 0;
+    }
+    return date2.difference(date1).inMinutes;
+  }
+
+  // Function to calculate total break time from a list of break times
+  // int calcBreak(String breaktimes) {
+  //   int pause = 0;
+  //   List<String> times = breaktimes.split(",");
+  //
+  //   for (int i = 0; i < times.length - 1; i += 2) {
+  //     DateTime breakStart = DateFormat("yyyy-MM-dd HH:mm:ss").parse(times[i]);
+  //     DateTime breakStop = DateFormat("yyyy-MM-dd HH:mm:ss").parse(times[i + 1]);
+  //     pause += diffInMinutes(breakStart, breakStop);
+  //   }
+  //
+  //   return pause;
+  // }
+  int calcBreak(List<Map<String, String>> breaktimes) {
+    int pause = 0;
+    for (var time in breaktimes) {
+      DateTime breakStart = DateFormat("yyyy-MM-dd HH:mm:ss").parse(time['start']!);
+      DateTime breakStop = DateFormat("yyyy-MM-dd HH:mm:ss").parse(time['end']!);
+      pause += diffInMinutes(breakStart, breakStop);
+    }
+    return pause;
+  }
+
+
+  // Function to format the total duration in hours and minutes
+  String getHoursAndMinutes(int minutes) {
+    int hours = minutes ~/ 60;
+    int remainingMinutes = minutes % 60;
+    return '$hours hours and $remainingMinutes minutes';
+  }
 
 }

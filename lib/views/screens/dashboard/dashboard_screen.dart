@@ -592,12 +592,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-   showPausenzeitenDialog(BuildContext context) {
+  showPausenzeitenDialog(BuildContext context) {
     String data = _dashboardController
         .dashboardData.value.data!.currents!.first.breaktimes!;
     List<String> timestamps = data.split(',');
 
-    List<Map<String, String>> pauses =[];
+    List<Map<String, String>> pauses = [];
     for (int i = 0; i < timestamps.length; i += 2) {
       if (i + 1 < timestamps.length) {
         pauses.add({
@@ -612,6 +612,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       }
     }
 
+    var breakDuration = _dashboardController.calcBreak(pauses);
+    int actualWorkingTime = _dashboardController
+            .dashboardData.value.data!.currents!.first.duration ??
+        0 - breakDuration;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -622,7 +626,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    listTile(
+                        "Arbeitsbeginn",
+                        DateFormat('dd.MM.yyyy HH:mm').format(
+                            _dashboardController.dashboardData.value.data!
+                                    .currents!.first.start ??
+                                DateTime.now())),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    listTile("Arbeitsende",
+                        DateFormat('dd.MM.yyyy HH:mm').format(DateTime.now())),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    listTile(
+                        "Dauer",
+                        DateTimeFormatterHelper.calculateMinutesToHours2(
+                            _dashboardController.dashboardData.value.data!
+                                    .currents!.first.duration ??
+                                0)),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+
+                    listTile(
+                        "Pause",
+                        DateTimeFormatterHelper.calculateMinutesToHours2(
+                            breakDuration)),
+
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    listTile(
+                        "Tatsächliche Arbeitszeit",
+                        DateTimeFormatterHelper.calculateMinutesToHours2(
+                            breakDuration),TextStyle(fontWeight: FontWeight.w600,fontSize:14)),
+                    SizedBox(height: 10.h,),
+                    const Text("Pausenzeiten",style: TextStyle(fontWeight: FontWeight.w600,fontSize:14,color:Colors.black45),),
+
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: pauses.asMap().entries.map((entry) {
@@ -633,16 +678,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Row(
                             children: [
                               Expanded(
-                                child: Text(
-                                  '${index + 1}. ${pause['start']} - ${pause['end']}',
-                                  style: const TextStyle(fontSize: 16.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${index + 1}. ',
+                                      style: const TextStyle(fontSize: 16.0),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        '${pause['start']} - ${pause['end']}',
+                                        style: const TextStyle(fontSize: 16.0),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.remove_circle, color: Colors.red),
+                                icon: const Icon(Icons.remove_circle,
+                                    color: Colors.red),
                                 onPressed: () {
                                   setState(() {
                                     pauses.removeAt(index);
+                                    breakDuration =
+                                        _dashboardController.calcBreak(pauses);
+                                    actualWorkingTime = _dashboardController
+                                            .dashboardData
+                                            .value
+                                            .data!
+                                            .currents!
+                                            .first
+                                            .duration ??
+                                        0 - breakDuration;
                                   });
                                 },
                               ),
@@ -666,6 +733,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         );
       },
+    );
+  }
+
+  Row listTile(String title, String subTitle,[TextStyle? style]) {
+    return Row(
+      children: [
+        Expanded(flex: 10, child: Text(title,style: style,)),
+
+        Expanded(flex: 8, child: Text(subTitle,style: style,)),
+      ],
     );
   }
 }
