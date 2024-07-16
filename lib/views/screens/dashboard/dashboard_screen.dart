@@ -593,8 +593,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   showPausenzeitenDialog(BuildContext context) {
+    var allData =
+        _dashboardController.dashboardData.value.data!.currents!.first;
     String data = _dashboardController
-        .dashboardData.value.data!.currents!.first.breaktimes!;
+        .dashboardData.value.data!.currents!.first.breaktimes??"";
     List<String> timestamps = data.split(',');
 
     List<Map<String, String>> pauses = [];
@@ -612,7 +614,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       }
     }
 
-    var breakDuration = _dashboardController.calcBreak(pauses);
+    var breakDuration =data.isEmpty? 0 : _dashboardController.calcBreak(pauses);
+ //   var breakDuration =0;
     int actualWorkingTime = _dashboardController
             .dashboardData.value.data!.currents!.first.duration ??
         0 - breakDuration;
@@ -652,22 +655,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const Divider(
                       color: Colors.grey,
                     ),
-
                     listTile(
                         "Pause",
                         DateTimeFormatterHelper.calculateMinutesToHours2(
                             breakDuration)),
-
                     const Divider(
                       color: Colors.grey,
                     ),
                     listTile(
                         "Tatsächliche Arbeitszeit",
                         DateTimeFormatterHelper.calculateMinutesToHours2(
-                            breakDuration),TextStyle(fontWeight: FontWeight.w600,fontSize:14)),
-                    SizedBox(height: 10.h,),
-                    const Text("Pausenzeiten",style: TextStyle(fontWeight: FontWeight.w600,fontSize:14,color:Colors.black45),),
+                            breakDuration),
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    if(allData.breaktimes !=null)
+                    const Text(
+                      "Pausenzeiten",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Colors.black45),
+                    ),
 
+                    if(allData.breaktimes !=null)
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: pauses.asMap().entries.map((entry) {
@@ -724,24 +736,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            //==================================> Submit Button <===========================
+
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  _dashboardController.breakStop(
+                      allData.id.toString(), allData.start.toString(), pauses);
+                },
+                child: Container(
+                  decoration:  BoxDecoration(color:AppColors.primaryColor),
+                  child: Padding(
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                    child: CustomText(
+                      text: "ZEITERFASSUNG STOPPEN",
+                      color: AppColors.white,
+                    ),
+                  ),
+                ),
+              ),
             ),
+            SizedBox(width: 12.w),
+            SizedBox(height: 12.h),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(width: 1.w, color: Color(0xff832700))),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                    child: CustomText(
+                      text: "ABBRECHEN",
+                      color: Color(0xff832700),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
           ],
         );
       },
     );
   }
 
-  Row listTile(String title, String subTitle,[TextStyle? style]) {
+  Row listTile(String title, String subTitle, [TextStyle? style]) {
     return Row(
       children: [
-        Expanded(flex: 10, child: Text(title,style: style,)),
-
-        Expanded(flex: 8, child: Text(subTitle,style: style,)),
+        Expanded(
+            flex: 10,
+            child: Text(
+              title,
+              style: style,
+            )),
+        Expanded(
+            flex: 8,
+            child: Text(
+              subTitle,
+              style: style,
+            )),
       ],
     );
   }

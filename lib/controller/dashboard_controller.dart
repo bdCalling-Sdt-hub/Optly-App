@@ -157,4 +157,33 @@ class DashboardController extends GetxController {
     return '$hours hours and $remainingMinutes minutes';
   }
 
+  breakStop(String id ,String startDate,List<Map<String, String>> breakTimes)async{
+    var breakTime= convertBreakTimes(breakTimes);
+    var body={
+      'id': id,
+      'start':startDate,
+      'break': "",
+      'method': '4',
+      'breaktimes': breakTime
+    };
+    var response= await ApiClient.postMultipartData(ApiConstant.bookTimeStop(id), body, multipartBody: []);
+    if(response.body['success']){
+      getDashboard();
+      Get.back();
+    }else{
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  String convertBreakTimes(List<Map<String, String>> breakTimes) {
+    List<String> times = [];
+    for (var breaktime in breakTimes) {
+      times.add(breaktime['start']!);
+      times.add(breaktime['end']!);
+    }
+    return times.join(',');
+  }
+
+
+
 }

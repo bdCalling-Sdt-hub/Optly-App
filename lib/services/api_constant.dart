@@ -18,6 +18,7 @@ class ApiConstant {
   static String notesConfirm(String id) => "/notes/confirm/$id";
   static String pause(String id)=>"/booktime/pause/$id";
   static String resume(String id)=>"/booktime/resume/$id";
+  static String bookTimeStop(String id)=>"/booktime/stop/$id";
 
 
 
