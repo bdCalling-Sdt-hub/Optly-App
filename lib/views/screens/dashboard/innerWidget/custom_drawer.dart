@@ -44,11 +44,19 @@ class CustomDrawer extends StatelessWidget {
               children: [
                 //==========================> MyProfile Tile <======================
                 CustomListTile(
-                  priIcon: AppIcons.person,
+                  priIcon: "assets/icons/view-grid.svg",
                   title: "Überblick",
                   onTab: () {
                     Get.back();
                     _dashboardController.getDashboard();
+                  },
+                ),
+                //==========================> MyProfile Tile <======================
+                CustomListTile(
+                  priIcon: "assets/icons/user-circle.svg",
+                  title: "Mein Profil",
+                  onTab: () {
+                   Get.toNamed(AppRoutes.profileScreen);
                   },
                 ),
 
@@ -59,11 +67,11 @@ class CustomDrawer extends StatelessWidget {
                       id: _dataController.userId.value.toString(),
                     ));
                   },
-                  priIcon: AppIcons.task,
+                  priIcon: "assets/icons/clip_pt.svg",
                 ),
                 //=========================> Shift Plan Tile <========================
                 CustomListTile(
-                  priIcon: AppIcons.shiftPlan,
+                  priIcon:"assets/icons/alearts.svg",
                   title: 'shift_plan'.tr,
                   onTab: () {
                     Get.back();
@@ -73,7 +81,7 @@ class CustomDrawer extends StatelessWidget {
 
                 //========================> Availability Tile <=======================
                 CustomListTile(
-                  priIcon: AppIcons.availability,
+                  priIcon:"assets/icons/alearts_2.svg",
                   title: 'availability'.tr,
                   onTab: () {
                     Get.back();
@@ -90,7 +98,7 @@ class CustomDrawer extends StatelessWidget {
                       userId:_dataController.userId.value.toString(),
                     ));
                   },
-                  priIcon: AppIcons.task,
+                  priIcon:"assets/icons/File_Document.svg",
                 ),
                 CustomListTile(
                   title: "timeAccount".tr,
@@ -99,21 +107,21 @@ class CustomDrawer extends StatelessWidget {
                       userId: _dataController.userId.value.toString(),
                     ));
                   },
-                  priIcon: AppIcons.task,
+                  priIcon: "assets/icons/Timer.svg",
                 ),
                 CustomListTile(
                   title: AppString.information.tr,
                   onTab: () {
                     Get.to(const PersonalInformation());
                   },
-                  priIcon: AppIcons.task,
+                  priIcon: "assets/icons/clip_pt2.svg",
                 ),
 
 
 
                 //===========================> Absence Tile <=========================
                 CustomListTile(
-                  priIcon: AppIcons.absences,
+                  priIcon: "assets/icons/calendar.svg",
                   title: 'absence'.tr,
                   onTab: () {
                     Get.back();
@@ -149,11 +157,13 @@ class CustomListTile extends StatelessWidget {
           priIcon,
           height: 24,
           width: 24,
+          color: Colors.grey,
         ),
         title: CustomText(
           text: title,
           fontWeight: FontWeight.w600,
           fontsize: 14.sp,
+          color: Colors.black54,
           textAlign: TextAlign.start,
         ),
         onTap: onTab);
