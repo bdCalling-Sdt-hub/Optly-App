@@ -4,9 +4,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../CheckInScreen/check_in_screen.dart';
+
 class QRViewScreen extends StatefulWidget {
+   String workType;
+
+  QRViewScreen({super.key,required this.workType});
+
   @override
   State<StatefulWidget> createState() => _QRViewScreenState();
 }
@@ -88,6 +95,7 @@ class _QRViewScreenState extends State<QRViewScreen> {
         result = scanData;
         if(result !=null){
         debugPrint("=========> result : ${result!.code}");
+        Get.to(CheckInScreen(workType: widget.workType, id:"${result!.code}",));
         }else{
           print('Errore Scan');
         }

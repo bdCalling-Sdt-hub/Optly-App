@@ -61,7 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: () {
-            Get.to(QRViewScreen());
+            Get.to(QRViewScreen(workType:_dataController.workType.value,));
           },
           icon: const Icon(Icons.qr_code_scanner_sharp)),
           SizedBox(width: 10.w,),

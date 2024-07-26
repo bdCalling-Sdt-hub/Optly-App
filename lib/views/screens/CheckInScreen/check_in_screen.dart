@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:optly/controller/check_in_controller.dart';
 
 class CheckInScreen extends StatefulWidget {
-  const CheckInScreen({super.key});
+   CheckInScreen({super.key,required this.workType,required this.id});
 
   String workType;
   String id;
@@ -18,7 +18,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
   CheckInController _checkInController = Get.put(CheckInController());
   @override
   void initState() {
-    _checkInController.getCheckInData(workType, id);
+    _checkInController.getCheckInData(widget.workType, widget.id);
     super.initState();
   }
 

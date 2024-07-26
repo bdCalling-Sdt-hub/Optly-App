@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
 import 'package:optly/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,10 +15,10 @@ class DataController extends GetxController implements GetxService {
   var phone="".obs;
   var role="".obs;
   var gender="".obs;
+  var workType="".obs;
 
   getData() async {
     preferences = await SharedPreferences.getInstance();
-
     email.value = preferences.getString(AppConstants.email) ?? "";
     firstname.value = preferences.getString(AppConstants.firstname) ?? "";
     lastname.value = preferences.getString(AppConstants.lastname) ?? "";
@@ -28,6 +28,7 @@ class DataController extends GetxController implements GetxService {
     role.value = preferences.getString(AppConstants.role) ?? "";
     userId.value = preferences.getInt(AppConstants.userId) ?? 0;
     gender.value = preferences.getString(AppConstants.gender) ?? "";
+    workType.value= preferences.getString(AppConstants.workType)??"";
   }
 
   setData(
@@ -38,6 +39,7 @@ class DataController extends GetxController implements GetxService {
         required String lastnameD,
         required String imageD,
         required int userid,
+        required String workTypeD
         }) async {
     name.value = nameD;
     role.value =roleD ;
@@ -46,6 +48,7 @@ class DataController extends GetxController implements GetxService {
     lastname.value = lastnameD;
     image.value = imageD;
     userId.value = userid;
+    workType.value=workTypeD;
 
     preferences = await SharedPreferences.getInstance();
     preferences.setString(AppConstants.username, nameD);
@@ -55,6 +58,7 @@ class DataController extends GetxController implements GetxService {
     preferences.setString(AppConstants.imageurl, imageD);
     preferences.setString(AppConstants.lastname, lastnameD);
     preferences.setInt(AppConstants.userId, userid);
+    preferences.setString(AppConstants.workType, workTypeD);
   }
 
   updateData(
