@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:optly/controller/check_in_controller.dart';
 
 class CheckInScreen extends StatefulWidget {
   const CheckInScreen({super.key});
+
+  String workType;
+  String id;
 
   @override
   State<CheckInScreen> createState() => _CheckInScreenState();
@@ -9,6 +14,13 @@ class CheckInScreen extends StatefulWidget {
 
 class _CheckInScreenState extends State<CheckInScreen> {
   String _selectedWorkArea = 'Küche';
+
+  CheckInController _checkInController = Get.put(CheckInController());
+  @override
+  void initState() {
+    _checkInController.getCheckInData(workType, id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +79,12 @@ class _CheckInScreenState extends State<CheckInScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.lightBlue[200],
                       padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                     ),
                     onPressed: () {
                       // Add your button press logic here
                     },
-                    child: Text(
+                    child: const Text(
                       'ZEITERFASSUNG STARTEN',
                       style: TextStyle(fontSize: 16),
                     ),

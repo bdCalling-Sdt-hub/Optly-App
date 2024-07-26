@@ -54,6 +54,7 @@ dependencies:
   flutter_localization: ^0.2.0
   path_provider:
   file_picker:
+  qr_code_scanner:
 
 
 dev_dependencies:

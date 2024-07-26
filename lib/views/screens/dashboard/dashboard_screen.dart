@@ -12,6 +12,7 @@ import 'package:optly/helpers/date_time_formatter.dart';
 import 'package:optly/routes/app_routes.dart';
 import 'package:optly/utils/app_colors.dart';
 import 'package:optly/utils/app_images.dart';
+import 'package:optly/views/screens/Qr/qr_scan.dart';
 import 'package:optly/views/widgets/cache_network_image.dart';
 import 'package:optly/views/widgets/custom_page_loading.dart';
 import 'package:optly/views/widgets/custom_text.dart';
@@ -59,6 +60,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         actions: [
+          IconButton(onPressed: () {
+            Get.to(QRViewScreen());
+          },
+          icon: const Icon(Icons.qr_code_scanner_sharp)),
+          SizedBox(width: 10.w,),
           GestureDetector(
             onTap: () {
               Get.toNamed(AppRoutes.profileScreen);
