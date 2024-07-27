@@ -4,8 +4,11 @@ import 'package:optly/services/api_check.dart';
 import 'package:optly/services/api_constant.dart';
 import 'package:optly/services/api_services.dart';
 
+import 'dashboard_controller.dart';
+
 class MySchedulePlanController extends GetxController {
   Rx<MySchedulePlanModel> mySchedulePlan = MySchedulePlanModel().obs;
+  final _dashboardController = Get.put(DashboardController());
 
   var loading = false.obs;
   var isFirstLoading = false.obs;

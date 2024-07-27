@@ -32,7 +32,11 @@ class AuthController extends GetxController {
           firstnameD: response.body['data']['user']['firstname'],
           lastnameD: response.body['data']['user']['lastname'],
           imageD: response.body['data']['user']['imageurl'],
-          userid: response.body['data']['user']['id']);
+          userid: response.body['data']['user']['id'],
+          workTypeD: response.body['data']['user']['worktype'].toString()
+
+      );
+
 
       Get.offAllNamed(AppRoutes.dashboardScreen);
     } else {

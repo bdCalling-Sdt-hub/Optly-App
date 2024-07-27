@@ -4,9 +4,10 @@ import '../models/availability_model.dart';
 import '../services/api_check.dart';
 import '../services/api_constant.dart';
 import '../services/api_services.dart';
+import 'dashboard_controller.dart';
 
 class AvailabilityController extends GetxController{
-
+  final _dashboardController = Get.put(DashboardController());
   Rx<AvailabilityModel> availabilityData = AvailabilityModel().obs;
 
   var loading = false.obs;
@@ -28,12 +29,14 @@ class AvailabilityController extends GetxController{
       }
       availabilityData.value = AvailabilityModel.fromJson(response.body);
     } else if (response.body['success']) {
+
       if (isFirst) {
         isFirstLoading(false);
       } else {
         loading(false);
       }
       availabilityData.value = AvailabilityModel.fromJson(response.body);
+      _dashboardController.getDashboard();
     } else {
       if (isFirst) {
         //  isFirstLoading(false);

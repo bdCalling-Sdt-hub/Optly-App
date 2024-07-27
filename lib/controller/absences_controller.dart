@@ -12,9 +12,14 @@ import 'package:optly/services/api_services.dart';
 import 'package:optly/utils/app_constants.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'dashboard_controller.dart';
+
 class AbsencesController extends GetxController {
+
+  final _dashboardController = Get.put(DashboardController());
   TextEditingController startTextCtrl = TextEditingController();
   TextEditingController endTextCtrl = TextEditingController();
+
   Rx<DateTime?> selectStartDate = Rx<DateTime?>(null);
   Rx<DateTime?> selectEndDate = Rx<DateTime?>(null);
 
@@ -78,6 +83,7 @@ class AbsencesController extends GetxController {
         DateFormat('yyyy-MM-dd').format(selectStartDate.value!),
         DateFormat('yyyy-MM-dd').format(selectEndDate.value!)));
     if (response.body['success']) {
+      _dashboardController.getDashboard();
       absenceData.value = AbsenceModel.fromJson(response.body);
       if (isFirst) {
         isFirstLoading(false);
@@ -112,7 +118,9 @@ class AbsencesController extends GetxController {
         ApiConstant.postAbsence, body,
         multipartBody: []);
     if (response.body['success']) {
+
       getAbsence(isFirst: false);
+      _dashboardController.getDashboard();
       Get.back();
     } else {
       ApiChecker.checkApi(response);
@@ -141,8 +149,10 @@ class AbsencesController extends GetxController {
         ApiConstant.postAbsence, body,
         multipartBody: [MultipartBody("file", filePath!)]);
     if (response.body['success']) {
+
       getAbsence(isFirst: false);
       Get.back();
+      _dashboardController.getDashboard();
     } else {
       ApiChecker.checkApi(response);
     }
@@ -175,6 +185,7 @@ class AbsencesController extends GetxController {
   deleteAbsence(String id) async {
     var response = await ApiClient.deleteData(ApiConstant.deleteAbsence(id));
     if (response.body['success']) {
+      _dashboardController.getDashboard();
       getAbsence(isFirst: false);
       Get.back();
     } else {

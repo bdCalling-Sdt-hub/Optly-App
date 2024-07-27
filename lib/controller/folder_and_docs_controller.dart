@@ -9,7 +9,10 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
+import 'dashboard_controller.dart';
+
 class FolderAndDocsController extends GetxController {
+  final _dashboardController = Get.put(DashboardController());
   RxList<DocsModel> docsList = <DocsModel>[].obs;
   var loading= false.obs;
 
@@ -52,6 +55,8 @@ Future<void> uploadDocs(File? doc, String id, String type, String groupname, boo
   var response = await request.send();
   if (response.statusCode == 200) {
     getDocs(id, groupname, false);
+    _dashboardController.getDashboard();
+
     print('File uploaded successfully.');
    // showSnackbar(Get.context!, "", Colors.green);
   } else {

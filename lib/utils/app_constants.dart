@@ -33,4 +33,5 @@ class AppConstants {
   static String role = "role";
   static String imageurl = "imageurl";
   static String gender = "gender";
+  static String workType="WorkType";
 }
