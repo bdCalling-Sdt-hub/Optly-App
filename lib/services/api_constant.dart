@@ -20,6 +20,7 @@ class ApiConstant {
   static String resume(String id)=>"/booktime/resume/$id";
   static String bookTimeStop(String id)=>"/booktime/stop/$id";
   static String checkIn(String workType,String id)=>"/checkin/$id/$workType";
+  static String start(String id)=>"/booktime/start/$id";
 
 
 
